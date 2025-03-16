@@ -49,7 +49,7 @@ const HowItWorks = () => {
                                 </h5>
                                 <h2 className="title">How it works</h2>
                                 <p>
-                                    It's easier than you think. Follow the
+                                    It&apos;s easier than you think. Follow the
                                     following simple easy steps
                                 </p>
                             </div>
