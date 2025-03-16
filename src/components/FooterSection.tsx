@@ -164,9 +164,7 @@
 
 // export default FooterSection;
 "use client";
-// import Link from "next/link";
-// import Image from "next/image";
-// import { Navbar, Nav, NavDropdown, Container, Row, Col } from "react-bootstrap";
+
 import {Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
