@@ -1,0 +1,17 @@
+.slick-slide {
+  float: left;
+  height: 100%;
+  min-height: 1px;
+}
+
+.slick-list {
+  overflow: hidden;
+  margin: 0 -15px;
+}
+
+.slick-track {
+  position: relative;
+  left: 0;
+  top: 0;
+  display: flex;
+}

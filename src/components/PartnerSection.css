@@ -1,0 +1,192 @@
+/* Partner Section Styles */
+.partner-section {
+  padding: 60px 0;
+  background: #f8f9fa;
+   padding-top: 16px;
+    box-shadow: 6px 7px 20px 0px #fc9f3e61;
+    margin-bottom: 15px;
+}
+
+.partnerhvr {
+  color: #0d2842;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.partnerhvr:hover {
+  color: #fda033;
+  transform: translateY(-2px);
+}
+
+.single {
+  padding: 0 15px;
+}
+
+.item {
+  height: 100px;
+  justify-content: center;
+}
+
+.item img {
+  max-height: 70px;
+  width: auto;
+  /* filter: grayscale(100%); */
+  transition: all 0.3s ease;
+}
+
+.item:hover img {
+  /* filter: grayscale(0%); */
+  transform: scale(1.05);
+}
+
+/* Slick Customization */
+.partner-carousel .slick-dots {
+  bottom: -30px;
+}
+
+.partner-carousel .slick-dots li button:before {
+  font-size: 12px;
+  color: #0d2842;
+}
+
+.partner-carousel .slick-dots li.slick-active button:before {
+  color: #fda033;
+}
+
+@media (max-width: 768px) {
+  .partner-section {
+    padding: 40px 0;
+  }
+  
+  .item {
+    height: 80px;
+  }
+  
+  .item img {
+    max-height: 50px;
+  }
+}
+
+/* Global Styles */
+:root {
+  --body-font: 'Poppins', sans-serif;
+  --body-color: #ffffff;
+  --para-color: #2C3655;
+  --head-color: #d4a057;
+  --head-alt-color: #fda033;
+  --hover-color: #1A4DBE;
+  
+  /* Bootstrap variables */
+  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", 
+                       Arial, "Noto Sans", "Liberation Sans", sans-serif, 
+                       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", 
+                       "Noto Color Emoji";
+  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", 
+                      "Courier New", monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--body-font);
+  background-color: var(--body-color);
+  font-size: 18px;
+  line-height: 30px;
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
+  overflow-x: hidden;
+  color: #212529;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Scrollbar Styles */
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #5732C6;
+}
+
+*::-webkit-scrollbar-track {
+  background: #00003E;
+}
+
+/* Partner Section Specific Styles */
+.partner-section {
+  padding-top: 16px;
+  box-shadow: 6px 7px 20px 0px #fc9f3e61;
+  margin-bottom: 15px;
+  display: block; /* Ensure section behaves as block element */
+}
+
+.partnerhvr {
+  color: #0d2842;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.partnerhvr:hover {
+  color: var(--head-alt-color);
+  transform: translateY(-2px);
+}
+
+.single {
+
+  padding: 0 15px;
+}
+
+.item {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item img {
+  max-height: 70px;
+  width: auto;
+  /* filter: grayscale(100%); */
+  transition: all 0.3s ease;
+}
+
+.item:hover img {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+/* Slick Carousel Customization */
+.partner-carousel .slick-dots {
+  bottom: -25px;
+}
+
+.partner-carousel .slick-dots li button:before {
+  font-size: 12px;
+  color: var(--para-color);
+}
+
+.partner-carousel .slick-dots li.slick-active button:before {
+  color: var(--head-alt-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .item {
+    height: 80px;
+  }
+  
+  .item img {
+    max-height: 50px;
+  }
+  
+  .partner-section {
+    padding-top: 10px;
+    margin-bottom: 10px;
+  }
+}

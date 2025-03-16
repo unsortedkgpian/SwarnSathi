@@ -1,0 +1,103 @@
+.footer-section {
+    background: #F5FAFF;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+body {
+    font-family: var(--body-font);
+    background-color: var(--body-color);
+    font-size: 18px;
+    line-height: 30px;
+    padding: 0;
+    margin: 0;
+    font-weight: 400;
+    overflow-x: hidden;
+}
+
+.row.cus-mar {
+    padding-top: 120px;
+    padding-bottom: 120px;
+    justify-content: space-between;
+    visibility: visible;
+    animation-name: fadeInUp;
+}
+
+.footer-box {
+    margin-bottom: 20px;
+}
+
+.footer-box .logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.footer-box p {
+    margin-top: 10px;
+}
+
+.social-link {
+    margin-top: 20px;
+}
+
+.social-link a {
+    margin-right: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.social-link a:hover {
+    color: #007bff;
+}
+
+.footer-link {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-link li {
+    margin-bottom: 10px;
+}
+
+.footer-link a {
+    color: #333;
+    text-decoration: none;
+}
+
+.footer-link a:hover {
+    color: #007bff;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid #ddd;
+}
+
+.footer-bottom .left p {
+    margin: 0;
+}
+
+.footer-bottom .right a {
+    margin-left: 15px;
+    color: #333;
+    text-decoration: none;
+}
+
+.footer-bottom .right a:hover {
+    color: #007bff;
+}
+
+.img-area img {
+    max-width: 100%;
+    height: auto;
+}
