@@ -10,7 +10,8 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 import React from "react";
-import "./FooterSection.css"; // Import the CSS file
+// import "./FooterSection.css"; // Import the CSS file
+import '../app/globals.css'
 
 const TopSocialBar = () => (
     <div className="overlay topsocial left-1/2 m-0 p-1 bg:{#ddd}">
@@ -18,7 +19,7 @@ const TopSocialBar = () => (
             <Row className="p-0 ">
                 <Col md={6}></Col>
                 <Col md={6}>
-                    <div className="social-link-top d-flex justify-content-end align-items-center gap-2">
+                    <div className="social-link-top d-flex justify-content-end align-items-center gap-2" style={{textDecoration:"none"}}>
                         <a
                             href="https://www.facebook.com/swarnsathi2022"
                             target="_blank"

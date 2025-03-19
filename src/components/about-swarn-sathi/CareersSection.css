@@ -1,0 +1,16 @@
+/* Custom Button Style */
+.cmn-btn {
+  background: #fc9f3e;
+  color: #fff !important;
+  padding: 8px 25px;
+  border-radius: 5px;
+  border: none;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cmn-btn:hover {
+  background: #e08d35;
+  transform: translateY(-2px);
+}

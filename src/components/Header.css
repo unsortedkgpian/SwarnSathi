@@ -1,0 +1,93 @@
+/* Active link text color */
+.active-link {
+  color: #fea123 !important;
+}
+
+/* Hover effects */
+.nav-hover:hover {
+  color: #fea123 !important;
+  /* color: white !important; */
+}
+
+.nav-hover:hover .active-link {
+  color: white !important;
+}
+
+/* Dropdown arrow styling */
+.dropdown-arrow {
+  display: inline-block;
+  color: #fea123;
+  transition: transform 0.3s ease;
+}
+
+.show .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu styling */
+.navbar-light .navbar-nav .dropdown-menu {
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 0;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1.5rem;
+  color: #333 !important;
+}
+
+/* Dropdown hover effects */
+.dropdown-hover:hover {
+  background-color: #fea123 !important;
+  color: white !important;
+}
+
+/* Social icons */
+.social-link-top a {
+  color: #333;
+  transition: color 0.3s ease;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-link-top a:hover {
+  color: #fea123 !important;
+}
+
+/* Login button */
+.roundmenu .nav-link {
+  border-radius: 25px !important;
+  padding: 0.5rem 1.5rem !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background: white;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .dropdown-menu {
+    background: #f8f9fa;
+    box-shadow: none !important;
+    margin-left: 1rem;
+    border-left: 2px solid #fea123 !important;
+  }
+
+  .dropdown-item {
+    padding-left: 0.5rem;
+  }
+}
+
+/* Desktop hover effects */
+@media (min-width: 992px) {
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+}

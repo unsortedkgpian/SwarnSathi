@@ -1,0 +1,120 @@
+.banner-section.topbanner {
+    position: relative;
+    /* background:  url("/banner-bg.png") center/cover no-repeat; */
+    /* padding: 100px 0; */
+    /* color: white;  */
+    background: url("/banner-bg.png") center auto no-repeat;
+    color: white;
+     /* Adjust based on your needs */
+    /* display: flex;
+    align-items: center;
+    overflow: hidden; */
+
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    border: 1px solid gold;
+    background: #8ed7fd91;
+    box-shadow: 6px 7px 20px 0px #fc9f3e61;
+    padding: 5px;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.phone-prefix {
+    padding: 0 15px;
+    font-weight: 500;
+    color: #333;
+}
+
+.apply-now {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 12px;
+    outline: none;
+    font-size: 16px;
+}
+
+.apply-now::placeholder {
+    color: #666;
+    opacity: 0.8;
+}
+
+.applybutton {
+    padding: 12px 25px;
+    border-radius: 25px;
+    border: none;
+    background: #fea123;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.applybutton:hover {
+    background: #fd8f00;
+}
+
+.validation-message {
+    color: #fea123;
+    font-size: 0.9rem;
+    min-height: 20px;
+    margin-top: 8px;
+    padding-left: 15px;
+}
+
+.validation-message:not(:empty) {
+    margin-bottom: 1rem;
+}
+
+.contact-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.contact-icon {
+    margin-right: 5px;
+    color: #fea123;
+}
+
+.contact-link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+    color: #fea123;
+}
+
+@media (max-width: 768px) {
+    .input-container {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .phone-prefix {
+        margin-bottom: 10px;
+    }
+
+    .apply-now {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .applybutton {
+        width: 100%;
+    }
+
+    .contact-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

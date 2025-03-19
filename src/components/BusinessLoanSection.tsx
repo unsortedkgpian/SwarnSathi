@@ -166,7 +166,8 @@
 
 
 import React, { useState } from "react";
-import './BusinessLoanSection.css'
+// import './BusinessLoanSection.css'
+import '../app/globals.css'
 
 const BusinessLoanSection: React.FC = () => {
     const [purity, setPurity] = useState<number>(22);

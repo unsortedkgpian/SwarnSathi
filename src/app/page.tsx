@@ -1,31 +1,36 @@
-'use client'
-import BusinessLoanSection from "@/components/BusinessLoanSection";
-import FeaturesSection from "@/components/FeaturesSection";
-
-import FooterSection from "@/components/FooterSection";
-import Header from "@/components/Header";
-import HowItWorks from "@/components/HowItWorks";
-import LastTestimonialsSection from "@/components/LastTestimonialsSection";
-import PartnerSection from "@/components/PartnerSection";
-import PersonalizedSection from "@/components/PersonalizedSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import TopBanner from "@/components/TopBanner";
-
+"use client";
+import FeaturesSection from "@/components/Homepage/FeaturesSection";
+import HowItWorks from "@/components/Homepage/HowItWorks";
+import LastTestimonialsSection from "@/components/Homepage/LastTestimonialsSection";
+import PartnerSection from "@/components/Homepage/PartnerSection";
+import PersonalizedSection from "@/components/Homepage/PersonalizedSection";
+import TestimonialsSection from "@/components/Homepage/TestimonialsSection";
+import TopBanner from "@/components/Homepage/TopBanner";
+import GoldValueCalculator from "@/components/Homepage/GoldValueCalculator";
+import { useEffect } from "react";
+import { usePreloader } from "@/context/PreloaderContext";
 
 export default function Home() {
+    const { setIsLoading } = usePreloader();
+
+        useEffect(() => {
+            // Fetch data and hide preloader when done
+            fetch("/api/data") // Replace with your actual API
+                .then((res) => res.json())
+                .then(() => {
+                    setIsLoading(false); // Hide preloader when data is fetched
+                });
+        }, []);
     return (
         <>
-            <Header />
             <TopBanner />
             <TestimonialsSection />
             <PartnerSection />
             <HowItWorks />
             <FeaturesSection />
-            <BusinessLoanSection />
+            <GoldValueCalculator />
             <PersonalizedSection />
             <LastTestimonialsSection />
-            {/* <Footer /> */}
-            <FooterSection/>
         </>
     );
 }
