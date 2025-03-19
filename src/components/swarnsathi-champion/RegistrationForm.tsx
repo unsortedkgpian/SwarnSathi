@@ -262,7 +262,7 @@
 // export default RegistrationForm;
 
 import React, { useState } from "react";
-import signInUpBg from "/public/images/sign-in-up-bg.png";
+// import signInUpBg from "/public/images/sign-in-up-bg.png";
 
 const RegistrationForm: React.FC = () => {
     const [activeTab, setActiveTab] = useState<"home" | "profile" | "contact">(

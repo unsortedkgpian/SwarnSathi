@@ -10,6 +10,7 @@ import {
 
 const PreloaderContext = createContext({
     isLoading: true,
+    //@ts-ignore
     setIsLoading: (loading: boolean) => {},
 });
 

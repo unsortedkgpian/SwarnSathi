@@ -1,93 +1,298 @@
 /* Active link text color */
 .active-link {
-  color: #fea123 !important;
+    color: #fea123 !important;
 }
 
 /* Hover effects */
 .nav-hover:hover {
-  color: #fea123 !important;
-  /* color: white !important; */
+    color: #fea123 !important;
 }
 
 .nav-hover:hover .active-link {
-  color: white !important;
+    color: white !important;
 }
 
 /* Dropdown arrow styling */
 .dropdown-arrow {
-  display: inline-block;
-  color: #fea123;
-  transition: transform 0.3s ease;
+    display: inline-block;
+    color: #fea123;
+    transition: transform 0.3s ease;
 }
 
 .show .dropdown-arrow {
-  transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 /* Dropdown menu styling */
 .navbar-light .navbar-nav .dropdown-menu {
-  border: none;
-  border-radius: 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 0;
 }
 
 .dropdown-item {
-  padding: 0.5rem 1.5rem;
-  color: #333 !important;
+    padding: 0.5rem 1.5rem;
+    color: #333 !important;
 }
 
 /* Dropdown hover effects */
 .dropdown-hover:hover {
-  background-color: #fea123 !important;
-  color: white !important;
+    background-color: #fea123 !important;
+    color: white !important;
 }
 
 /* Social icons */
 .social-link-top a {
-  color: #333;
-  transition: color 0.3s ease;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    color: #333;
+    transition: color 0.3s ease;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .social-link-top a:hover {
-  color: #fea123 !important;
+    color: #fea123 !important;
 }
 
 /* Login button */
 .roundmenu .nav-link {
-  border-radius: 25px !important;
-  padding: 0.5rem 1.5rem !important;
-  transition: all 0.3s ease !important;
-}
-
-/* Mobile responsive */
-@media (max-width: 991px) {
-  .navbar-collapse {
-    background: white;
-    padding: 1rem;
-    margin-top: 1rem;
-  }
-
-  .dropdown-menu {
-    background: #f8f9fa;
-    box-shadow: none !important;
-    margin-left: 1rem;
-    border-left: 2px solid #fea123 !important;
-  }
-
-  .dropdown-item {
-    padding-left: 0.5rem;
-  }
+    border-radius: 25px !important;
+    padding: 0.5rem 1.5rem !important;
+    transition: all 0.3s ease !important;
 }
 
 /* Desktop hover effects */
 @media (min-width: 992px) {
-  .dropdown:hover .dropdown-menu {
-    display: block;
-  }
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 991px) {
+    /* Remove navbar collapse background and borders */
+    .navbar-collapse {
+        background-color: transparent !important;
+        padding: 1rem;
+        margin-top: 1rem;
+        border-left: none !important;
+        border-right: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Target the exact purple vertical bar shown in the screenshot */
+.overlay::after,
+.overlay::before {
+    display: none !important;
+    width: 0 !important;
+    content: none !important;
+}
+
+/* This is likely the specific cause based on the screenshot */
+header::after,
+header .overlay::after,
+.navbar-collapse::after,
+.dropdown.show::after {
+    display: none !important;
+    width: 0 !important;
+    height: 100% !important;
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    position: absolute !important;
+    right: 0 !important;
+    top: 0 !important;
+    content: none !important;
+    box-shadow: none !important;
+}
+
+/* Target the specific element by its exact dimensions */
+body [style*="width:4px"],
+body [style*="width: 4px"],
+body [style*="width:6px"],
+body [style*="width: 6px"] {
+    width: 0 !important;
+    display: none !important;
+}
+
+/* For NextJS specific styling */
+[data-overlay]::after,
+[data-overlay]::before {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* Custom style to remove the purple vertical bar */
+.mobile-navbar .navbar-nav .nav-link.active,
+.mobile-navbar .navbar-nav .show > .nav-link,
+.mobile-navbar .navbar-nav .active > a,
+.mobile-navbar .nav-item.active,
+.mobile-navbar .nav-item.show {
+    border-right: none !important;
+    border-left: none !important;
+    box-shadow: none !important;
+    background-image: none !important;
+    position: relative;
+}
+
+.mobile-navbar .navbar-nav .nav-link.active::after,
+.mobile-navbar .navbar-nav .show > .nav-link::after,
+.mobile-navbar .navbar-nav .active > a::after,
+.mobile-navbar .nav-item.active::after,
+.mobile-navbar .nav-item.show::after {
+    content: none !important;
+    display: none !important;
+    position: absolute;
+    right: 0;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+/* Remove the blue/black vertical bar on the right side */
+    .navbar-collapse::after,
+    .navbar-collapse::before {
+        display: none !important;
+        content: none !important;
+        background: none !important;
+        border: none !important;
+    }
+    
+    /* Target any potential dividers in the navigation */
+    .navbar-nav::after,
+    .navbar-nav::before,
+    .nav-item::after,
+    .nav-item::before {
+        display: none !important;
+        content: none !important;
+        background: none !important;
+        border: none !important;
+    }
+
+    /* Navbar toggle button */
+    .navbar-toggler {
+        padding: 0.25rem 0.5rem;
+        font-size: 1rem;
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-light .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    /* Logo size */
+    .navbar-brand img.logo {
+        max-width: 200px;
+    }
+
+    /* Make dropdowns work better on mobile - REMOVE BLUE SIDEBAR */
+    .dropdown-menu {
+        border: none !important;
+        border-left: none !important;
+        box-shadow: none !important;
+        padding-left: 1rem;
+        margin-left: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.02) !important;
+    }
+
+    .dropdown-item {
+        padding: 0.5rem 0;
+        white-space: normal;
+    }
+
+    /* Center social icons on mobile */
+    .social-link-top {
+        justify-content: center !important;
+        padding: 0.5rem 0;
+    }
+
+    /* Improved spacing for nav items */
+    .nav-link {
+        padding: 0.75rem 0.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    /* Round menu for login button */
+    .roundmenu .nav-link {
+        margin: 0.5rem 0;
+        padding: 0.5rem 1.5rem;
+        display: inline-block;
+    }
+
+    /* Adjustments for dropdown arrows */
+    .dropdown-arrow {
+        float: right;
+    }
+
+    /* Active state for dropdowns on mobile */
+    .dropdown-menu.show {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        margin-top: 0;
+        padding-top: 0;
+        border-radius: 0.25rem;
+    }
+}
+
+/* Remove any vertical bars or lines in the navigation */
+.header-section::after,
+.header-section::before,
+.overlay::after,
+.overlay::before,
+.container::after,
+.container::before,
+.navbar::after,
+.navbar::before {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+    border: none !important;
+}
+
+/* Add a specific override for the vertical bar */
+header::before,
+header::after,
+.navbar *::before,
+.navbar *::after {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Override any purple/blue backgrounds */
+[class*="active"],
+[class*="show"],
+.navbar-nav .active > .nav-link,
+.navbar-light .navbar-nav .active > .nav-link {
+    background-image: none !important;
+    border-right-color: transparent !important;
+    border-right: none !important;
+}
+
+/* Small mobile devices */
+@media (max-width: 575px) {
+    .topsocial {
+        padding: 0.25rem 0;
+    }
+
+    .navbar-brand img.logo {
+        max-width: 180px;
+    }
+
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Ensure dropdown menus are fully visible */
+    .dropdown-menu {
+        width: 100%;
+    }
 }

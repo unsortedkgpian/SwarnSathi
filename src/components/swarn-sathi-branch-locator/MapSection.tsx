@@ -11,9 +11,9 @@ interface BranchLocation {
 }
 
 const MapSection = () => {
-    const [selectedLocation, setSelectedLocation] = useState<string | null>(
-        null
-    );
+    // const [selectedLocation, setSelectedLocation] = useState<string | null>(
+    //     null
+    // );
 
     const locations: BranchLocation[] = [
         {
