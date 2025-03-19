@@ -78,7 +78,7 @@ const FaqSection: React.FC = () => {
                                     className="accordion"
                                     id="accordionExample"
                                 >
-                                    {faqItems.map((item, index) => (
+                                    {faqItems.map((item) => (
                                         <div
                                             className="accordion-item"
                                             key={item.id}

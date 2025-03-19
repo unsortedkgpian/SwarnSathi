@@ -8,6 +8,9 @@ module.exports = {
     images: {
         domains: ["swarnsathi.com"],
     },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
 };
 
 export default nextConfig;

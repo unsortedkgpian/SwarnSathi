@@ -34,7 +34,7 @@ const CoreValues = () => {
                                         We empathise with the large group of
                                         people who, instead of having sheer
                                         potential, lag behind just because they
-                                        don't have access to funds. We want to
+                                        don&apos;t have access to funds. We want to
                                         empower them!
                                     </p>
                                 </div>

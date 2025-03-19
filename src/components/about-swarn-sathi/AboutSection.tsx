@@ -15,7 +15,7 @@ const AboutSection = () => {
                                     We have a vision to extend credit support to
                                     the underbanked in Tier 3, 4 cities and
                                     rural parts of Eastern India by providing
-                                    instant funds to the people who don't have
+                                    instant funds to the people who don&apos;t have
                                     any formal access to credit support.
                                     Consider us for any kind of financial needs
                                     that you might be in. We are here to be your

@@ -40,7 +40,7 @@ const LastTestimonialsSection: React.FC = () => {
                         <div className="col-lg-6">
                             <div className="section-header text-center">
                                 <h2 className="title">
-                                    Don't take our word for it, take theirs
+                                    Don&apos;t take our word for it, take theirs
                                 </h2>
                                 <p>
                                     Take a look at our past customers success

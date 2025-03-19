@@ -10,7 +10,7 @@ import {
 
 const PreloaderContext = createContext({
     isLoading: true,
-    //@ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setIsLoading: (loading: boolean) => {},
 });
 

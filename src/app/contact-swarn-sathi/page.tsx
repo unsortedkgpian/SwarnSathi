@@ -6,7 +6,6 @@ import React from 'react'
 const page = () => {
   return (
       <>
-          {/* <ContactBanner/> */}
           <InnerBanner pageTitle="Contact Us" variant="contact" />
           <ContactMapSection
               title="Get in touch with us."
