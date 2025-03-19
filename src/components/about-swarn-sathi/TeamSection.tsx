@@ -164,21 +164,49 @@
 
 // export default TeamSection;
 
-'use client'
+"use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 interface TeamMember {
     name: string;
-    role?: string;
+    position?: string;
     description: string;
-    image: string;
-    linkedin: string;
+    image: { file: string };
+    socialMedia: { linkedin: string };
+    category: string;
 }
 
 const TeamSection = () => {
     const [activeTab, setActiveTab] = useState("Founding_Team");
+    const [teamMembersData, setTeamMembersData] = useState<
+        Record<string, TeamMember[]>
+    >({});
+
+    useEffect(() => {
+        async function getTeam() {
+            try {
+                const response = await fetch("/api/team");
+                const data: TeamMember[] = await response.json();
+
+                // Group members by category
+                const groupedData: Record<string, TeamMember[]> = {};
+                data.forEach((member) => {
+                    if (!groupedData[member.category]) {
+                        groupedData[member.category] = [];
+                    }
+                    groupedData[member.category].push(member);
+                });
+
+                setTeamMembersData(groupedData);
+            } catch (error) {
+                console.error("Error fetching team data:", error);
+            }
+        }
+
+        getTeam();
+    }, []);
 
     const teamCategories = [
         "Founding_Team",
@@ -186,28 +214,9 @@ const TeamSection = () => {
         "Interns",
         "Advisors",
         "Investors",
-        "Employee_Speaks",
+        "Leadership Team",
+        "Board of Director",
     ];
-
-    // Example data structure - replace with actual data
-    const teamData: Record<string, TeamMember[]> = {
-        Founding_Team: [
-            {
-                name: "Prodyut Purkait",
-                description:
-                    "Alumni of IIT Kharagpur and IIM Calcutta. He has 8+ years of experience in financial sector.",
-                image: "/images/team/PP.jfif",
-                linkedin:
-                    "https://www.linkedin.com/in/prodyut-purkait-69402120/",
-            },
-            // Add more team members here
-        ],
-        Core_Team: [],
-        Interns: [],
-        Advisors: [],
-        Investors: [],
-        Employee_Speaks: [],
-    };
 
     return (
         <section className="our-team" id="our-team">
@@ -271,7 +280,7 @@ const TeamSection = () => {
                                         role="tabpanel"
                                     >
                                         <div className="row">
-                                            {teamData[category].map(
+                                            {teamMembersData[category]?.map(
                                                 (member, index) => (
                                                     <div
                                                         key={index}
@@ -281,7 +290,9 @@ const TeamSection = () => {
                                                             <div className="icon-box">
                                                                 <Image
                                                                     src={
-                                                                        member.image
+                                                                        member
+                                                                            .image
+                                                                            .file
                                                                     }
                                                                     alt={
                                                                         member.name
@@ -297,39 +308,47 @@ const TeamSection = () => {
                                                                         member.name
                                                                     }
                                                                 </h5>
-                                                                <p
-                                                                    dangerouslySetInnerHTML={{
-                                                                        __html: member.description,
-                                                                    }}
-                                                                />
                                                                 <p>
-                                                                    <a
-                                                                        href={
-                                                                            member.linkedin
-                                                                        }
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                        className="linkedin-link"
-                                                                    >
-                                                                        <svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            width="20"
-                                                                            height="20"
-                                                                            viewBox="0 0 24 24"
-                                                                            style={{
-                                                                                fill: "#fea123",
-                                                                                verticalAlign:
-                                                                                    "middle",
-                                                                            }}
+                                                                    {
+                                                                        member.position
+                                                                    }
+                                                                </p>
+                                                                <p />
+                                                                {member
+                                                                    .description
+                                                                    .length >
+                                                                100
+                                                                    ? member.description.slice(
+                                                                          0,
+                                                                          100
+                                                                      ) + "..."
+                                                                    : member.description}
+                                                                <p>
+                                                                    {member
+                                                                        .socialMedia
+                                                                        .linkedin && (
+                                                                        <a
+                                                                            href={
+                                                                                member
+                                                                                    .socialMedia
+                                                                                    .linkedin
+                                                                            }
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
                                                                         >
-                                                                            <path d="M20 3H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8.339 18.337H5.667v-8.59h2.672v8.59zM7.003 8.574a1.548 1.548 0 1 1 0-3.096 1.548 1.548 0 0 1 0 3.096zm11.335 9.763h-2.669V14.16c0-.996-.018-2.277-1.388-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248h-2.667v-8.59h2.56v1.174h.037c.355-.675 1.227-1.387 2.524-1.387 2.704 0 3.203 1.778 3.203 4.092v4.711z" />
-                                                                        </svg>
-                                                                    </a>
+                                                                            <i className="fab fa-linkedin-in"></i>
+                                                                        </a>
+                                                                    )}
                                                                 </p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 )
+                                            ) || (
+                                                <p>
+                                                    No team members in this
+                                                    category.
+                                                </p>
                                             )}
                                         </div>
                                     </div>
