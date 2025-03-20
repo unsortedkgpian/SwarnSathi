@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const response = await fetch("http://15.207.54.117:4000/api/team", {});
+        const response = await fetch("http://15.207.54.117:4000/api/team-members", {});
 
         if (!response.ok) {
             throw new Error(`Error: ${response.statusText}`);

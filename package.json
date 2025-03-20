@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack -p 2000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,6 +16,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@types/bootstrap": "^5.2.10",
     "@types/countup.js": "^2.0.7",
+    "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
     "countup.js": "^2.8.0",
     "next": "15.2.2",

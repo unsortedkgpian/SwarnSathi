@@ -379,21 +379,65 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import axios from 'axios';
 import "./TopBanner.css";
 
 const TopBanner = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [validMessage, setValidMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [showOtpInput, setShowOtpInput] = useState(false);
+    const [otp, setOtp] = useState("");
 
-    const validatePhoneNumber = () => {
+    const validatePhoneNumber = async () => {
         const regex = /^[789]\d{9}$/;
         if (regex.test(phoneNumber)) {
             setValidMessage("✓ Valid number");
-            // Add your submit logic here
+            try {
+                console.log(process.env.NEXT_PUBLIC_API_URL)
+                setIsLoading(true);
+                setError(null);
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/form-submissions/send-otp`, {
+                    phone: phoneNumber
+                });
+                
+                if (response.data) {
+                    setValidMessage("OTP sent successfully!");
+                    // Show OTP input field
+                    setShowOtpInput(true);
+                }
+            } catch (err: unknown) {
+                setError(err.response?.data?.message || 'Failed to send OTP');
+                setValidMessage(err.response?.data?.message || 'Failed to send OTP');
+            } finally {
+                setIsLoading(false);
+            }
         } else {
             setValidMessage(
                 "Please enter a valid 10-digit phone number starting with 7, 8, or 9"
             );
+        }
+    };
+
+    const verifyOtp = async () => {
+        try {
+            setIsLoading(true);
+            setError(null);
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/be-our-partner/verify-otp`, {
+                phoneNumber: phoneNumber,
+                otp: otp
+            });
+            
+            if (response.data) {
+                setValidMessage("OTP verified successfully!");
+                // Handle successful verification (e.g., redirect or show next step)
+            }
+        } catch (err: unknown) {
+            setError(err.response?.data?.message || 'Failed to verify OTP');
+            setValidMessage(err.response?.data?.message || 'Failed to verify OTP');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -450,13 +494,34 @@ const TopBanner = () => {
                                                         onClick={
                                                             validatePhoneNumber
                                                         }
+                                                        disabled={isLoading}
                                                     >
-                                                        Apply now
+                                                        {isLoading ? 'Loading...' : 'Apply now'}
                                                     </button>
                                                 </div>
                                                 <div className="validation-message">
                                                     {validMessage}
+                                                    {error && <div style={{ color: 'red' }}>{error}</div>}
                                                 </div>
+                                                {showOtpInput && (
+                                                    <div className="input-container mt-3">
+                                                        <input
+                                                            type="text"
+                                                            className="apply-now"
+                                                            placeholder="Enter OTP"
+                                                            value={otp}
+                                                            onChange={(e) => setOtp(e.target.value)}
+                                                            maxLength={6}
+                                                        />
+                                                        <button
+                                                            className="applybutton cmn-btn inputapply"
+                                                            onClick={verifyOtp}
+                                                            disabled={isLoading || otp.length !== 6}
+                                                        >
+                                                            {isLoading ? 'Verifying...' : 'Verify OTP'}
+                                                        </button>
+                                                    </div>
+                                                )}
                                                 <div className="contact-info">
                                                     <FontAwesomeIcon
                                                         icon={faPhone}

@@ -1,4 +1,9 @@
+'use client'
+import React, { useEffect, useState } from "react";
+import axios from 'axios'
 const HowItWorks = () => {
+    const [steps, setSteps] = useState<Step[]>([]);
+    const url = process.env.NEXT_PUBLIC_API_URL;
     // Define the steps data
     interface Step {
         howWorksIcon: string;
@@ -7,32 +12,60 @@ const HowItWorks = () => {
         description: string;
     }
 
-    const steps: Step[] = [
-        {
-            howWorksIcon: "https://swarnsathi.com/images/howitworks1.svg",
-            icon: "https://swarnsathi.com/images/icon/get-loan-1.png",
-            title: "Visit us",
-            description: "Identify our nearest partner and pay a visit there",
-        },
-        {
-            howWorksIcon: "https://swarnsathi.com/images/howitworks2.svg",
-            icon: "https://swarnsathi.com/images/icon/get-loan-2.png",
-            title: "Gold valuation",
-            description: "Get you jewellery valued by an expert",
-        },
-        {
-            howWorksIcon: "https://swarnsathi.com/images/howitworks3.svg",
-            icon: "https://swarnsathi.com/images/icon/get-loan-3.png",
-            title: "Paper work",
-            description: "Provide KYC and fill up the paper works",
-        },
-        {
-            howWorksIcon: "https://swarnsathi.com/images/howitworks4.svg",
-            icon: "https://swarnsathi.com/images/icon/how-works-4.png",
-            title: "Amount disbursal",
-            description: "Get the fund either directly in account or in cash",
-        },
-    ];
+    useEffect(() => {
+        const fetchSteps = async () => {
+            try {
+                const response = await axios.get(process.env.NEXT_PUBLIC_API_URL+'/api/hiws');
+                // Map the response data with static howWorksIcons
+                const howWorksIcons = [
+                    "https://swarnsathi.com/images/howitworks1.svg",
+                    "https://swarnsathi.com/images/howitworks2.svg",
+                    "https://swarnsathi.com/images/howitworks3.svg",
+                    "https://swarnsathi.com/images/howitworks4.svg"
+                ];
+                
+                const mappedSteps = response.data.map((step: unknown, index: number) => ({
+                    howWorksIcon: howWorksIcons[index],
+                    icon: step.icon,
+                    title: step.title,
+                    description: step.description
+                }));
+                
+                setSteps(mappedSteps);
+            } catch (error) {
+                console.error("Error fetching steps data:", error);
+                // Fallback data in case of error
+                setSteps([
+                    {
+                        howWorksIcon: "https://swarnsathi.com/images/howitworks1.svg",
+                        icon: "https://swarnsathi.com/images/icon/get-loan-1.png",
+                        title: "Visit us",
+                        description: "Identify our nearest partner and pay a visit there",
+                    },
+                    {
+                        howWorksIcon: "https://swarnsathi.com/images/howitworks2.svg",
+                        icon: "https://swarnsathi.com/images/icon/get-loan-2.png",
+                        title: "Gold valuation",
+                        description: "Get you jewellery valued by an expert",
+                    },
+                    {
+                        howWorksIcon: "https://swarnsathi.com/images/howitworks3.svg",
+                        icon: "https://swarnsathi.com/images/icon/get-loan-3.png",
+                        title: "Paper work",
+                        description: "Provide KYC and fill up the paper works",
+                    },
+                    {
+                        howWorksIcon: "https://swarnsathi.com/images/howitworks4.svg",
+                        icon: "https://swarnsathi.com/images/icon/how-works-4.png",
+                        title: "Amount disbursal",
+                        description: "Get the fund either directly in account or in cash",
+                    },
+                ]);
+            }
+        };
+
+        fetchSteps();
+    }, []);
 
     return (
         <section className="account-feature get-loan home-loan howitworkshome">
@@ -66,7 +99,7 @@ const HowItWorks = () => {
                                         />
                                     </div>
                                     <div className="icon-box">
-                                        <img src={step.icon} alt="icon" />
+                                        <img src={`${url}/${step.icon}`} alt="icon" />
                                     </div>
                                     <h5>{step.title}</h5>
                                     <p>{step.description}</p>

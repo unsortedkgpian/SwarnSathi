@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import "./PartnerSection.css"
+interface Partner {
+    _id: string;
+    title: string;
+    img: string;
+}
 
 const PartnerSection = () => {
-    const partners = [
-        { image: "https://swarnsathi.com/images/idfc.png" },
-        { image: "https://swarnsathi.com/images/partner-4.png" },
-        { image: "https://swarnsathi.com/images/partner-5.png" },
-        { image: "https://swarnsathi.com/images/mpj.png" },
-    ];
+    const [partners, setPartners] = useState<Partner[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
+    useEffect(() => {
+        const fetchPartners = async () => {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/partners`);
+                setPartners(response.data);
+                setLoading(false);
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    setError(error.response?.data?.message || 'Failed to fetch partners');
+                } else {
+                    setError('Failed to fetch partners');
+                }
+                setLoading(false);
+            }
+        };
+    
+        fetchPartners();
+    }, []);
     const sliderSettings = {
         dots: false,
         infinite: true,
@@ -36,6 +57,14 @@ const PartnerSection = () => {
         ],
     };
 
+    if (loading) {
+        return <div>Loading partners...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
     return (
         <section className="partner-section">
             <div className="partner">
@@ -53,12 +82,12 @@ const PartnerSection = () => {
                                 {...sliderSettings}
                                 className="partner-box partner-carousel"
                             >
-                                {partners.map((partner, index) => (
-                                    <div key={index} className="single">
+                                {partners.map((partner) => (
+                                    <div key={partner._id} className="single">
                                         <div className="item d-flex align-items-center">
                                             <img
-                                                src={partner.image}
-                                                alt={`Partner ${index + 1}`}
+                                                src={`${process.env.NEXT_PUBLIC_API_URL}/${partner.img}`}
+                                                alt={partner.title}
                                                 style={{
                                                     maxWidth: "100%",
                                                     height: "auto",

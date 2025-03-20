@@ -1,24 +1,55 @@
 'use client'
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 interface Job {
+    _id: string;
     jobName: string;
     role: string;
     location: string;
-    applyLink: string;
+    googleSheetLink: string;
 }
 
 const CareersSection: React.FC = () => {
-    // Example jobs data - replace with your actual data source
-    const jobs: Job[] = [
-        {
-            jobName: "Office Manager",
-            role: "Full Time",
-            location: "Kolkata",
-            applyLink: "/careers", // Consider using Next.js Link component here
-        },
-        // Add more job objects as needed
-    ];
+    const [jobs, setJobs] = useState<Job[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchJobs = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/job-openings`);
+                setJobs(response.data);
+                setError(null);
+            } catch (error) {
+                console.error("Error fetching job openings:", error);
+                setError("Failed to load job openings");
+                
+                // Fallback data in case of error
+                setJobs([
+                    {
+                        _id: "1",
+                        jobName: "Office Manager",
+                        role: "Full Time",
+                        location: "Kolkata",
+                        googleSheetLink: "/careers",
+                    },
+                    {
+                        _id: "2",
+                        jobName: "Sales Executive",
+                        role: "Full Time",
+                        location: "Kolkata",
+                        googleSheetLink: "/careers",
+                    }
+                ]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchJobs();
+    }, []);
 
     return (
         <section className="our-team" id="careers">
@@ -36,99 +67,107 @@ const CareersSection: React.FC = () => {
                     </div>
 
                     <div className="row justify-content-center">
-                        <div className="table-responsive">
-                            <table className="table table-striped">
-                                <thead
-                                    style={{
-                                        background: "#fea123",
-                                        textAlign: "center",
-                                        color: "#fff",
-                                    }}
-                                >
-                                    <tr>
-                                        <th
-                                            style={{
-                                                background: "#fea123",
-                                                textAlign: "center",
-                                                color: "#fff",
-                                            }}
-                                        >
-                                            Job Name
-                                        </th>
-                                        <th
-                                            style={{
-                                                background: "#fea123",
-                                                textAlign: "center",
-                                                color: "#fff",
-                                            }}
-                                        >
-                                            Role
-                                        </th>
-                                        <th
-                                            style={{
-                                                background: "#fea123",
-                                                textAlign: "center",
-                                                color: "#fff",
-                                            }}
-                                        >
-                                            Location
-                                        </th>
-                                        <th
-                                            style={{
-                                                background: "#fea123",
-                                                textAlign: "center",
-                                                color: "#fff",
-                                            }}
-                                        >
-                                            Apply
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {jobs.map((job, index) => (
-                                        <tr key={index}>
-                                            <td
+                        {loading ? (
+                            <div className="text-center">Loading job openings...</div>
+                        ) : error ? (
+                            <div className="text-center text-danger">{error}</div>
+                        ) : jobs.length === 0 ? (
+                            <div className="text-center">No job openings available at the moment.</div>
+                        ) : (
+                            <div className="table-responsive">
+                                <table className="table table-striped">
+                                    <thead
+                                        style={{
+                                            background: "#fea123",
+                                            textAlign: "center",
+                                            color: "#fff",
+                                        }}
+                                    >
+                                        <tr>
+                                            <th
                                                 style={{
+                                                    background: "#fea123",
                                                     textAlign: "center",
-                                                    verticalAlign: "middle",
+                                                    color: "#fff",
                                                 }}
                                             >
-                                                {job.jobName}
-                                            </td>
-                                            <td
+                                                Job Name
+                                            </th>
+                                            <th
                                                 style={{
+                                                    background: "#fea123",
                                                     textAlign: "center",
-                                                    verticalAlign: "middle",
+                                                    color: "#fff",
                                                 }}
                                             >
-                                                {job.role}
-                                            </td>
-                                            <td
+                                                Role
+                                            </th>
+                                            <th
                                                 style={{
+                                                    background: "#fea123",
                                                     textAlign: "center",
-                                                    verticalAlign: "middle",
+                                                    color: "#fff",
                                                 }}
                                             >
-                                                {job.location}
-                                            </td>
-                                            <td
+                                                Location
+                                            </th>
+                                            <th
                                                 style={{
+                                                    background: "#fea123",
                                                     textAlign: "center",
-                                                    verticalAlign: "middle",
+                                                    color: "#fff",
                                                 }}
                                             >
-                                                <a
-                                                    className="cmn-btn"
-                                                    href={job.applyLink}
-                                                >
-                                                    Apply now
-                                                </a>
-                                            </td>
+                                                Apply
+                                            </th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        {jobs.map((job) => (
+                                            <tr key={job._id}>
+                                                <td
+                                                    style={{
+                                                        textAlign: "center",
+                                                        verticalAlign: "middle",
+                                                    }}
+                                                >
+                                                    {job.jobName}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        textAlign: "center",
+                                                        verticalAlign: "middle",
+                                                    }}
+                                                >
+                                                    {job.role}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        textAlign: "center",
+                                                        verticalAlign: "middle",
+                                                    }}
+                                                >
+                                                    {job.location}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        textAlign: "center",
+                                                        verticalAlign: "middle",
+                                                    }}
+                                                >
+                                                    <a
+                                                        className="cmn-btn"
+                                                        href={job.googleSheetLink}
+                                                    >
+                                                        Apply now
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

@@ -1,5 +1,7 @@
+'use client'
 // FaqSection.tsx
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 // import "./FaqSection.css";
 
 interface FaqItem {
@@ -9,47 +11,67 @@ interface FaqItem {
     ariaControls: string;
 }
 
+interface FaqData {
+    _id: string;
+    title: string;
+    description: string;
+}
+
 const FaqSection: React.FC = () => {
-    const faqItems: FaqItem[] = [
-        {
-            id: "heading6",
-            question:
-                "What type of gold can I pledge to get a gold loan from Swarnsathi?",
-            answer: (
-                <p>
-                    With Swarnsathi, you can pledge any type of gold jewellery,
-                    which are of regular domestic use. This can include gold
-                    jewellery items like necklaces, rings, bracelets or
-                    traditional wears.
-                </p>
-            ),
-            ariaControls: "collapsesix",
-        },
-        {
-            id: "heading7",
-            question: "What are the documents required for a gold loan?",
-            answer: (
-                <>
-                    <p>The documents required for gold loan includes :</p>
-                    <ol>
-                        <li className="faq">
-                            ID proof: Aadhar Card, Voter ID, Driving Licence or
-                            Passport.
-                        </li>
-                        <li className="faq">
-                            Address proof: Aadhar Card, Voter ID, Driving
-                            Licence or Passport, Electricity Bill, Gas Bill,
-                            Recent postpaid Bill.
-                        </li>
-                        <li className="faq">Bank Passbook (If applicable).</li>
-                        <li className="faq">PAN Card/Form 60.</li>
-                    </ol>
-                </>
-            ),
-            ariaControls: "collapsesaven",
-        },
-        // Add other FAQ items following the same structure
-    ];
+    const [faqItems, setFaqItems] = useState<FaqItem[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const [openFaq, setOpenFaq] = useState<string | null>(null);
+
+    const toggleFaq = (faqId: string) => {
+        setOpenFaq(openFaq === faqId ? null : faqId);
+    };
+
+    useEffect(() => {
+        const fetchFaqs = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/faqs`);
+                
+                // Map the API response to our FaqItem interface
+                const mappedFaqs = response.data.map((faq: FaqData, index: number) => {
+                    const i = index + 1;
+                    return {
+                        id: `heading${i}`,
+                        question: faq.title,
+                        answer: <p dangerouslySetInnerHTML={{ __html: faq.description }} />,
+                        ariaControls: `collapse${i}`
+                    };
+                });
+                
+                setFaqItems(mappedFaqs);
+                setError(null);
+            } catch (error) {
+                console.error("Error fetching FAQs:", error);
+                setError("Failed to load FAQs");
+                
+                // Fallback data in case of error
+                setFaqItems([
+                    {
+                        id: "heading1",
+                        question: "What type of gold can I pledge to get a gold loan from Swarnsathi?",
+                        answer: "With Swarnsathi, you can pledge any type of gold jewellery, which are of regular domestic use. This can include gold jewellery items like necklaces, rings, bracelets or traditional wears.",
+                        ariaControls: "collapse1",
+                    },
+                    {
+                        id: "heading2",
+                        question: "What are the documents required for a gold loan?",
+                        answer: "The documents required for gold loan includes: 1) ID proof: Aadhar Card, Voter ID, Driving Licence or Passport. 2) Address proof: Aadhar Card, Voter ID, Driving Licence or Passport, Electricity Bill, Gas Bill, Recent postpaid Bill. 3) Bank Passbook (If applicable). 4) PAN Card/Form 60.",
+                        ariaControls: "collapse2",
+                    },
+                ]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchFaqs();
+    }, []);
 
     return (
         <section className="faqs-section account" id="faq">
@@ -73,47 +95,39 @@ const FaqSection: React.FC = () => {
                     </div>
                     <div className="row d-flex justify-content-center">
                         <div className="col-xl-8">
-                            <div className="faq-box wow fadeInUp">
-                                <div
-                                    className="accordion"
-                                    id="accordionExample"
-                                >
-                                    {faqItems.map((item) => (
-                                        <div
-                                            className="accordion-item"
-                                            key={item.id}
-                                        >
-                                            <h5
-                                                className="accordion-header"
-                                                id={item.id}
-                                            >
-                                                <button
-                                                    className="accordion-button collapsed"
-                                                    type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target={`#${item.ariaControls}`}
-                                                    aria-expanded="false"
-                                                    aria-controls={
-                                                        item.ariaControls
-                                                    }
-                                                >
-                                                    {item.question}
-                                                </button>
-                                            </h5>
+                            {loading ? (
+                                <div className="text-center">Loading FAQs...</div>
+                            ) : error ? (
+                                <div className="text-center text-danger">{error}</div>
+                            ) : (
+                                <div className="faq-box wow fadeInUp">
+                                    <div className="accordion">
+                                        {faqItems.map((item) => (
                                             <div
-                                                id={item.ariaControls}
-                                                className="accordion-collapse collapse"
-                                                aria-labelledby={item.id}
-                                                data-bs-parent="#accordionExample"
+                                                className="accordion-item"
+                                                key={item.id}
                                             >
-                                                <div className="accordion-body">
-                                                    {item.answer}
+                                                <h5 className="accordion-header">
+                                                    <button
+                                                        className={`accordion-button ${openFaq === item.id ? '' : 'collapsed'}`}
+                                                        type="button"
+                                                        onClick={() => toggleFaq(item.id)}
+                                                    >
+                                                        {item.question}
+                                                    </button>
+                                                </h5>
+                                                <div
+                                                    className={`accordion-collapse collapse ${openFaq === item.id ? 'show' : ''}`}
+                                                >
+                                                    <div className="accordion-body">
+                                                        {item.answer}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </div>
