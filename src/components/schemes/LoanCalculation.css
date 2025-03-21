@@ -1,0 +1,124 @@
+/* LoanCalculation.css */
+
+/* Slider Styles */
+.orange-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: transparent;
+    outline: none;
+}
+
+/* Webkit browsers */
+.orange-slider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: linear-gradient(to right, #fc9f3e var(--progress), #ccc var(--progress));
+    border-radius: 5px;
+}
+
+.orange-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    background: #fc9f3e;
+    border: 3px solid #fc9f3e;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    margin-top: -8px;
+    box-sizing: border-box;
+}
+
+/* Firefox */
+.orange-slider::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: linear-gradient(to right, #fc9f3e var(--progress), #ccc var(--progress));
+    border-radius: 5px;
+}
+
+.orange-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: #ffffff;
+    border: 3px solid #fc9f3e;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+}
+
+/* Edge */
+.orange-slider::-ms-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+.orange-slider::-ms-fill-lower {
+    background: #fc9f3e;
+    border-radius: 5px;
+}
+
+.orange-slider::-ms-fill-upper {
+    background: #ccc;
+    border-radius: 5px;
+}
+
+.orange-slider::-ms-thumb {
+    width: 24px;
+    height: 24px;
+    background: #ffffff;
+    border: 3px solid #fc9f3e;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: 0;
+    box-sizing: border-box;
+}
+
+/* Existing Styles (keep these as they are) */
+.loan-calculation {
+    background: #f9f9f9;
+}
+.section-header .title {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+.radio-area h6 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+.single-radio.repayment {
+    display: block;
+    margin-bottom: 10px;
+}
+.schemeinput {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    color: #fc9f3e;
+    text-align: center;
+    font-weight: bold;
+}
+.cmn-btn.applyloan {
+    background: #fc9f3e;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+.checkmark {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+
+

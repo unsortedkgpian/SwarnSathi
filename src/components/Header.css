@@ -1,0 +1,143 @@
+/* Active link styling */
+.active-link {
+    color: #fea123 !important;
+}
+
+/* Hover effects */
+.nav-hover:hover {
+    color: #fea123 !important;
+    background: transparent !important;
+}
+
+.nav-hover:hover .active-link {
+    color: white !important;
+}
+
+/* Dropdown styling */
+.dropdown-arrow {
+    display: inline-block;
+    color: #fea123;
+    transition: transform 0.3s ease;
+}
+
+.show .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.navbar-light .navbar-nav .dropdown-menu {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 0;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1.5rem;
+    color: #333 !important;
+    transition: all 0.3s ease;
+}
+
+.dropdown-hover:hover {
+    background-color: #fea123 !important;
+    color: white !important;
+}
+
+/* Social icons */
+.social-link-top a {
+    color: #333;
+    transition: color 0.3s ease;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-link-top a:hover {
+    color: #fea123 !important;
+}
+
+/* Login button */
+.roundmenu .nav-link {
+    border-radius: 25px !important;
+    padding: 0.5rem 1.5rem !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Desktop hover */
+@media (min-width: 992px) {
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}
+
+/* Mobile fixes */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: transparent !important;
+        padding: 1rem;
+        margin-top: 1rem;
+        border: none !important;
+    }
+
+    .navbar-nav::before,
+    .navbar-nav::after,
+    .nav-item::before,
+    .nav-item::after,
+    .nav-link::before,
+    .nav-link::after {
+        display: none !important;
+        content: none !important;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.5rem;
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-light .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .dropdown-menu {
+        border: none !important;
+        box-shadow: none !important;
+        padding-left: 1rem;
+        margin-left: 0;
+        background: rgba(0, 0, 0, 0.02) !important;
+    }
+
+    .nav-link {
+        padding: 0.75rem 0.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .roundmenu .nav-link {
+        margin: -0.5rem 0;
+    }
+}
+
+/* Global overrides */
+.header-section::after,
+.header-section::before,
+.navbar::after,
+.navbar::before {
+    display: none !important;
+    content: none !important;
+}
+
+/* Text transformation */
+.capitalized-first-letter::first-letter {
+    text-transform: uppercase;
+}
+
+/* Small devices */
+@media (max-width: 575px) {
+    .navbar-brand img.logo {
+        max-width: 180px;
+    }
+    
+    .dropdown-menu {
+        width: 100%;
+    }
+}
