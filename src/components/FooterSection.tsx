@@ -144,17 +144,17 @@ const FooterSection: React.FC = () => {
                             <ul className="footer-link">
                                 <li>
                                     <a href="https://swarnsathi.com/about-swarn-sathi#our-company">
-                                        Our company
+                                        Our Company
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://swarnsathi.com/about-swarn-sathi#our-core-values">
-                                        Our core values
+                                        Our Core Values
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://swarnsathi.com/about-swarn-sathi#our-team">
-                                        Our team
+                                        Our Team
                                     </a>
                                 </li>
                                 <li>
@@ -176,22 +176,22 @@ const FooterSection: React.FC = () => {
                                 </li>
                                 <li>
                                     <a href="https://swarnsathi.com/swarn-sathi-branch-locator">
-                                        Branch locator
+                                        Branch Locator
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://swarnsathi.com/swarnsathi-partner">
-                                        Business associate
+                                        Business Associate
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://swarnsathi.com/swarnsathi-champion">
-                                        Swarn sathi champion
+                                        Swarn Sathi Champion
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://swarnsathi.com/lending-partner">
-                                        Lending partner
+                                        Lending Partner
                                     </a>
                                 </li>
                             </ul>
@@ -208,7 +208,7 @@ const FooterSection: React.FC = () => {
                                 </li>
                                 <li>
                                     <a href="https://swarnsathi.com/contact-swarn-sathi">
-                                        Contact us
+                                        Contact Us
                                     </a>
                                 </li>
                                 <li>
@@ -241,15 +241,15 @@ const FooterSection: React.FC = () => {
                                 <p>
                                     {" "}
                                     Copyright ©{" "}
-                                    <a href="index.html">Swarn Sathi</a> |
+                                    <a href="http://13.233.42.238:8000/index.html">Swarn Sathi</a> |
                                     Made by <a href="#">Aditya Kumar & Somya</a>
                                 </p>
                             </div>
                             <div className="right">
-                                <a href="#" className="cus-bor">
+                                <a href="http://13.233.42.238:8000/swarn-sathi-branch-locator" className="cus-bor">
                                     Privacy{" "}
                                 </a>
-                                <a href="#">Terms &amp; Condition </a>
+                                <a href="http://13.233.42.238:8000/swarn-sathi-branch-locator">Terms &amp; Condition </a>
                             </div>
                         </div>
                     </div>

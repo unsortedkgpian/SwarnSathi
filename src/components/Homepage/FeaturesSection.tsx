@@ -51,19 +51,14 @@ const FeaturesSection: React.FC = () => {
                                     Instant loan approval
                                 </h2>
                                 <p>
-                                    The loan amount is instantly provided to you
-                                    once the process is completed
+                                The loan amount is disbursed instantly upon completion of the process.
                                 </p>
                                 <ul className="list">
                                     <li className="list-item d-flex align-items-center">
                                         {checkIcon}
                                         <span>
-                                            No hidden charges whatsoever
+                                        We ensure complete transparency with no hidden charges and require only minimal           documentation for a hassle-free experience.
                                         </span>
-                                    </li>
-                                    <li className="list-item d-flex align-items-center">
-                                        {checkIcon}
-                                        <span>Minimum documentation</span>
                                     </li>
                                 </ul>
                                 <a
@@ -102,27 +97,16 @@ const FeaturesSection: React.FC = () => {
                                     IOT enabled bank grade security
                                 </h2>
                                 <p>
-                                    All your assets are safe with us. Your peace
-                                    of mind is our utmost priority. You can go
-                                    to bed without worrying about losing your
-                                    assets
+                                We prioritize the safety of your assets with advanced IoT-powered security. Your gold jewellery is securely stored in Swarn Sathi vault or partner bank vaults, ensuring maximum protection.
                                 </p>
                                 <ul className="list">
                                     <li className="list-item d-flex align-items-center">
                                         {checkIcon}
                                         <span>
-                                            Your gold jewelleries are kept in
-                                            IOT powered Swarn Sathi vaults or
-                                            partner Bank vaults
+                                        Rest assured, your gold will be returned to you in its original condition. Your peace of mind is our commitment.
                                         </span>
                                     </li>
-                                    <li className="list-item d-flex align-items-center">
-                                        {checkIcon}
-                                        <span>
-                                            Take back your gold in their exact
-                                            conditions
-                                        </span>
-                                    </li>
+                                    
                                 </ul>
                                 <a
                                     href="javascript:void(0)"
@@ -144,8 +128,7 @@ const FeaturesSection: React.FC = () => {
                                     Free insurance on the asset
                                 </h2>
                                 <p>
-                                    Your jewellery is insured fully. Our
-                                    priority is your peace of mind
+                                Your gold jewellery is fully insured, ensuring complete protection and peace of mind. We also provide free transit insurance for added security.
                                 </p>
                                 <ul className="list">
                                     <li className="list-item d-flex align-items-center">
@@ -196,25 +179,18 @@ const FeaturesSection: React.FC = () => {
                                     Hassle free repayment
                                 </h2>
                                 <p>
-                                    Why do you have to visit our branches
-                                    everytime you plan to repay the amount? We
-                                    don't want that. So we have made repayment
-                                    easy for you. Pay now at the comfort of your
-                                    home
+                                We value your time and convenience, which is why we have simplified the repayment    process for you. There is no need to visit our branches—now you can repay your dues   effortlessly from the comfort of your home.
+                                
+
                                 </p>
                                 <ul className="list">
                                     <li className="list-item d-flex align-items-center">
                                         {checkIcon}
                                         <span>
-                                            Repay with any UPI application
+                                        Make payments seamlessly using any UPI application, digital wallets, or net banking.
                                         </span>
                                     </li>
-                                    <li className="list-item d-flex align-items-center">
-                                        {checkIcon}
-                                        <span>
-                                            Wallets and Netbanking also accepted
-                                        </span>
-                                    </li>
+                                    
                                 </ul>
                                 <a
                                     href="javascript:void(0)"
