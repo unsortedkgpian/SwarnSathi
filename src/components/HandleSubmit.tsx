@@ -7,15 +7,16 @@ interface ModalProps {
     show: boolean;
     onClose: () => void;
     phoneNumber?: string;
+    loanType?: string;
 }
 
-const ModalComponent = ({ show, onClose, phoneNumber }: ModalProps) => {
+const ModalComponent = ({ show, onClose, phoneNumber, loanType = "gold-loan" }: ModalProps) => {
     const router = useRouter();
     const [showOtpForm, setShowOtpForm] = useState(!!phoneNumber);
     const [otp, setOtp] = useState("");
     const [mobileNumber, setMobileNumber] = useState(phoneNumber || "");
     const [pincode, setPincode] = useState("");
-    const { sendOtp, verifyOtp, isSending, isVerifying, error, resetState } = useOtp();
+    const { sendOtp, verifyOtp, verifyLoginOtp, isSending, isVerifying, error, resetState } = useOtp();
 
     // Timer for OTP expiry countdown
     const [timer, setTimer] = useState(0);
@@ -59,7 +60,7 @@ const ModalComponent = ({ show, onClose, phoneNumber }: ModalProps) => {
                 const verified = await verifyOtp(mobileNumber, otp);
                 if (verified) {
                     onClose();
-                    router.push("/home");
+                    router.push("/");
                 }
             } else {
                 if (!isValidIndianMobile(mobileNumber)) {
@@ -70,7 +71,7 @@ const ModalComponent = ({ show, onClose, phoneNumber }: ModalProps) => {
                     throw new Error("Please enter a valid 6-digit pincode");
                 }
                 
-                const sent = await sendOtp(mobileNumber, pincode);
+                const sent = await sendOtp(mobileNumber, pincode, loanType);
                 if (sent) {
                     setShowOtpForm(true);
                     setTimer(600); // 10 minutes in seconds
@@ -86,7 +87,7 @@ const ModalComponent = ({ show, onClose, phoneNumber }: ModalProps) => {
         if (!canResend) return;
         
         resetState();
-        const sent = await sendOtp(mobileNumber, pincode);
+        const sent = await sendOtp(mobileNumber, pincode, loanType);
         if (sent) {
             setTimer(600);
             setCanResend(false);

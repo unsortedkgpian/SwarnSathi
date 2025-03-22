@@ -2,7 +2,7 @@
 
 import "./Header.css";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +12,7 @@ import {
     faLinkedinIn,
     faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+import axios from "axios";
 
 const TopSocialBar = () => {
     const [isMobile, setIsMobile] = useState(false);
@@ -94,11 +95,16 @@ const DropdownArrow = () => (
 
 const Header = () => {
     const pathname = usePathname();
+    const url = process.env.NEXT_PUBLIC_API_URL;
+    const router = useRouter(); 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState<any>(null);
     const isActive = (path: string) => pathname === path;
     const [showAbout, setShowAbout] = useState(false);
     const [showPartner, setShowPartner] = useState(false);
     const [expanded, setExpanded] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 992);
@@ -106,6 +112,43 @@ const Header = () => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                setIsLoggedIn(false);
+                setIsLoading(false);
+                return;
+            }
+
+            try {
+                const response = await axios.get(`${url}/api/be-our-partner/get-me`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                
+                if (response.data.success) {
+                    setIsLoggedIn(true);
+                    setUser(response.data.data);
+                } else {
+                    // Handle invalid token
+                    localStorage.removeItem("token");
+                    setIsLoggedIn(false);
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                // If token is invalid or expired
+                localStorage.removeItem("token");
+                setIsLoggedIn(false);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        checkAuth();
+    }, [url]);
 
     useEffect(() => {
         if (!expanded) return;
@@ -145,6 +188,13 @@ const Header = () => {
             setShowAbout(false);
             setShowPartner(false);
         }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setIsLoggedIn(false);
+        setUser(null);
+        router.push("/login");
     };
 
     return (
@@ -205,7 +255,7 @@ const Header = () => {
                                         }`}
                                         onClick={handleLinkClick}
                                     >
-                                        Home
+                                        HOME
                                     </Nav.Link>
                                 </Nav.Item>
 
@@ -220,7 +270,7 @@ const Header = () => {
                                         }`}
                                         onClick={handleLinkClick}
                                     >
-                                        Schemes
+                                        SCHEMES
                                     </Nav.Link>
                                 </Nav.Item>
 
@@ -237,14 +287,14 @@ const Header = () => {
                                         }`}
                                         onClick={handleLinkClick}
                                     >
-                                        Branch Locator
+                                        BRANCH LOCATOR
                                     </Nav.Link>
                                 </Nav.Item>
 
                                 <NavDropdown
                                     title={
                                         <>
-                                            About Us
+                                            ABOUT US
                                             <DropdownArrow />
                                         </>
                                     }
@@ -270,28 +320,28 @@ const Header = () => {
                                         href="/about-swarn-sathi#our-company"
                                         onClick={handleLinkClick}
                                     >
-                                        Our Company
+                                        OUR COMPANY
                                     </NavDropdown.Item>
                                     <NavDropdown.Item
                                         as={Link}
                                         href="/about-swarn-sathi#our-core-values"
                                         onClick={handleLinkClick}
                                     >
-                                        Our Core Values
+                                        OUR CORE VALUES
                                     </NavDropdown.Item>
                                     <NavDropdown.Item
                                         as={Link}
                                         href="/about-swarn-sathi#our-team"
                                         onClick={handleLinkClick}
                                     >
-                                        Our Team
+                                        OUR TEAM
                                     </NavDropdown.Item>
                                     <NavDropdown.Item
                                         as={Link}
                                         href="/about-swarn-sathi#careers"
                                         onClick={handleLinkClick}
                                     >
-                                        Career
+                                        CAREERS
                                     </NavDropdown.Item>
                                 </NavDropdown>
 
@@ -306,14 +356,14 @@ const Header = () => {
                                         }`}
                                         onClick={handleLinkClick}
                                     >
-                                        Contact us
+                                        CONTACT US
                                     </Nav.Link>
                                 </Nav.Item>
 
                                 <NavDropdown
                                     title={
                                         <>
-                                            Be Our partner
+                                            BE OUR PARTNER
                                             <DropdownArrow />
                                         </>
                                     }
@@ -339,21 +389,21 @@ const Header = () => {
                                         href="/swarnsathi-champion#Swarnsathi_Champion"
                                         onClick={handleLinkClick}
                                     >
-                                        Swarn Sathi Champion
+                                        SWARNSATHI CHAMPION
                                     </NavDropdown.Item>
                                     <NavDropdown.Item
                                         as={Link}
                                         href="/swarnsathi-champion#Business_Associate"
                                         onClick={handleLinkClick}
                                     >
-                                        Business Associate
+                                        BUSINESS ASSOCIATE
                                     </NavDropdown.Item>
                                     <NavDropdown.Item
                                         as={Link}
                                         href="/swarnsathi-champion#Lending_Partner"
                                         onClick={handleLinkClick}
                                     >
-                                        Lending Partner
+                                        LENDING PARTNER
                                     </NavDropdown.Item>
                                 </NavDropdown>
 
@@ -362,20 +412,44 @@ const Header = () => {
                                         isMobile ? "mt-2" : ""
                                     } roundmenu`}
                                 >
-                                    <Nav.Link
-                                        as={Link}
-                                        href="/login"
-                                        className="nav-hover text-center"
-                                        style={{
-                                            color: "#fff",
-                                            backgroundColor: isActive("/login")
-                                                ? "#fea123"
-                                                : "transparent",
-                                        }}
-                                        onClick={handleLinkClick}
-                                    >
-                                        Login
-                                    </Nav.Link>
+                                    {isLoading ? (
+                                        <div className="spinner-border spinner-border-sm text-primary mx-2" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>
+                                    ) : isLoggedIn ? (
+                                        <NavDropdown 
+                                            title={
+                                                <span style={{
+                                                    color: "#fff",
+                                                    backgroundColor: isActive("/login")
+                                                        ? "#fea123"
+                                                        : "transparent",
+                                                }}>
+                                                    {user?.name || "Account"}
+                                                </span>
+                                            }
+                                            id="user-dropdown"
+                                        >
+                                            <NavDropdown.Item onClick={handleLogout}>
+                                                Logout
+                                            </NavDropdown.Item>
+                                        </NavDropdown>
+                                    ) : (
+                                        <Nav.Link
+                                            as={Link}
+                                            href="/login"
+                                            className="text-center"
+                                            style={{
+                                                color: "#fff",
+                                                backgroundColor: isActive("/login")
+                                                    ? "#fea123"
+                                                    : "transparent",
+                                            }}
+                                            onClick={handleLinkClick}
+                                        >
+                                            LOGIN
+                                        </Nav.Link>
+                                    )}
                                 </Nav.Item>
                             </Nav>
                         </Navbar.Collapse>

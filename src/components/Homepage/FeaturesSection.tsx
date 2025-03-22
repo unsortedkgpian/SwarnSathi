@@ -7,11 +7,13 @@ const FeaturesSection: React.FC = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [validMessage, setValidMessage] = useState("");
     const [showModal, setShowModal] = useState(false);
+    const [loanType, setLoanType] = useState("gold-loan"); // Default loan type
 
-    const applyNow = () => {
-        // Implement the applyNow function logic here
+    const applyNow = (type: string) => {
+        // Set the loan type and show the modal
+        setLoanType(type);
         setShowModal(true);
-        console.log("Apply now clicked");
+        console.log(`Apply now clicked for ${type}`);
     };
 
     const checkIcon = (
@@ -67,7 +69,7 @@ const FeaturesSection: React.FC = () => {
                                 <a
                                     href="javascript:void(0)"
                                     className="applybutton cmn-btn inputapply mt-4"
-                                    onClick={applyNow}
+                                    onClick={() => applyNow("instant-gold-loan")}
                                 >
                                     Apply now
                                 </a>
@@ -125,7 +127,7 @@ const FeaturesSection: React.FC = () => {
                                 <a
                                     href="javascript:void(0)"
                                     className="applybutton cmn-btn inputapply mt-4"
-                                    onClick={applyNow}
+                                    onClick={() => applyNow("secured-gold-loan")}
                                 >
                                     Apply now
                                 </a>
@@ -161,7 +163,7 @@ const FeaturesSection: React.FC = () => {
                                 <a
                                     href="javascript:void(0)"
                                     className="applybutton cmn-btn inputapply mt-4"
-                                    onClick={applyNow}
+                                    onClick={() => applyNow("insured-gold-loan")}
                                 >
                                     Apply now
                                 </a>
@@ -196,7 +198,7 @@ const FeaturesSection: React.FC = () => {
                                 <p>
                                     Why do you have to visit our branches
                                     everytime you plan to repay the amount? We
-                                    don’t want that. So we have made repayment
+                                    don't want that. So we have made repayment
                                     easy for you. Pay now at the comfort of your
                                     home
                                 </p>
@@ -217,7 +219,7 @@ const FeaturesSection: React.FC = () => {
                                 <a
                                     href="javascript:void(0)"
                                     className="applybutton cmn-btn inputapply mt-4"
-                                    onClick={applyNow}
+                                    onClick={() => applyNow("flexible-repayment-loan")}
                                 >
                                     Apply now
                                 </a>
@@ -230,6 +232,7 @@ const FeaturesSection: React.FC = () => {
                 show={showModal}
                 onClose={() => setShowModal(false)}
                 phoneNumber={phoneNumber}
+                loanType={loanType}
             />
         </section>
     );
