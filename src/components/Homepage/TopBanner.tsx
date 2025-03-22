@@ -8,15 +8,17 @@ import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import axios from "axios";
 import "./TopBanner.css";
 import ModalComponent from "../HandleSubmit";
-
+import { useRouter } from "next/navigation";
 const TopBanner = () => {
+    const router = useRouter();
     const [phoneNumber, setPhoneNumber] = useState("");
     const [validMessage, setValidMessage] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [showOtpInput, setShowOtpInput] = useState(false);
     const [otp, setOtp] = useState("");
-
+    const [loanType, setLoanType] = useState("quick-gold-loan"); // Default loan type
+    const url = process.env.NEXT_PUBLIC_API_URL;
     const validatePhoneNumber = async () => {
         const regex = /^[6789]\d{9}$/;
         if (regex.test(phoneNumber)) {
@@ -24,8 +26,8 @@ const TopBanner = () => {
             try {
                 setIsLoading(true);
                 const response = await axios.post(
-                    `/api/send-otp`,
-                    { phoneNumber: phoneNumber, pincode: "000000" }
+                    `${url}/api/be-our-partner/send-otp`,
+                    { phone: phoneNumber }
                 );
 
                 if (response.data) {
@@ -52,14 +54,15 @@ const TopBanner = () => {
         try {
             setIsLoading(true);
             const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/api/verify-otp`,
-                { phoneNumber: phoneNumber, otp: otp }
+                `${url}/api/be-our-partner/verify-otp`,
+                { phone: phoneNumber, otp: otp }
             );
 
             if (response.data) {
                 setValidMessage("OTP verified successfully!");
                 setShowModal(true);
                 setShowOtpInput(false);
+                router.push("/");
             }
         } catch (err: any) {
             const message =
@@ -208,6 +211,7 @@ const TopBanner = () => {
                 show={showModal}
                 onClose={() => setShowModal(false)}
                 phoneNumber={phoneNumber}
+                loanType={loanType}
             />
         </section>
     );

@@ -8,8 +8,9 @@ interface OtpState {
 }
 
 interface UseOtpReturn extends OtpState {
-  sendOtp: (phoneNumber: string, pincode: string) => Promise<boolean>;
+  sendOtp: (phoneNumber: string, pincode: string, loanType?: string) => Promise<boolean>;
   verifyOtp: (phoneNumber: string, otp: string) => Promise<boolean>;
+  verifyLoginOtp: (phoneNumber: string, otp: string) => Promise<boolean>;
   resetState: () => void;
 }
 
@@ -25,6 +26,7 @@ export const useOtp = (): UseOtpReturn => {
     error: null,
     success: false
   });
+  const url = process.env.NEXT_PUBLIC_API_URL;
 
   const resetState = useCallback(() => {
     setState({
@@ -35,14 +37,14 @@ export const useOtp = (): UseOtpReturn => {
     });
   }, []);
 
-  const sendOtp = useCallback(async (phoneNumber: string, pincode: string): Promise<boolean> => {
+  const sendOtp = useCallback(async (phoneNumber: string, pincode: string, loanType = "gold-loan"): Promise<boolean> => {
     setState(prev => ({ ...prev, isSending: true, error: null }));
     
     try {
-      const response = await fetch('/api/send-otp', {
+      const response = await fetch(`${url}/api/be-our-partner/send-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phoneNumber, pincode })
+        body: JSON.stringify({ phone: phoneNumber, pincode, loanType })
       });
       
       const data = await response.json();
@@ -102,10 +104,10 @@ export const useOtp = (): UseOtpReturn => {
       }));
       
       // Call verify API
-      const response = await fetch('/api/verify-otp', {
+      const response = await fetch(`${url}/api/be-our-partner/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phoneNumber, otp: userOtp })
+        body: JSON.stringify({ phone: phoneNumber, otp: userOtp })
       });
       
       const data = await response.json();
@@ -128,12 +130,39 @@ export const useOtp = (): UseOtpReturn => {
       setState(prev => ({ ...prev, isVerifying: false, error: errorMessage }));
       return false;
     }
+    }, []);
+
+  const verifyLoginOtp = useCallback(async (phoneNumber: string, userOtp: string): Promise<boolean> => {
+    setState(prev => ({ ...prev, isVerifying: true, error: null }));
+
+    try {
+      const response = await fetch(`${url}/api/be-our-partner/verify-login-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: phoneNumber, otp: userOtp })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to verify OTP');
+      }
+
+      localStorage.removeItem(`otp_${phoneNumber}`);
+      setState(prev => ({ ...prev, isVerifying: false, success: true }));
+      return true;
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to verify OTP';
+      setState(prev => ({ ...prev, isVerifying: false, error: errorMessage }));
+      return false;
+    }
   }, []);
 
   return {
     ...state,
     sendOtp,
     verifyOtp,
+    verifyLoginOtp,
     resetState
   };
 };

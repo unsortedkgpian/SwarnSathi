@@ -120,9 +120,9 @@ const FaqSection: React.FC = () => {
                                                 className="accordion-item"
                                                 key={item.id}
                                             >
-                                                <h5 className="accordion-header">
+                                                <h5 className="accordion-header border-none">
                                                     <button
-                                                        className={`accordion-button ${openFaq === item.id ? '' : 'collapsed'}`}
+                                                        className={`accordion-button ${openFaq === item.id ? '' : 'collapsed'} border-none"`}
                                                         type="button"
                                                         onClick={() => toggleFaq(item.id)}
                                                     >
@@ -130,7 +130,7 @@ const FaqSection: React.FC = () => {
                                                     </button>
                                                 </h5>
                                                 <div
-                                                    className={`accordion-collapse collapse ${openFaq === item.id ? 'show' : ''}`}
+                                                    className={`accordion-collapse collapse border-none" ${openFaq === item.id ? 'show' : ''}`}
                                                 >
                                                     <div className="accordion-body">
                                                         {item.answer}

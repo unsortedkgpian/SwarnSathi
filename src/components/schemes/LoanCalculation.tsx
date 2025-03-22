@@ -154,7 +154,7 @@ const LoanCalculation: React.FC = () => {
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="radio-area">
-                                    <h6>Principle repayment terms</h6>
+                                    <h6>Principal repayment terms</h6>
                                     {["0.04", "0.24", "1", ""].map((value) => (
                                         <label
                                             key={value}
@@ -254,7 +254,7 @@ const LoanCalculation: React.FC = () => {
                                 >
                                     <div className="info-single text-center">
                                         <h6 style={{ color: "#000" }}>
-                                            Principle repayment amount
+                                            Principal repayment amount
                                         </h6>
                                         <div className="d-flex justify-content-center">
                                             <input

@@ -4,6 +4,7 @@ import axios from "axios";
 const HowItWorks = () => {
     const [steps, setSteps] = useState<Step[]>([]);
     const url = process.env.NEXT_PUBLIC_API_URL;
+    console.log(url);
     // Define the steps data
     interface Step {
         howWorksIcon: string;
@@ -15,9 +16,8 @@ const HowItWorks = () => {
     useEffect(() => {
         const fetchSteps = async () => {
             try {
-                throw Error;
                 const response = await axios.get(
-                    process.env.NEXT_PUBLIC_API_URL + "/api/hiws"
+                    url + "/api/hiws"
                 );
                 // Map the response data with static howWorksIcons
                 const howWorksIcons = [
@@ -70,7 +70,7 @@ const HowItWorks = () => {
                         howWorksIcon: "images/howitworks3.svg",
                         icon: "images/icon/get-loan-3.png",
                         title: "Paper work",
-                        description: "Provide KYC and fill up the paper works",
+                        description: "Provide KYC and fill up the paperwork",
                     },
                     {
                         howWorksIcon:

@@ -5,6 +5,7 @@
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import axios from "axios";
+import { url } from "inspector";
 
 interface FormData {
     name: string;
@@ -15,6 +16,7 @@ interface FormData {
 }
 
 const RegistrationForm: React.FC = () => {
+    const url = process.env.NEXT_PUBLIC_API_URL;
     const pathname = usePathname();
     const [activeTab, setActiveTab] = useState<
         "Swarnsathi_Champion" | "Business_Associate" | "Lending_Partner"
@@ -77,8 +79,8 @@ const RegistrationForm: React.FC = () => {
             setError(null);
 
             await axios.post(
-                `/api/send-otp`,
-                { phoneNumber: formData.phone, pincode: "000000"}
+                `${url}/api/be-our-partner/send-otp`,
+                { phone: formData.phone}
             );
 
             setSuccess("OTP sent successfully to your phone");
@@ -102,7 +104,7 @@ const RegistrationForm: React.FC = () => {
             setError(null);
 
             await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/api/verify-otp`,
+                `${url}/api/be-our-partner/verify-otp`,
                 {
                     phone: formData.phone,
                     otp: otp,
@@ -155,7 +157,7 @@ const RegistrationForm: React.FC = () => {
             setError(null);
 
             await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/api/`,
+                `${url}/api/be-our-partner/`,
                 formData
             );
 

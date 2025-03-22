@@ -1,7 +1,8 @@
 'use client'
 import { useState } from "react";
 import './SignInRegister.tsx'
-
+import axios from "axios";
+import { useRouter } from "next/navigation";
 // const SignInRegister = () => {
 //     const [isOtpSignIn, setIsOtpSignIn] = useState(false);
 
@@ -178,18 +179,138 @@ import './SignInRegister.tsx'
 // export default SignInRegister;
 
 const SignInRegister = () => {
+    const router = useRouter();
     const [isOtpSignIn, setIsOtpSignIn] = useState(false);
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [otp, setOtp] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [otpSent, setOtpSent] = useState(false);
+    const url = process.env.NEXT_PUBLIC_API_URL;
 
     const handleSignInMethodToggle = () => {
         setIsOtpSignIn(!isOtpSignIn);
+        setError("");
+        setSuccess("");
+        setOtpSent(false);
     };
 
-    const sendOtpLogin = () => {
-        // Implement send OTP logic
+    const sendOtpLogin = async () => {
+        if (!phoneNumber || phoneNumber.length !== 10) {
+            setError("Please enter a valid 10-digit mobile number");
+            return;
+        }
+
+        setIsLoading(true);
+        setError("");
+        setSuccess("");
+
+        try {
+            const response = await axios.post(`${url}/api/be-our-partner/send-otp`, {
+                phone: phoneNumber,
+                loanType: "gold-loan"
+            });
+            
+            if (response.data.success) {
+                setSuccess("OTP sent successfully to your mobile number");
+                setOtpSent(true);
+                console.log("DEBUG: OTP sent response:", response.data);
+                // For development, show OTP in console if available
+                if (response.data.otp) {
+                    console.log("DEBUG: OTP for testing:", response.data.otp);
+                }
+            } else {
+                setError(response.data.message || "Failed to send OTP. Please try again.");
+            }
+        } catch (error: any) {
+            console.error("Error sending OTP:", error);
+            setError(error.response?.data?.message || "Failed to send OTP. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
-    const verifyOtpLogin = () => {
-        // Implement verify OTP logic
+    const verifyOtpLogin = async () => {
+        if (!phoneNumber || !otp) {
+            setError("Please enter both phone number and OTP");
+            return;
+        }
+
+        setIsLoading(true);
+        setError("");
+        setSuccess("");
+
+        try {
+            console.log("Verifying OTP:", { phone: phoneNumber, otp });
+            const response = await axios.post(`${url}/api/be-our-partner/verify-otp`, {
+                phone: phoneNumber,
+                otp: otp
+            });
+            
+            console.log("OTP verification response:", response.data);
+            
+            if (response.data.success) {
+                // Store the JWT token
+                localStorage.setItem("token", response.data.token);
+                
+                // Show success message
+                setSuccess("Successfully logged in! Redirecting...");
+                
+                // Redirect to dashboard or homepage after a short delay
+                setTimeout(() => {
+                    router.push("/");
+                }, 1500);
+            } else {
+                setError(response.data.message || "OTP verification failed. Please try again.");
+            }
+        } catch (error: any) {
+            console.error("OTP verification failed", error);
+            setError(error.response?.data?.message || "OTP verification failed. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handlePasswordLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        
+        if (!phoneNumber || !password) {
+            setError("Please enter both phone number and password");
+            return;
+        }
+
+        setIsLoading(true);
+        setError("");
+        setSuccess("");
+
+        try {
+            const response = await axios.post(`${url}/api/be-our-partner/login`, {
+                phone: phoneNumber,
+                password: password
+            });
+            
+            if (response.data.success) {
+                // Store the JWT token
+                localStorage.setItem("token", response.data.token);
+                
+                // Show success message
+                setSuccess("Successfully logged in! Redirecting...");
+                
+                // Redirect to dashboard or homepage after a short delay
+                setTimeout(() => {
+                    router.push("/");
+                }, 1500);
+            } else {
+                setError(response.data.message || "Login failed. Please check your credentials.");
+            }
+        } catch (error: any) {
+            console.error("Login failed", error);
+            setError(error.response?.data?.message || "Login failed. Please check your credentials.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -214,32 +335,23 @@ const SignInRegister = () => {
                                     </div>
                                 </div>
 
-                                <form
-                                    action="https://swarnsathi.com/assoicate/login"
-                                    method="post"
-                                >
-                                    <input
-                                        type="hidden"
-                                        name="loginassoc"
-                                        value="loginassociate"
-                                    />
-                                    <input
-                                        type="hidden"
-                                        name="g-recaptcha-response-assoc-login"
-                                        value="03AFcWeA6wKj4heqIYuWkj1Rx8Ql65WEyqGD2_-YzicHzr_EbzsvHkzVkV1E-njInSDd23xiQmT0kL6xKJ7jBvW0JAtUuSn15BIz5Gi1MwGaIUddBvcWK900guBA6LpCTIN4Hqa4Q0c5-11zXTmAGhYhU8E2zzgyGFg-rLY8uhBD_e0jWb_VzeJ0lXAmkZtG2fK5pZ8ucUBmtDAqVjavEzt9-ysddR7aN2r5ct_cfughfLJPLf-q-y_SH_b4LOpEeFM1W6GORrpzve9sXDEpa4TvL1yQ7YIGD6fZmZuFEldYlYi6VsybvBX6PIBTIFORXO5ZMvN6UBmOop7H2DaZ_u0PWoxOO8Q2JX7fPNjRQTI9nhOJ_8a5yi_zRNxA_fDwfytKgL-rm8QSlbALq3CkC9XZMiQcEWRUr9ELEK7Zeq98nGetphxQ4vXiIywMDDBZJJnDV3GnfqWuWfRzFkLMMmNKpgi23kc29Hlf4DPQuY45uqgLOnC04MyoJimENNaVWjKCLijetLsZPf1dj514ywJ8-Ade9dayIDygxOiEQ1vf1evv0yUnWlIcLFGtp9cx5fbJ7lELY5_YmmjLdUQkmCDIyh_293thXyPlY3Iyzh51AQaptk5Pj6saoYLjhFFlAqemQZsJgVOPYKbXf9hCvQybSguhOrnp1RQu_4DaLD_Na064sZlZ72_cdyy1BI1AoXTX2Oe0Dt7WGZ4YGeYWhTNB5YxjKgw6CuTNNHWZnL5_GrFqGnpGVoVj-VZ2HUkLebnGcxtvAMfYIhSTQwf58vAl-oXSePa1KHVwPeYeXEMTCywtwwgk7-y4-DlWHFfOTAClOI1DpSsTICt6nDtK1D36N9LovjslR0AXtxkSEIayEMINTBr7-iIWHHIGqYu3CWfq5OW4fh409sH9vhbzReExlcZdAqBLiAhyI39SuNMGbwV174K474www"
-                                    />
-                                    <input
-                                        type="hidden"
-                                        name="_token"
-                                        value="CYZ9Jo7U52IMbyP8bkLk4JcbMzfVo2NZlEprgwVC"
-                                    />
+                                {error && (
+                                    <div className="alert alert-danger" role="alert">
+                                        {error}
+                                    </div>
+                                )}
 
+                                {success && (
+                                    <div className="alert alert-success" role="alert">
+                                        {success}
+                                    </div>
+                                )}
+
+                                <form
+                                    onSubmit={!isOtpSignIn ? handlePasswordLogin : (e) => e.preventDefault()}
+                                >
                                     <div className="row">
                                         <div className="col-12">
-                                            <span
-                                                id="error"
-                                                className="text-danger small"
-                                            ></span>
                                             <div className="single-input mb-3">
                                                 <label
                                                     htmlFor="applynowmobileassoc"
@@ -254,6 +366,8 @@ const SignInRegister = () => {
                                                     name="applynowmobile"
                                                     autoComplete="off"
                                                     required
+                                                    value={phoneNumber}
+                                                    onChange={(e) => setPhoneNumber(e.target.value)}
                                                 />
                                             </div>
 
@@ -271,32 +385,38 @@ const SignInRegister = () => {
                                                         name="passwordlogin"
                                                         autoComplete="off"
                                                         required
+                                                        value={password}
+                                                        onChange={(e) => setPassword(e.target.value)}
                                                     />
                                                 </div>
                                             ) : (
-                                                <div className="single-input mb-4">
-                                                    <label
-                                                        htmlFor="otpverifyvalue"
-                                                        className="form-label"
-                                                    >
-                                                        Enter OTP to verify
-                                                    </label>
-                                                    <input
-                                                        type="password"
-                                                        className="form-control"
-                                                        id="otpverifyvalue"
-                                                        autoComplete="off"
-                                                    />
-                                                </div>
+                                                <>
+                                                    {otpSent && (
+                                                        <div className="single-input mb-4">
+                                                            <label
+                                                                htmlFor="otpverifyvalue"
+                                                                className="form-label"
+                                                            >
+                                                                Enter OTP to verify
+                                                            </label>
+                                                            <input
+                                                                type="text"
+                                                                className="form-control"
+                                                                id="otpverifyvalue"
+                                                                autoComplete="off"
+                                                                value={otp}
+                                                                onChange={(e) => setOtp(e.target.value)}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </>
                                             )}
 
                                             <div className="mb-4">
                                                 <button
                                                     type="button"
                                                     className="btn btn-link p-0 text-decoration-none"
-                                                    onClick={
-                                                        handleSignInMethodToggle
-                                                    }
+                                                    onClick={handleSignInMethodToggle}
                                                     style={{ color: "#2046ff" }}
                                                 >
                                                     {isOtpSignIn
@@ -310,35 +430,51 @@ const SignInRegister = () => {
                                     <div className="btn-area d-grid gap-3">
                                         {!isOtpSignIn ? (
                                             <button
-                                                className="cmn-btn btn  py-2"
+                                                className="cmn-btn btn py-2"
                                                 type="submit"
                                                 style={{
                                                     background: "#d18a2c",
                                                     color: "#fff",
                                                 }}
+                                                disabled={isLoading}
                                             >
-                                                Sign In
+                                                {isLoading ? 'Signing In...' : 'Sign In'}
                                             </button>
                                         ) : (
                                             <>
-                                                <button
-                                                    type="button"
-                                                    className="cmn-btn btn btn-primary py-2"
-                                                    onClick={sendOtpLogin}
-                                                >
-                                                    Send OTP
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className="cmn-btn btn py-2"
-                                                    onClick={verifyOtpLogin}
-                                                    style={{
-                                                        background: "#fda033",
-                                                        color:"#fff"
-                                                    }}
-                                                >
-                                                    Verify OTP
-                                                </button>
+                                                {!otpSent ? (
+                                                    <button
+                                                        type="button"
+                                                        className="cmn-btn btn btn-primary py-2"
+                                                        onClick={sendOtpLogin}
+                                                        disabled={isLoading}
+                                                    >
+                                                        {isLoading ? 'Sending...' : 'Send OTP'}
+                                                    </button>
+                                                ) : (
+                                                    <>
+                                                        <button
+                                                            type="button"
+                                                            className="cmn-btn btn py-2"
+                                                            onClick={verifyOtpLogin}
+                                                            style={{
+                                                                background: "#fda033",
+                                                                color:"#fff"
+                                                            }}
+                                                            disabled={isLoading}
+                                                        >
+                                                            {isLoading ? 'Verifying...' : 'Verify OTP'}
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            className="cmn-btn btn btn-outline-secondary py-2"
+                                                            onClick={sendOtpLogin}
+                                                            disabled={isLoading}
+                                                        >
+                                                            Resend OTP
+                                                        </button>
+                                                    </>
+                                                )}
                                             </>
                                         )}
                                     </div>
