@@ -5,6 +5,8 @@ export const highlightMarker = {
     anchor: new google.maps.Point(25, 50),
 };
 
+
+//this is a test change
 export const defaultMarker = {
     path: google.maps.SymbolPath.CIRCLE,
     fillColor: "#4285F4",
