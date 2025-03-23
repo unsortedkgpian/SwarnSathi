@@ -686,12 +686,14 @@ const TopBanner = () => {
                 </div>
             </div>
 
+            <div className="modal-container flex justify-center items-center">
             <ModalComponent
                 show={showModal}
                 onClose={() => setShowModal(false)}
                 phoneNumber={phoneNumber}
                 loanType={loanType}
             />
+            </div>
         </section>
     );
 };
