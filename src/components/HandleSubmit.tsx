@@ -115,7 +115,9 @@ const ModalComponent = ({ show, onClose, phoneNumber, loanType = "gold-loan" }: 
         <div
             className="modal fade show fixed"
             style={{
-                display: "block",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
                 paddingRight: "6px",
                 color: "black",
                 zIndex: "100000",
