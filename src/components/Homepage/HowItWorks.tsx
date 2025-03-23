@@ -21,10 +21,10 @@ const HowItWorks = () => {
                 );
                 // Map the response data with static howWorksIcons
                 const howWorksIcons = [
-                    "https://swarnsathi.com/images/howitworks1.svg",
-                    "https://swarnsathi.com/images/howitworks2.svg",
-                    "https://swarnsathi.com/images/howitworks3.svg",
-                    "https://swarnsathi.com/images/howitworks4.svg",
+                    "/images/howitworks1.svg",
+                    "/images/howitworks2.svg",
+                    "/images/howitworks3.svg",
+                    "/images/howitworks4.svg",
                 ];
 
                 // const mappedSteps = response.data.map(
@@ -53,16 +53,16 @@ const HowItWorks = () => {
                 setSteps([
                     {
                         howWorksIcon:
-                            "https://swarnsathi.com/images/howitworks1.svg",
-                        icon: "https://swarnsathi.com/images/icon/get-loan-1.png",
+                            "/images/howitworks1.svg",
+                        icon: "/images/icon/get-loan-1.png",
                         title: "Visit us",
                         description:
                             "Identify our nearest partner and pay a visit there",
                     },
                     {
                         howWorksIcon:
-                            "https://swarnsathi.com/images/howitworks2.svg",
-                        icon: "https://swarnsathi.com/images/icon/get-loan-2.png",
+                            "/images/howitworks2.svg",
+                        icon: "/images/icon/get-loan-2.png",
                         title: "Gold valuation",
                         description: "Get you jewellery valued by an expert",
                     },
@@ -74,7 +74,7 @@ const HowItWorks = () => {
                     },
                     {
                         howWorksIcon:
-                            "https://swarnsathi.com/images/howitworks4.svg",
+                            "/images/howitworks4.svg",
                         icon: "images/icon/how-works-4.png",
                         title: "Amount disbursal",
                         description:
@@ -128,7 +128,8 @@ const HowItWorks = () => {
                                     </div>
                                     <div className="icon-box">
                                         <img
-                                            src={`${url}/${step.icon}`}
+                                            
+                                            // src={`${url}/${step.icon}`}
                                             alt="icon"
                                         />
                                     </div>

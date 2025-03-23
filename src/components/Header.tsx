@@ -298,6 +298,7 @@ const Header = () => {
                                             <DropdownArrow />
                                         </>
                                     }
+                                    style={{background:"#fff"}}
                                     id="about-dropdown"
                                     show={showAbout}
                                     onMouseEnter={() =>

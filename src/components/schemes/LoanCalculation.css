@@ -179,7 +179,7 @@
         order: 2;
         margin-bottom: 40px;
     }
-    
+
     .col-lg-5 {
         order: 1;
         margin-bottom: 40px;
@@ -190,7 +190,7 @@
     .info-block {
         flex-direction: column;
     }
-    
+
     .info-single {
         margin-bottom: 20px;
     }

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 const GoldValueCalculator = () => {
     const [goldPurity, setGoldPurity] = useState<number>(22);
     const [goldWeight, setGoldWeight] = useState<number>(20);
-    const GOLD_PRICE_PER_GRAM = 5000;
+    const GOLD_PRICE_PER_GRAM = 9089;
 
     // Initialize slider positions
     useEffect(() => {
