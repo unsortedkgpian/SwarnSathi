@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import React, { useState } from "react";
@@ -78,10 +76,9 @@ const RegistrationForm: React.FC = () => {
             setLoading(true);
             setError(null);
 
-            await axios.post(
-                `${url}/api/send-otp`,
-                { phone: formData.phone}
-            );
+            await axios.post(`${url}/api/be-our-partner/send-otp`, {
+                phone: formData.phone,
+            });
 
             setSuccess("OTP sent successfully to your phone");
             setShowOtpInput(true);
@@ -103,13 +100,10 @@ const RegistrationForm: React.FC = () => {
             setLoading(true);
             setError(null);
 
-            await axios.post(
-                `${url}/api/be-our-partner/verify-phone-otp`,
-                {
-                    phone: formData.phone,
-                    otp: otp,
-                }
-            );
+            await axios.post(`${url}/api/be-our-partner/verify-phone-otp`, {
+                phone: formData.phone,
+                otp: otp,
+            });
 
             setSuccess("Phone number verified successfully");
             setOtpVerified(true);
@@ -156,10 +150,7 @@ const RegistrationForm: React.FC = () => {
             setLoading(true);
             setError(null);
 
-            await axios.post(
-                `${url}/api/be-our-partner/`,
-                formData
-            );
+            await axios.post(`${url}/api/be-our-partner/`, formData);
 
             setSuccess("Registration successful! We'll contact you soon.");
 
