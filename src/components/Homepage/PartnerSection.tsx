@@ -12,10 +12,26 @@ interface Partner {
 
 const PartnerSection = () => {
     const [partners, setPartners] = useState<Partner[]>([
-        { _id: "1", title: "IDFC", img: "https://swarnsathi.com/images/idfc.png" },
-        { _id: "2", title: "Partner-4", img: "https://swarnsathi.com/images/partner-4.png" },
-        { _id: "3", title: "Partner-5", img: "https://swarnsathi.com/images/partner-5.png" },
-        { _id: "4", title: "MPJ", img: "https://swarnsathi.com/images/mpj.png" },
+        {
+            _id: "1",
+            title: "IDFC",
+            img: "/images/idfc.png",
+        },
+        {
+            _id: "2",
+            title: "Partner-4",
+            img: "/images/partner-4.png",
+        },
+        {
+            _id: "3",
+            title: "Partner-5",
+            img: "/images/partner-5.png",
+        },
+        {
+            _id: "4",
+            title: "MPJ",
+            img: "/images/mpj.png",
+        },
     ]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -23,7 +39,9 @@ const PartnerSection = () => {
     useEffect(() => {
         const fetchPartners = async () => {
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/partners`);
+                const response = await axios.get(
+                    `${process.env.NEXT_PUBLIC_API_URL}/api/partners`
+                );
                 setPartners(response.data);
                 setLoading(false);
             } catch (error) {
@@ -35,7 +53,7 @@ const PartnerSection = () => {
                 setLoading(false);
             }
         };
-    
+
         fetchPartners();
     }, []);
     const sliderSettings = {

@@ -112,7 +112,7 @@ const FooterSection: React.FC = () => {
                         <div className="footer-box">
                             <a href="index.html" className="logo">
                                 <img
-                                    src="https://swarnsathi.com/assets/admin/img/18079e4870e2c0caa8a4da7b0bba083b.png"
+                                    src="/assets/admin/img/18079e4870e2c0caa8a4da7b0bba083b.png"
                                     alt="logo"
                                 />
                             </a>
@@ -134,8 +134,7 @@ const FooterSection: React.FC = () => {
                                     <i className="fab fa-instagram"></i>
                                 </a>
                             </div> */}
-                            <TopSocialBar/>
-
+                            <TopSocialBar />
                         </div>
                     </div>
                     <div className="col-xl-2 col-lg-2 col-6">
@@ -143,22 +142,22 @@ const FooterSection: React.FC = () => {
                             <h5>Company</h5>
                             <ul className="footer-link">
                                 <li>
-                                    <a href="https://swarnsathi.com/about-swarn-sathi#our-company">
+                                    <a href="/about-swarn-sathi#our-company">
                                         Our Company
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://swarnsathi.com/about-swarn-sathi#our-core-values">
+                                    <a href="/about-swarn-sathi#our-core-values">
                                         Our Core Values
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://swarnsathi.com/about-swarn-sathi#our-team">
+                                    <a href="/about-swarn-sathi#our-team">
                                         Our Team
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://swarnsathi.com/about-swarn-sathi#careers">
+                                    <a href="/about-swarn-sathi#careers">
                                         Career
                                     </a>
                                 </li>
@@ -170,27 +169,27 @@ const FooterSection: React.FC = () => {
                             <h5>Useful links</h5>
                             <ul className="footer-link">
                                 <li>
-                                    <a href="https://swarnsathi.com/schemes">
+                                    <a href="/schemes">
                                         Scheme
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://swarnsathi.com/swarn-sathi-branch-locator">
+                                    <a href="/swarn-sathi-branch-locator">
                                         Branch Locator
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://swarnsathi.com/swarnsathi-partner">
+                                    <a href="/swarnsathi-partner#swarnsathi-champion">
                                         Business Associate
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://swarnsathi.com/swarnsathi-champion">
+                                    <a href="swarnsathi-champion#swarnsathi-champion">
                                         Swarn Sathi Champion
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://swarnsathi.com/lending-partner">
+                                    <a href="/lending-partnerswarnsathi-champion">
                                         Lending Partner
                                     </a>
                                 </li>
@@ -207,14 +206,12 @@ const FooterSection: React.FC = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://swarnsathi.com/contact-swarn-sathi">
+                                    <a href="/contact-swarn-sathi">
                                         Contact Us
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://swarnsathi.com/schemes#faq">
-                                        FAQ
-                                    </a>
+                                    <a href="/schemes#faq">FAQ</a>
                                 </li>
                             </ul>
                         </div>
@@ -240,16 +237,19 @@ const FooterSection: React.FC = () => {
                             <div className="left">
                                 <p>
                                     {" "}
-                                    Copyright ©{" "}
-                                    <a href="http://13.233.42.238:8000/index.html">Swarn Sathi</a> |
-                                    Made by <a href="#">Aditya Kumar & Somya</a>
+                                    Copyright © <a href="/">Swarn Sathi</a>
                                 </p>
                             </div>
                             <div className="right">
-                                <a href="http://13.233.42.238:8000/swarn-sathi-branch-locator" className="cus-bor">
+                                <a
+                                    href="/swarn-sathi-branch-locator"
+                                    className="cus-bor"
+                                >
                                     Privacy{" "}
                                 </a>
-                                <a href="http://13.233.42.238:8000/swarn-sathi-branch-locator">Terms &amp; Condition </a>
+                                <a href="/swarn-sathi-branch-locator">
+                                    Terms &amp; Condition{" "}
+                                </a>
                             </div>
                         </div>
                     </div>

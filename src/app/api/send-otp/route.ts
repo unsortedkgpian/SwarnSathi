@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
         console.log("Request data:", { phoneNumber, pincode, loanType });
         
         // Validate phone number (Indian format - 10 digits)
-        if (!phoneNumber || !/^[6-9]\d{9}$/.test(phoneNumber)) {
+        if (!phoneNumber || !/^[6789]\d{9}$/.test(phoneNumber)) {
             return NextResponse.json(
                 { success: false, message: "Invalid phone number" },
                 { status: 400 }
