@@ -79,7 +79,7 @@ const RegistrationForm: React.FC = () => {
             setError(null);
 
             await axios.post(
-                `api/send-otp`,
+                `${url}/api/be-our-partner/send-otp`,
                 { phone: formData.phone}
             );
 
@@ -104,7 +104,7 @@ const RegistrationForm: React.FC = () => {
             setError(null);
 
             await axios.post(
-                `/api/verify-otp`,
+                `${url}/api/be-our-partner/verify-otp`,
                 {
                     phone: formData.phone,
                     otp: otp,
