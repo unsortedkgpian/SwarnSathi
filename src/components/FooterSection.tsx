@@ -248,7 +248,7 @@ const FooterSection: React.FC = () => {
                                     Privacy{" "}
                                 </a>
                                 <a href="/swarn-sathi-branch-locator">
-                                    Terms &amp; Condition{" "}
+                                    Terms &amp; Conditions{" "}
                                 </a>
                             </div>
                         </div>

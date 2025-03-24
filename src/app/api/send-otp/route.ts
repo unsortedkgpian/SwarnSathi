@@ -9,9 +9,13 @@ const SENDER = process.env.TEXTLOCAL_SENDER || "TXTLCL";
 export async function POST(request: NextRequest) {
     try {
         console.log("Send OTP is called");
-        const { phoneNumber, pincode, loanType = "gold-loan" } = await request.json();
+        const {
+            phoneNumber,
+            pincode,
+            loanType = "gold-loan",
+        } = await request.json();
         console.log("Request data:", { phoneNumber, pincode, loanType });
-        
+
         // Validate phone number (Indian format - 10 digits)
         if (!phoneNumber || !/^[6789]\d{9}$/.test(phoneNumber)) {
             return NextResponse.json(
@@ -47,14 +51,18 @@ export async function POST(request: NextRequest) {
 
         // Customize message based on loan type
         let loanTypeText = "gold loan";
-        if (loanType === "instant-gold-loan") loanTypeText = "instant gold loan";
-        if (loanType === "secured-gold-loan") loanTypeText = "secured gold loan";
-        if (loanType === "insured-gold-loan") loanTypeText = "insured gold loan";
-        if (loanType === "flexible-repayment-loan") loanTypeText = "flexible repayment gold loan";
+        if (loanType === "instant-gold-loan")
+            loanTypeText = "instant gold loan";
+        if (loanType === "secured-gold-loan")
+            loanTypeText = "secured gold loan";
+        if (loanType === "insured-gold-loan")
+            loanTypeText = "insured gold loan";
+        if (loanType === "flexible-repayment-loan")
+            loanTypeText = "flexible repayment gold loan";
         if (loanType === "quick-gold-loan") loanTypeText = "quick gold loan";
 
         // Send OTP via TextLocal
-        const message = `${otp} is your Swarn Sathi ${loanTypeText} verification code. Valid for 10 min. Do not share with anyone.`;
+        const message = `${otp} -is your six digit otp for swarn sathi mobile verification`;
 
         await sendSMS(phoneNumber, message);
 
@@ -63,7 +71,7 @@ export async function POST(request: NextRequest) {
                 success: true,
                 message: "OTP sent successfully",
                 hash: otpHash,
-                loanType: loanType // Return the loan type
+                loanType: loanType, // Return the loan type
             },
             { status: 200 }
         );

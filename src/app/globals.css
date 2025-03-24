@@ -482,7 +482,7 @@ li {
     height: 100vh;
     z-index: 99999999;
     overflow: visible;
-    background: url(https://swarnsathi.com/images/preloader.gif) no-repeat
+    background: url(/images/preloader.gif) no-repeat
         center center;
     background-size: 20%;
     background-color: #e5eff1;
@@ -713,7 +713,7 @@ a.cmn-btn.navbarbtn {
     .nav-item
     .nav-link.dropdown-toggle::after {
     vertical-align: 0;
-    background-image: url(https:swa/images/icon/menu-down.png);
+    background-image: url(/images/icon/menu-down.png);
     background-repeat: no-repeat;
     background-size: 85%;
     border: none;
@@ -817,8 +817,6 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section .overlay {
-    /* background-color: #F5FAFF; */
-    /* background-image: url(https://swarnsathi.com/images/banner-bg.png); */
     background-repeat: no-repeat;
     background-size: auto;
     background-position: right;
@@ -910,7 +908,7 @@ a.cmn-btn.navbarbtn {
     .breadcrumb
     .breadcrumb-item
     + .breadcrumb-item::before {
-    background-image: url(https://swarnsathi.com/images/icon/arrow-right.png);
+    background-image: url(/images/icon/arrow-right.png);
     background-repeat: no-repeat;
     width: 15px;
     height: 15px;
@@ -919,25 +917,25 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.about .overlay {
-    background-image: url(https://swarnsathi.com/images/branch-left.png),
-        url(https://swarnsathi.com/images/about-us.png);
+    background-image: url(/images/branch-left.png),
+        url(/images/about-us.png);
     background-repeat: no-repeat;
     background-position: left 120px, right bottom;
 }
 .banner-section.branch .overlay {
-    background-image: url(https://swarnsathi.com/images/branch-left.png),
-        url(https://swarnsathi.com/images/branch-right.png);
+    background-image: url(/images/branch-left.png),
+        url(/images/branch-right.png);
     background-repeat: no-repeat;
     background-position: left 120px, right bottom;
 }
 .banner-section.career-single .overlay {
-    background-image: url(https://swarnsathi.com/images/career-single-banner.png);
+    background-image: url(/images/career-single-banner.png);
     background-repeat: no-repeat;
     background-position: right bottom;
 }
 
 .banner-section.account .overlay {
-    background-image: url(https://swarnsathi.com/images/account-banner.png);
+    background-image: url(/images/account-banner.png);
     background-repeat: no-repeat;
     background-position: right bottom;
 }
@@ -947,7 +945,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.account-details .overlay {
-    background-image: url(https://swarnsathi.com/images/account-details-banner.png);
+    background-image: url(/images/account-details-banner.png);
     background-repeat: no-repeat;
     background-position: right 10% bottom 30px;
 }
@@ -957,8 +955,8 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.card-banner .overlay {
-    background-image: url(https://swarnsathi.com/images/card-banner-bg.png),
-        url(https://swarnsathi.com/images/card-banner.png);
+    background-image: url(/images/card-banner-bg.png),
+        url(/images/card-banner.png);
     background-repeat: no-repeat;
     background-position: left bottom, right bottom;
 }
@@ -968,7 +966,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.product .overlay {
-    background-image: url(https://swarnsathi.com/images/product-banner.png);
+    background-image: url(/images/product-banner.png);
     background-repeat: no-repeat;
     background-position: right 50px center;
     background-position-y: 63%;
@@ -979,7 +977,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.car-loans .overlay {
-    background-image: url(https://swarnsathi.com/images/car-banner.png);
+    background-image: url(/images/car-banner.png);
     background-repeat: no-repeat;
     background-position: right 50px center;
     background-position-y: 63%;
@@ -990,7 +988,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.business-loan .overlay {
-    background-image: url(https://swarnsathi.com/images/business-banner.png);
+    background-image: url(/images/business-banner.png);
     background-repeat: no-repeat;
     background-position: right 110px bottom;
 }
@@ -1000,7 +998,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.home-loan .overlay {
-    background-image: url(https://swarnsathi.com/images/home-banner.png);
+    background-image: url(/images/home-banner.png);
     background-repeat: no-repeat;
     background-position: right 110px bottom;
 }
@@ -1010,7 +1008,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.educations-loan .overlay {
-    background-image: url(https://swarnsathi.com/images/educations-banner.png);
+    background-image: url(/images/educations-banner.png);
     background-repeat: no-repeat;
     background-position: right 110px bottom;
 }
@@ -1020,7 +1018,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.personal-loan .overlay {
-    background-image: url(https://swarnsathi.com/images/personal-banner.png);
+    background-image: url(/images/personal-banner.png);
     background-repeat: no-repeat;
     background-position: right 110px bottom;
 }
@@ -1030,7 +1028,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.contact .overlay {
-    background-image: url(https://swarnsathi.com/images/contact-us.png);
+    background-image: url(/images/contact-us.png);
     background-repeat: no-repeat;
 }
 
@@ -1039,7 +1037,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.contact .overlay {
-    background-image: url(https://swarnsathi.com/images/contact-us.png);
+    background-image: url(/images/contact-us.png);
     background-repeat: no-repeat;
     background-position: right 120px, right bottom;
 }
@@ -1049,8 +1047,8 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.remittance .overlay {
-    background-image: url(https://swarnsathi.com/images/remittance-Illu.png),
-        url(https://swarnsathi.com/images/remittance-city-bg.png);
+    background-image: url(/images/remittance-Illu.png),
+        url(/images/remittance-city-bg.png);
     background-repeat: no-repeat;
     background-position: right bottom, right center;
 }
@@ -1150,7 +1148,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.affiliate .bottom-box {
-    background-image: url(https://swarnsathi.com/images/affiliate-circle.png);
+    background-image: url(/images/affiliate-circle.png);
     background-repeat: no-repeat;
     background-position: bottom 20px center;
     margin-top: -158px;
@@ -1203,25 +1201,25 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section.blog .overlay {
-    background-image: url(https://swarnsathi.com/images/blog-banner.png);
+    background-image: url(/images/blog-banner.png);
     background-repeat: no-repeat;
     background-position: right 30px bottom;
 }
 
 .banner-section.faqs .overlay {
-    background-image: url(https://swarnsathi.com/images/faqs-banner.png);
+    background-image: url(/images/faqs-banner.png);
     background-repeat: no-repeat;
     background-position: right 30px bottom;
 }
 
 .banner-section.privacy-content .overlay {
-    background-image: url(https://swarnsathi.com/images/privacy-banner.png);
+    background-image: url(/images/privacy-banner.png);
     background-repeat: no-repeat;
     background-position: right 30px bottom;
 }
 
 .banner-section.terms .overlay {
-    background-image: url(https://swarnsathi.com/images/terms-banner.png);
+    background-image: url(/images/terms-banner.png);
     background-repeat: no-repeat;
     background-position: right 30px bottom;
 }
@@ -1291,7 +1289,7 @@ a.cmn-btn.navbarbtn {
 .footer-section .footer-box li a::before {
     position: absolute;
     content: "";
-    background-image: url(https://swarnsathi.com/images/icon/right-icon.png);
+    background-image: url(/images/icon/right-icon.png);
     background-repeat: no-repeat;
     left: 0;
     width: 12px;
@@ -1386,7 +1384,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .solutions-business {
-    background-image: url(https://swarnsathi.com/images/solutions-business-bg.png);
+    background-image: url(/images/solutions-business-bg.png);
     background-repeat: no-repeat;
     background-position: top;
 }
@@ -1438,7 +1436,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .card-section {
-    background-image: url(https://swarnsathi.com/images/card-bg.png);
+    background-image: url(/images/card-bg.png);
     background-position: top left -150px;
     background-repeat: no-repeat;
     background-size: contain;
@@ -1601,7 +1599,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .call-action {
-    background-image: url(https://swarnsathi.com/images/call-action-bg.png);
+    background-image: url(/images/call-action-bg.png);
     background-position: top;
     background-repeat: no-repeat;
 }
@@ -1622,7 +1620,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .call-action.card-page {
-    background-image: url(https://swarnsathi.com/images/call-action-card-bg.png);
+    background-image: url(/images/call-action-card-bg.png);
     background-position: top;
     background-repeat: no-repeat;
 }
@@ -1645,7 +1643,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .call-action.second {
-    background-image: url(https://swarnsathi.com/images/call-action-card-second.png);
+    background-image: url(/images/call-action-card-second.png);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -1767,8 +1765,8 @@ a.cmn-btn.navbarbtn {
 }
 
 .call-action.affiliate {
-    background-image: url(https://swarnsathi.com/images/affiliate-card.png),
-        url(https://swarnsathi.com/images/call-action-card-second.png);
+    background-image: url(/images/affiliate-card.png),
+        url(/images/call-action-card-second.png);
     background-repeat: no-repeat;
     background-position: right 90px top, top;
 }
@@ -2315,7 +2313,7 @@ a.cmn-btn.navbarbtn {
     height: 1.25rem;
     margin-left: auto;
     content: "";
-    background-image: url(https://swarnsathi.com/images/icon/minus.png);
+    background-image: url(/images/icon/minus.png);
     background-repeat: no-repeat;
     background-size: 1.25rem;
     transition: all ease 0.3s;
@@ -2338,7 +2336,7 @@ a.cmn-btn.navbarbtn {
     height: 1.25rem;
     margin-left: auto;
     content: "";
-    background-image: url(https://swarnsathi.com/images/icon/plus.png);
+    background-image: url(/images/icon/plus.png);
     background-repeat: no-repeat;
     background-size: 1.25rem;
     transform: rotate(-90deg);
@@ -2496,7 +2494,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .about-section {
-    /*background-image: url(https://swarnsathi.com/images/circle.png);*/
+    /*background-image: url(/images/circle.png);*/
     background-repeat: no-repeat;
     background-position: top left;
 }
@@ -2505,7 +2503,7 @@ a.cmn-btn.navbarbtn {
     margin-bottom: 25px;
 }
 .howitworkshome {
-    /*background-image: url('../images/howitworks.svg');*/
+    /*background-image: url('/images/howitworks.svg');*/
     background-position: 50% 50%;
     background-size: contain;
     background-repeat: repeat-x;
@@ -3330,7 +3328,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .card-feature .overlay {
-    background-image: url(https://swarnsathi.com/images/card-feature-right.png);
+    background-image: url(/images/card-feature-right.png);
     background-repeat: no-repeat;
     background-position: right top;
 }
@@ -3447,7 +3445,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .apply-for-loan .overlay {
-    background-image: url(https://swarnsathi.com/images/apply-for-loan-bg.png);
+    background-image: url(/images/apply-for-loan-bg.png);
     background-repeat: no-repeat;
     background-position: top;
     background-size: auto;
@@ -3512,7 +3510,7 @@ a.cmn-btn.navbarbtn {
     height: 75%;
     top: 12px;
     z-index: -1;
-    background-image: url(https://swarnsathi.com/images/apply-loan-banner.png);
+    background-image: url(/images/apply-loan-banner.png);
     background-repeat: no-repeat;
     background-position: right bottom;
 }
@@ -3533,7 +3531,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .apply-for-loan.educations input[type="checkbox"] + label {
-    background-image: url(https://swarnsathi.com/images/icon/check-1.png);
+    background-image: url(/images/icon/check-1.png);
     background-repeat: no-repeat;
     background-position: center;
     display: inline-block;
@@ -3560,7 +3558,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .apply-for-loan.contact .overlay {
-    background-image: url(https://swarnsathi.com/images/get-in-touch-bg.png);
+    background-image: url(/images/get-in-touch-bg.png);
     background-repeat: no-repeat;
     background-position: bottom;
     background-size: auto;
@@ -3668,7 +3666,7 @@ a.cmn-btn.navbarbtn {
     content: "";
     width: 100%;
     height: 100%;
-    /* background-image: url(https://swarnsathi.com/images/call-action-card-bg.png); */
+    /* background-image: url(/images/call-action-card-bg.png); */
     background-position: top;
     background-size: contain;
     background-repeat: no-repeat;
@@ -4014,7 +4012,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .counter-educations {
-    background-image: url(https://swarnsathi.com/images/counter-bg.png);
+    background-image: url(/images/counter-bg.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -4119,7 +4117,7 @@ a.cmn-btn.navbarbtn {
     box-shadow: 0px 12px 24px rgba(47, 65, 129, 0.1);
     border-radius: 20px;
     padding: 30px;
-    background-image: url(https://swarnsathi.com/images/how-it-works-circle.png);
+    background-image: url(/images/how-it-works-circle.png);
     background-repeat: no-repeat;
     background-position: left bottom;
     position: absolute;
@@ -4154,7 +4152,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .how-it-works .contant-area.congratulation {
-    background-image: url(https://swarnsathi.com/images/congratulation-bg.png);
+    background-image: url(/images/congratulation-bg.png);
     background-repeat: no-repeat;
     background-position: bottom;
     width: 70%;
@@ -4183,13 +4181,13 @@ a.cmn-btn.navbarbtn {
 
 .how-it-works .mid-contant:before {
     top: -15%;
-    background-image: url(https://swarnsathi.com/images/divider-1.png);
+    background-image: url(/images/divider-1.png);
     background-repeat: no-repeat;
 }
 
 .how-it-works .mid-contant::after {
     bottom: -15%;
-    background-image: url(https://swarnsathi.com/images/divider-2.png);
+    background-image: url(/images/divider-2.png);
     background-repeat: no-repeat;
 }
 
@@ -4314,7 +4312,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .sign-in-up {
-    /*background-image: url(https://swarnsathi.com/images/sign-in-up-bg.png);*/
+    /*background-image: url(/images/sign-in-up-bg.png);*/
     background-repeat: no-repeat;
     background-position: right top;
     /*margin-top: 118px;*/
@@ -4493,7 +4491,7 @@ a.cmn-btn.navbarbtn {
     font-size: 0.9rem;
 }
 .about {
-    /* background-image: url(https://swarnsathi.com/images/branch-left.png), url(https://swarnsathi.com/images/about-right.png) !important; */
+    
 }
 .test-area p a {
     font-size: 22px;
@@ -4596,7 +4594,7 @@ a.cmn-btn.navbarbtn {
     color: #fff !important;
 }
 .topbanner {
-    background-image: url(https://swarnsathi.com/images/web-home.png);
+    background-image: url(/images/web-home.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: right;
@@ -4659,7 +4657,7 @@ a.cmn-btn.navbarbtn {
     .banner-section .overlay {
         /* background-size: 41%; */
         background-position: left;
-        /* background-image: url(https://swarnsathi.com/images/banner-bg-lap.png); */
+        /* background-image: url(/images/banner-bg-lap.png); */
     }
     .card-section {
         background-size: 60%;
@@ -5258,14 +5256,14 @@ a.cmn-btn.navbarbtn {
         background-image: unset;
     }
     .banner-section .overlay {
-        background-image: url(https://swarnsathi.com/images/banner-bg-mobile.png);
+        background-image: url(/images/banner-bg-mobile.png);
         /* background-size: contain; */
         background-position: top;
         background-size: 101%;
         background-position: center !important;
     }
     .topbanner {
-        background-image: url(https://swarnsathi.com/images/banner-bg-mobile.png);
+        background-image: url(/images/banner-bg-mobile.png);
         /* background-size: contain; */
         /* background-position: unset; */
         background-position: right center;

@@ -18,7 +18,7 @@ const FeaturesSection: React.FC = () => {
 
     const checkIcon = (
         <span className="check d-flex align-items-center justify-content-center">
-            <img src="images/icon/check.png" alt="icon" />
+            <img src="/images/icon/check.png" alt="icon" />
         </span>
     );
 
@@ -73,7 +73,7 @@ const FeaturesSection: React.FC = () => {
                         <div className="col-lg-6 text-end">
                             <div className="img-area">
                                 <img
-                                    src="https://swarnsathi.com/images/Instant-loan-approval.png"
+                                    src="/images/Instant-loan-approval.png"
                                     alt="image"
                                 />
                             </div>
@@ -83,7 +83,7 @@ const FeaturesSection: React.FC = () => {
                         <div className="col-lg-6 text-start">
                             <div className="img-area">
                                 <img
-                                    src="https://swarnsathi.com/images/Security-with-no-compromises.png"
+                                    src="/images/Security-with-no-compromises.png"
                                     alt="image"
                                 />
                             </div>
@@ -155,7 +155,7 @@ const FeaturesSection: React.FC = () => {
                         <div className="col-lg-6 text-end">
                             <div className="img-area">
                                 <img
-                                    src="https://swarnsathi.com/images/Free-Insurance-on-the-asset.png"
+                                    src="/images/Free-Insurance-on-the-asset.png"
                                     alt="image"
                                 />
                             </div>
@@ -165,7 +165,7 @@ const FeaturesSection: React.FC = () => {
                         <div className="col-lg-6 text-start">
                             <div className="img-area">
                                 <img
-                                    src="https://swarnsathi.com/images/hassle-free-payments.png"
+                                    src="/images/hassle-free-payments.png"
                                     alt="image"
                                 />
                             </div>

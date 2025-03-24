@@ -16,9 +16,7 @@ const HowItWorks = () => {
     useEffect(() => {
         const fetchSteps = async () => {
             try {
-                const response = await axios.get(
-                    url + "/api/hiws"
-                );
+                const response = await axios.get(url + "/api/hiws");
                 // Map the response data with static howWorksIcons
                 const howWorksIcons = [
                     "/images/howitworks1.svg",
@@ -52,30 +50,27 @@ const HowItWorks = () => {
                 // Fallback data in case of error
                 setSteps([
                     {
-                        howWorksIcon:
-                            "/images/howitworks1.svg",
+                        howWorksIcon: "/images/howitworks1.svg",
                         icon: "/images/icon/get-loan-1.png",
                         title: "Visit us",
                         description:
                             "Identify our nearest partner and pay a visit there",
                     },
                     {
-                        howWorksIcon:
-                            "/images/howitworks2.svg",
+                        howWorksIcon: "/images/howitworks2.svg",
                         icon: "/images/icon/get-loan-2.png",
                         title: "Gold valuation",
                         description: "Get you jewellery valued by an expert",
                     },
                     {
-                        howWorksIcon: "images/howitworks3.svg",
-                        icon: "images/icon/get-loan-3.png",
+                        howWorksIcon: "/images/howitworks3.svg",
+                        icon: "/images/icon/get-loan-3.png",
                         title: "Paper work",
                         description: "Provide KYC and fill up the paperwork",
                     },
                     {
-                        howWorksIcon:
-                            "/images/howitworks4.svg",
-                        icon: "images/icon/how-works-4.png",
+                        howWorksIcon: "/images/howitworks4.svg",
+                        icon: "/images/icon/how-works-4.png",
                         title: "Amount disbursal",
                         description:
                             "Get the fund either directly in account or in cash",
@@ -128,8 +123,7 @@ const HowItWorks = () => {
                                     </div>
                                     <div className="icon-box">
                                         <img
-                                            
-                                            // src={`${url}/${step.icon}`}
+                                            src={`${url}/${step.icon}`}
                                             alt="icon"
                                         />
                                     </div>

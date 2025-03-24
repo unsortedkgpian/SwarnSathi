@@ -16,7 +16,7 @@ const PersonalizedSection = () => {
                                 style={{ maxWidth: "500px" }}
                             >
                                 <img
-                                    src="https://swarnsathi.com/images/BRANCH-LOCATOR.png"
+                                    src="/images/BRANCH-LOCATOR.png"
                                     alt="branch locator"
                                     className="img-fluid w-100 h-auto"
                                 />
