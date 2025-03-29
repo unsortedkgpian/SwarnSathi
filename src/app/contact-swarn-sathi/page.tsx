@@ -1,12 +1,12 @@
-'use client'
+"use client";
 
-import ContactMapSection from '@/components/contact-swarn-sathi/ContactMapSection';
-import InnerBanner from '@/components/contact-swarn-sathi/InnerBanner'
-import NeedHelpSection from '@/components/contact-swarn-sathi/NeedHelpSection';
+import ContactMapSection from "@/components/contact-swarn-sathi/ContactMapSection";
+import InnerBanner from "@/components/contact-swarn-sathi/InnerBanner";
+import NeedHelpSection from "@/components/contact-swarn-sathi/NeedHelpSection";
 // import MapSection from '@/components/swarn-sathi-branch-locator/MapSection';
 
-import React from 'react'
-import Map from '@/components/swarn-sathi-branch-locator/Map';
+import React from "react";
+import Map from "@/components/swarn-sathi-branch-locator/Map";
 
 // import dynamic from "next/dynamic";
 
@@ -14,7 +14,6 @@ import Map from '@/components/swarn-sathi-branch-locator/Map';
 //     ssr: false,
 //     loading: () => <div>Loading Map...</div>,
 // });
-
 
 const sampleLocations = [
     {
@@ -41,45 +40,45 @@ const sampleLocations = [
 ];
 
 const page = () => {
-  return (
-      <>
-          <InnerBanner pageTitle="Contact Us" variant="contact" />
-          <ContactMapSection
-              title="Get in touch with us."
-              description="Fill up the form and our team will get back to you within 24 hours"
-              variant="contact"
-          />
-          {/* <Map locations={sampleLocations} /> */}
-          <NeedHelpSection
-              subTitle="You can reach out to us for all your"
-              title="Need more help?"
-              description="Queries, complaints and feedback. We will be happy to serve you"
-              contactMethods={[
-                  {
-                      iconSrc: "/images/icon/need-help-1.png",
-                      iconAlt: "phone icon",
-                      title: "Contact",
-                      content: "7044494994#033-4804-0009",
-                      hasBr: true,
-                  },
-                  {
-                      iconSrc: "/images/icon/need-help-2.png",
-                      iconAlt: "email icon",
-                      title: "Help & Support",
-                      content: "query@swarnsathi.com",
-                      hasBr: true,
-                  },
-                  {
-                      iconSrc: "/images/icon/need-help-3.png",
-                      iconAlt: "address icon",
-                      title: "Address",
-                      content:
-                          "2nd floor, 29/5E, Dr Ambedkar Sarani, Topsia More, Kolkata, West Bengal 700046",
-                  },
-              ]}
-          />
-      </>
-  );
-}
+    return (
+        <>
+            <InnerBanner pageTitle="Contact Us" variant="contact" />
+            <ContactMapSection
+                title="Get in touch with us."
+                description="Fill up the form and our team will get back to you within 24 hours"
+                variant="contact"
+            />
+            {/* <Map locations={sampleLocations} /> */}
+            <NeedHelpSection
+                subTitle="You can reach out to us for all your"
+                title="Need more help?"
+                description="Queries, complaints and feedback. We will be happy to serve you"
+                contactMethods={[
+                    {
+                        iconSrc: "/images/icon/need-help-1.png",
+                        iconAlt: "phone icon",
+                        title: "Contact",
+                        content: "9007711488#033-4804-0009",
+                        hasBr: true,
+                    },
+                    {
+                        iconSrc: "/images/icon/need-help-2.png",
+                        iconAlt: "email icon",
+                        title: "Help & Support",
+                        content: "query@swarnsathi.com",
+                        hasBr: true,
+                    },
+                    {
+                        iconSrc: "/images/icon/need-help-3.png",
+                        iconAlt: "address icon",
+                        title: "Address",
+                        content:
+                            "2nd floor, 29/5E, Dr Ambedkar Sarani, Topsia More, Kolkata, West Bengal 700046",
+                    },
+                ]}
+            />
+        </>
+    );
+};
 
-export default page
+export default page;

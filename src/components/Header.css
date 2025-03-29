@@ -136,8 +136,42 @@
     .navbar-brand img.logo {
         max-width: 180px;
     }
-    
+
     .dropdown-menu {
         width: 100%;
     }
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+/* Dropdown styling */
+.navbar-nav .nav-hover {
+    position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 8px; /* Ensures the same border-radius for both dropdowns */
+}
+
+.nav-hover:hover,
+.navbar-nav .nav-hover:focus {
+    /* background-color: #fea123 !important; */
+    /* color: white !important; */
+    border-radius: 8px; /* Ensures rounded corners */
+}
+
+/* Dropdown menu items */
+.navbar-nav .nav-hover .dropdown-menu {
+    border-radius: 8px !important;
+    overflow: hidden;
+}
+
+/* Individual dropdown items */
+.navbar-nav .nav-hover .dropdown-item {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar-nav .nav-hover .dropdown-item:hover {
+    background-color: #fea123 !important;
+    color: white !important;
 }
