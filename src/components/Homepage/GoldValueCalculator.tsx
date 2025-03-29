@@ -47,7 +47,7 @@ const GoldValueCalculator = () => {
                                     <h2
                                         className="title"
                                         style={{
-                                            fontWeight: 500,
+                                  
                                             textTransform: "capitalize",
                                         }}
                                     >
@@ -165,9 +165,8 @@ const GoldValueCalculator = () => {
                                                     id="approx-value"
                                                     className="resp-val-input"
                                                     style={{
-                                                        fontFamily:
-                                                            "'Roboto', 'sans-serif'",
-                                                        fontSize: "50px",
+                                                        
+                                                        fontSize: "37px",
                                                     }}
                                                     value={`₹${calculateApproxValue()}`}
                                                 />

@@ -70,11 +70,11 @@ const FeaturesSection: React.FC = () => {
                                 </a>
                             </div>
                         </div>
-                        <div className="col-lg-6 text-end">
+                        <div className="col-lg-6 text-center">
                             <div className="img-area">
                                 <img
                                     src="/images/Instant-loan-approval.png"
-                                    alt="image"
+                                    alt="image" width="70%"
                                 />
                             </div>
                         </div>

@@ -87,13 +87,13 @@ const FeaturesSectionSchemes = () => {
                                         </div>
                                     </div>
                                     {/* Image Column */}
-                                    <div className="col-lg-6 text-end">
+                                    <div className="col-lg-6 text-center">
                                         <div className="img-area">
                                             <Image
                                                 src={feature.imageSrc}
                                                 alt={feature.imageAlt}
-                                                width={500}
-                                                height={300}
+                                                width={350}
+                                                height={210}
                                                 className="img-fluid"
                                             />
                                         </div>
@@ -102,13 +102,13 @@ const FeaturesSectionSchemes = () => {
                             ) : (
                                 <>
                                     {/* Image Column */}
-                                    <div className="col-lg-6 text-start">
+                                    <div className="col-lg-6 text-center">
                                         <div className="img-area">
                                             <Image
                                                 src={feature.imageSrc}
                                                 alt={feature.imageAlt}
-                                                width={500}
-                                                height={300}
+                                                width={350}
+                                                height={210}
                                                 className="img-fluid"
                                             />
                                         </div>

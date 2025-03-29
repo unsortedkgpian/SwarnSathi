@@ -93,6 +93,7 @@ const TopBanner = () => {
                                             style={{
                                                 color: "#fda033",
                                                 textTransform: "capitalize",
+                                                fontWeight: "600"
                                             }}
                                         >
                                             Super fast gold loan

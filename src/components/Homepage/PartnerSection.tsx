@@ -94,10 +94,10 @@ const PartnerSection = () => {
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-md-3 col-3">
-                            <h4>
-                                <a href="#" className="partnerhvr">
+                            <h4 style={{marginBottom:"0px"}}>
+                               
                                     Partners
-                                </a>
+                               
                             </h4>
                         </div>
                         <div className="col-md-9 col-9">

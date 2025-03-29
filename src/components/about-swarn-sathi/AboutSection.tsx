@@ -29,7 +29,7 @@ const AboutSection = () => {
                                 <div className="col-xl-4 col-md-4">
                                     <div className="count-content text-center">
                                         <div className="count-number">
-                                            <h4 className="counter">2</h4>
+                                            <h4 className="counter" style={{fontWeight:800}}>2</h4>
                                         </div>
                                         <p>Locations covered</p>
                                     </div>
@@ -37,7 +37,7 @@ const AboutSection = () => {
                                 <div className="col-xl-4 col-md-4">
                                     <div className="count-content text-center">
                                         <div className="count-number ">
-                                            <h4 className="counter">175</h4>
+                                            <h4 className="counter" style={{fontWeight:800}}>175</h4>
                                         </div>
                                         <p>Pincode covered</p>
                                     </div>
@@ -45,7 +45,7 @@ const AboutSection = () => {
                                 <div className="col-xl-4 col-md-4">
                                     <div className="count-content text-center">
                                         <div className="count-number ">
-                                            <h4 className="counter">2</h4>
+                                            <h4 className="counter" style={{fontWeight:800}}>2</h4>
                                         </div>
                                         <p>Partner shops</p>
                                     </div>

@@ -86,7 +86,7 @@ const TeamSection = () => {
 
     return (
         <section className="our-team" id="our-team">
-            <div className="overlay pt-120 pb-120">
+            <div className="overlay pt-120 ">
                 <div className="container wow fadeInUp">
                     <div className="row justify-content-center">
                         <div className="col-xl-9 col-lg-10">
@@ -175,8 +175,8 @@ const TeamSection = () => {
                                                             <div className="single-box">
                                                                 <div className="icon-box">
                                                                     <img
-                                                                        // src={`${url}/${member.image}`}
-                                                                        src={`${member.image}`}
+                                                                        src={`${url}/${member.image}`}
+                                                                       // src={`${member.image}`}
                                                                         alt={
                                                                             member.name
                                                                         }

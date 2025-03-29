@@ -6,11 +6,12 @@
 =========================
 =========================
 */
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
 :root {
-    --body-font: "Roboto", sans-serif;
-    --header-font: "Poppins", sans-serif;
+    --body-font: "Open Sans", sans-serif;
+    --header-font: "Montserrat", sans-serif;
     /* Keep other variables the same */
     --body-color: #ffffff;
     --para-color: #2c3655;
@@ -261,13 +262,13 @@ li {
 
 .sub-title {
     color: #4dc247;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .title {
     font-weight: 600;
     /*margin-bottom: 16px;*/
-    font-size: 55px;
+    font-size: 35px;
 }
 
 .head-icon {
@@ -641,7 +642,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .header-section {
-    position: absolute;
+/*     position: absolute; */
     top: 0;
     left: 0;
     width: 100%;
@@ -650,12 +651,13 @@ a.cmn-btn.navbarbtn {
 }
 
 .header-section.header-fixed {
-    position: fixed;
+/*     position: fixed; */
     top: 0;
     left: 0;
     width: 100%;
     z-index: 999;
-    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+    padding: 20px;
 }
 
 .header-section .navbar-toggler {
@@ -706,7 +708,7 @@ a.cmn-btn.navbarbtn {
     color: #fea123;
 }
 
-.header-section
+/* .header-section
     .navbar
     .navbar-collapse
     .navbar-nav
@@ -720,7 +722,7 @@ a.cmn-btn.navbarbtn {
     margin-left: 5px;
     width: 15px;
     height: 11px;
-}
+} */
 
 .header-section .navbar .navbar-collapse .navbar-nav .nav-item .dropdown-menu {
     background-color: var(--body-color);
@@ -818,7 +820,7 @@ a.cmn-btn.navbarbtn {
 
 .banner-section .overlay {
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: contain;
     background-position: right;
 }
 
@@ -926,7 +928,7 @@ a.cmn-btn.navbarbtn {
     background-image: url(/images/branch-left.png),
         url(/images/branch-right.png);
     background-repeat: no-repeat;
-    background-position: left 120px, right bottom;
+    background-position: left 120px, right 0px;
 }
 .banner-section.career-single .overlay {
     background-image: url(/images/career-single-banner.png);
@@ -1908,7 +1910,7 @@ a.cmn-btn.navbarbtn {
     color: #fbfcff;
 }
 .partner-section {
-    padding-top: 16px;
+/*     padding-top: 16px; */
     box-shadow: 6px 7px 20px 0px #fc9f3e61;
     margin-bottom: 15px;
 }
@@ -2302,7 +2304,7 @@ a.cmn-btn.navbarbtn {
     background: var(--body-color);
     border-radius: 10px;
     font-size: inherit;
-    font-weight: 200;
+    font-weight: 600;
     color: #ff9300;
     border: none;
 }
@@ -2513,7 +2515,7 @@ a.cmn-btn.navbarbtn {
     border-radius: 25px;
     background: #fff;
     box-shadow: 6px 7px 20px 0px #fc9f3e61;
-    padding: 25px;
+    padding: 25px 50px;
 }
 .iconhowboxhome img {
     margin-top: -126px;
@@ -2761,7 +2763,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .our-team .nav-tabs .nav-item .nav-link {
-    padding: 15px 30px;
+    padding: 15px 25px;
     background: var(--body-color);
     box-shadow: 0px 12px 24px rgba(47, 65, 129, 0.1);
     border-radius: 35px;
@@ -3742,7 +3744,7 @@ a.cmn-btn.navbarbtn {
     position: relative;
     background: #f5faff;
     z-index: 0;
-    margin-top: 40px;
+/*     margin-top: 40px; */
 }
 
 .loan-calculation .img-area {
@@ -4458,7 +4460,7 @@ a.cmn-btn.navbarbtn {
     padding: 92px 0;
 }
 .top-section .title {
-    font-size: 40px;
+    font-size: 35px;
 }
 .top-section p {
     font-size: 15px;
@@ -4467,7 +4469,7 @@ a.cmn-btn.navbarbtn {
     font-size: 15px;
 }
 .section-text .title {
-    font-size: 40px;
+    font-size: 35px;
 }
 .top-area .title {
     font-size: 55px;
@@ -4476,7 +4478,7 @@ a.cmn-btn.navbarbtn {
     font-size: 15px;
 }
 .section-header .title {
-    font-size: 45px;
+    font-size: 35px;
 }
 .section-header p {
     font-size: 15px;
@@ -4596,8 +4598,8 @@ a.cmn-btn.navbarbtn {
 .topbanner {
     background-image: url(/images/web-home.png);
     background-repeat: no-repeat;
-    background-size: contain;
-    background-position: right;
+    background-size: cover;
+    background-position: 85%;
 }
 .requiredfill {
     color: #ff0909;

@@ -63,12 +63,12 @@
     color: #fea123;
     font-size: 0.9rem;
     min-height: 20px;
-    margin-top: 8px;
+    margin-top: 0;
     padding-left: 15px;
 }
 
 .validation-message:not(:empty) {
-    margin-bottom: 1rem;
+/*     margin-bottom: 1rem; */
 }
 
 .contact-info {
@@ -76,7 +76,7 @@
     align-items: center;
     gap: 15px;
     flex-wrap: wrap;
-    margin-top: 1.5rem;
+    margin-top: 0rem;
 }
 
 .contact-icon {
