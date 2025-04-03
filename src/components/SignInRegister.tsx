@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 const SignInRegister = () => {
+    const [genOtp, setGenOtp] = useState("");
     const router = useRouter();
     const [isOtpSignIn, setIsOtpSignIn] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -15,6 +16,7 @@ const SignInRegister = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [otpSent, setOtpSent] = useState(false);
     const url = process.env.NEXT_PUBLIC_API_URL;
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleSignInMethodToggle = () => {
         setIsOtpSignIn(!isOtpSignIn);
@@ -32,21 +34,23 @@ const SignInRegister = () => {
         setIsLoading(true);
         setError("");
         setSuccess("");
+        console.log("before sending otp",phoneNumber);
 
         try {
-            const response = await axios.post(`${url}/api/be-our-partner/send-otp`, {
+            const response = await axios.post(`/api/send-otp`, {
                 phone: phoneNumber,
-                loanType: "gold-loan"
+                loanType: "gold-loan",
             });
             
             if (response.data.success) {
                 setSuccess("OTP sent successfully to your mobile number");
                 setOtpSent(true);
-                console.log("DEBUG: OTP sent response:", response.data);
+                setGenOtp(response.data.genOtp);
+                // console.log("DEBUG: OTP sent response:", response.data);
                 // For development, show OTP in console if available
-                if (response.data.otp) {
-                    console.log("DEBUG: OTP for testing:", response.data.otp);
-                }
+                // if (response.data.otp) {
+                //     console.log("DEBUG: OTP for testing:", response.data.otp);
+                // }
             } else {
                 setError(response.data.message || "Failed to send OTP. Please try again.");
             }
@@ -70,9 +74,10 @@ const SignInRegister = () => {
 
         try {
             console.log("Verifying OTP:", { phone: phoneNumber, otp });
-            const response = await axios.post(`${url}/api/be-our-partner/verify-otp`, {
-                phone: phoneNumber,
-                otp: otp
+            const response = await axios.post(`/api/verify-otp`, {
+                phoneNumber,
+                otp: otp,
+                genOtp:genOtp,
             });
             
             console.log("OTP verification response:", response.data);
@@ -83,6 +88,7 @@ const SignInRegister = () => {
                 
                 // Show success message
                 setSuccess("Successfully logged in! Redirecting...");
+                setIsLoggedIn(true);
                 
                 // Redirect to dashboard or homepage after a short delay
                 setTimeout(() => {

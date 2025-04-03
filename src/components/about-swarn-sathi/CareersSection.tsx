@@ -33,7 +33,7 @@ const CareersSection: React.FC = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                throw Error;
+                // throw Error;
                 setLoading(true);
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/job-openings`);
                 setJobs(response.data);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
@@ -9,9 +10,15 @@ import axios from "axios";
 import "./TopBanner.css";
 import ModalComponent from "../HandleSubmit";
 import { useRouter } from "next/navigation";
+import { useContact } from "@/context/ContactContext";
 
 const TopBanner = () => {
     const router = useRouter();
+        const { contact, loading } = useContact();
+        if (!contact) return <p>loading</p>;
+        const phone = contact.phone;
+        const telephone = contact.telephone;
+        const urlo=`https://wa.me/91${phone}#${telephone}`;
     const [phoneNumber, setPhoneNumber] = useState("");
     const [validMessage, setValidMessage] = useState("");
     const [showModal, setShowModal] = useState(false);
@@ -195,7 +202,7 @@ const TopBanner = () => {
                                                                 href="tel:+9103348040009"
                                                                 className="contact-link"
                                                             >
-                                                                033-4804-0009
+                                                                {contact.telephone}
                                                             </Link>
                                                         </span>
                                                     </div>
@@ -207,12 +214,12 @@ const TopBanner = () => {
                                                         <span className="callus">
                                                             WhatsApp{" "}
                                                             <Link
-                                                                href="https://wa.me/919007711488"
+                                                                href={urlo}
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"
                                                                 className="contact-link"
                                                             >
-                                                                +91-9007711488
+                                                                +91-{contact.phone}
                                                             </Link>
                                                         </span>
                                                     </div>

@@ -5,79 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faFacebookF,
-    faTwitter,
-    faLinkedinIn,
-    faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
 import axios from "axios";
-
-const TopSocialBar = () => {
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth < 768);
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    return (
-        <div className="overlay topsocial">
-            <Container>
-                <div
-                    className={`row ${
-                        isMobile ? "justify-content-center" : ""
-                    }`}
-                >
-                    <div
-                        className={`${isMobile ? "col-12" : "col-md-6"}`}
-                    ></div>
-                    <div className={`${isMobile ? "col-12" : "col-md-6"}`}>
-                        <div
-                            className={`social-link-top d-flex ${
-                                isMobile
-                                    ? "justify-content-center"
-                                    : "justify-content-end"
-                            } gap-3 py-2`}
-                        >
-                            <a
-                                href="https://www.facebook.com/swarnsathi2022"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <FontAwesomeIcon icon={faFacebookF} />
-                            </a>
-                            <a
-                                href="https://twitter.com/Swarnsathi2022"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <FontAwesomeIcon icon={faTwitter} />
-                            </a>
-                            <a
-                                href="https://www.linkedin.com/company/swarn-sathi"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <FontAwesomeIcon icon={faLinkedinIn} />
-                            </a>
-                            <a
-                                href="https://www.instagram.com/swarn_sathi/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <FontAwesomeIcon icon={faInstagram} />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </Container>
-        </div>
-    );
-};
 
 const DropdownArrow = () => (
     <span className="dropdown-arrow ms-2">
@@ -96,7 +24,7 @@ const DropdownArrow = () => (
 const Header = () => {
     const pathname = usePathname();
     const url = process.env.NEXT_PUBLIC_API_URL;
-    const router = useRouter(); 
+    const router = useRouter();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState<any>(null);
     const isActive = (path: string) => pathname === path;
@@ -123,12 +51,15 @@ const Header = () => {
             }
 
             try {
-                const response = await axios.get(`${url}/api/be-our-partner/get-me`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                
+                const response = await axios.get(
+                    `${url}/api/be-our-partner/get-me`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
                 if (response.data.success) {
                     setIsLoggedIn(true);
                     setUser(response.data.data);
@@ -198,7 +129,10 @@ const Header = () => {
     };
 
     return (
-        <header className="header-section animated fadeInDown header-fixed zIndex-10">
+        <header
+            className="header-section animated fadeInDown header-fixed zIndex-1000 "
+            style={{ height: "60px", padding: "0 !important" }}
+        >
             {/* <TopSocialBar /> */}
             <div className="overlay">
                 <Container>
@@ -298,7 +232,7 @@ const Header = () => {
                                             <DropdownArrow />
                                         </>
                                     }
-                                    style={{background:"#fff"}}
+                                    style={{ background: "#fff" }}
                                     id="about-dropdown"
                                     show={showAbout}
                                     onMouseEnter={() =>
@@ -414,24 +348,34 @@ const Header = () => {
                                     } roundmenu`}
                                 >
                                     {isLoading ? (
-                                        <div className="spinner-border spinner-border-sm text-primary mx-2" role="status">
-                                            <span className="visually-hidden">Loading...</span>
+                                        <div
+                                            className="spinner-border spinner-border-sm text-primary mx-2"
+                                            role="status"
+                                        >
+                                            <span className="visually-hidden">
+                                                Loading...
+                                            </span>
                                         </div>
                                     ) : isLoggedIn ? (
-                                        <NavDropdown 
+                                        <NavDropdown
                                             title={
-                                                <span style={{
-                                                    color: "#fff",
-                                                    backgroundColor: isActive("/login")
-                                                        ? "#fea123"
-                                                        : "transparent",
-                                                }}>
+                                                <span
+                                                    style={{
+                                                        color: "#fff",
+                                                        backgroundColor:
+                                                            isActive("/login")
+                                                                ? "#fea123"
+                                                                : "transparent",
+                                                    }}
+                                                >
                                                     {user?.name || "Account"}
                                                 </span>
                                             }
                                             id="user-dropdown"
                                         >
-                                            <NavDropdown.Item onClick={handleLogout}>
+                                            <NavDropdown.Item
+                                                onClick={handleLogout}
+                                            >
                                                 Logout
                                             </NavDropdown.Item>
                                         </NavDropdown>
@@ -441,8 +385,19 @@ const Header = () => {
                                             href="/login"
                                             className="text-center"
                                             style={{
-                                                color: "#fff",
-                                                backgroundColor: isActive("/login")
+                                                boxShadow: "none !important",
+                                                filter: "none !important",
+                                                textShadow: "none",
+                                                transition: "none",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                padding: "0",
+                                                height: "30px",
+                                                margin: "0",
+                                                color: "#fff !important",
+                                                backgroundColor: isActive(
+                                                    "/login"
+                                                )
                                                     ? "#fea123"
                                                     : "transparent",
                                             }}

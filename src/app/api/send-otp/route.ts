@@ -9,15 +9,11 @@ const SENDER = process.env.TEXTLOCAL_SENDER || "TXTLCL";
 export async function POST(request: NextRequest) {
     try {
         console.log("Send OTP is called");
-        const {
-            phoneNumber,
-            pincode,
-            loanType = "gold-loan",
-        } = await request.json();
-        console.log("Request data:", { phoneNumber, pincode, loanType });
+        const { phone, pincode, loanType = "gold-loan" } = await request.json();
+        console.log("Request data:", { phone, pincode, loanType });
 
         // Validate phone number (Indian format - 10 digits)
-        if (!phoneNumber || !/^[6789]\d{9}$/.test(phoneNumber)) {
+        if (!phone || !/^[6789]\d{9}$/.test(phone)) {
             return NextResponse.json(
                 { success: false, message: "Invalid phone number" },
                 { status: 400 }
@@ -25,7 +21,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Validate pincode
-        if (!pincode || !/^\d{6}$/.test(pincode)) {
+        if (pincode && !/^\d{6}$/.test(pincode)) {
             return NextResponse.json(
                 { success: false, message: "Invalid pincode" },
                 { status: 400 }
@@ -47,7 +43,7 @@ export async function POST(request: NextRequest) {
 
         // In production, use a database. For demo purposes, we'll use browser localStorage in the frontend
         // The backend will generate a hash of the OTP data
-        const otpHash = generateOtpHash(otp, phoneNumber);
+        // const otpHash = generateOtpHash(otp, phoneNumber);
 
         // Customize message based on loan type
         let loanTypeText = "gold loan";
@@ -64,13 +60,14 @@ export async function POST(request: NextRequest) {
         // Send OTP via TextLocal
         const message = `${otp} -is your six digit otp for swarn sathi mobile verification`;
 
-        await sendSMS(phoneNumber, message);
+        await sendSMS(phone, message);
 
         return NextResponse.json(
             {
                 success: true,
                 message: "OTP sent successfully",
-                hash: otpHash,
+                genOtp: otp,
+                // hash: otpHash,
                 loanType: loanType, // Return the loan type
             },
             { status: 200 }
@@ -89,14 +86,14 @@ function generateOTP() {
     return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
-// Helper function to generate a hash for OTP verification
-function generateOtpHash(otp: string, phoneNumber: string) {
-    const secret = process.env.OTP_SECRET || "your-secret-key";
-    return crypto
-        .createHmac("sha256", secret)
-        .update(`${otp}:${phoneNumber}`)
-        .digest("hex");
-}
+// // Helper function to generate a hash for OTP verification
+// function generateOtpHash(otp: string, phoneNumber: string) {
+//     const secret = process.env.OTP_SECRET || "your-secret-key";
+//     return crypto
+//         .createHmac("sha256", secret)
+//         .update(`${otp}:${phoneNumber}`)
+//         .digest("hex");
+// }
 
 // Function to send SMS via TextLocal
 function sendSMS(phoneNumber: string, message: string): Promise<any> {

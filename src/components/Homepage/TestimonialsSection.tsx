@@ -24,44 +24,41 @@ const TestimonialsSection = () => {
         },
     ];
 
-
-
-
     const settings = {
-    dots: false,
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    swipe: false,
-    draggable: false,
-    // New additions to disable all interactions
-    focusOnSelect: false,
-    accessibility: false,
-    keyboard: false,
-    responsive: [
-        {
-            breakpoint: 992,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
+        dots: false,
+        arrows: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        swipe: false,
+        draggable: false,
+        // New additions to disable all interactions
+        focusOnSelect: false,
+        accessibility: false,
+        keyboard: false,
+        responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                },
             },
-        },
-        {
-            breakpoint: 768,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                },
             },
-        },
-    ],
-};
+        ],
+    };
     return (
-        <section className="testimonials-section personal-loan pt-120">
-            <div className="overlay hoverslide">
+        <section className="testimonials-section personal-loan pt-120 " style={{marginTop:"100px"}}>
+            <div className=" hoverslide">
                 <div className="container wow fadeInUp">
                     <div className="row">
                         <div className="col-lg-12">
@@ -99,4 +96,3 @@ const TestimonialsSection = () => {
 };
 
 export default TestimonialsSection;
-

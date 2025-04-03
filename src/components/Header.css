@@ -26,18 +26,20 @@
 
 .navbar-light .navbar-nav .dropdown-menu {
     border: none;
-    border-radius: 0;
+    border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 0;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
 }
 
 .dropdown-item {
+    z-index: 999;
     padding: 0.5rem 1.5rem;
     color: #333 !important;
     transition: all 0.3s ease;
 }
 
-.dropdown-hover:hover {
+.dropdown-item:hover {
     background-color: #fea123 !important;
     color: white !important;
 }
@@ -51,10 +53,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid #fc9f3e;
+    border-radius: 50%;
+    background: #fff;
+    margin-left: 10px;
 }
 
 .social-link-top a:hover {
-    color: #fea123 !important;
+    background: #fc9f3e !important;
+    color: #fff !important;
 }
 
 /* Login button */
@@ -62,6 +69,12 @@
     border-radius: 25px !important;
     padding: 0.5rem 1.5rem !important;
     transition: all 0.3s ease !important;
+    background: #fea123;
+    color: white !important;
+}
+
+.roundmenu .nav-link:hover {
+    background: #e58d1f !important;
 }
 
 /* Desktop hover */
@@ -74,104 +87,104 @@
 /* Mobile fixes */
 @media (max-width: 991px) {
     .navbar-collapse {
-        background: transparent !important;
+        background: #fff !important;
         padding: 1rem;
         margin-top: 1rem;
-        border: none !important;
-    }
-
-    .navbar-nav::before,
-    .navbar-nav::after,
-    .nav-item::before,
-    .nav-item::after,
-    .nav-link::before,
-    .nav-link::after {
-        display: none !important;
-        content: none !important;
-    }
-
-    .navbar-toggler {
-        padding: 0.25rem 0.5rem;
-        border-color: rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar-light .navbar-toggler-icon {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     .dropdown-menu {
-        border: none !important;
-        box-shadow: none !important;
+        background: rgba(245, 250, 255, 0.9) !important;
         padding-left: 1rem;
         margin-left: 0;
-        background: rgba(0, 0, 0, 0.02) !important;
-    }
-
-    .nav-link {
-        padding: 0.75rem 0.5rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .roundmenu .nav-link {
-        margin: -0.5rem 0;
     }
 }
 
-/* Global overrides */
-.header-section::after,
-.header-section::before,
-.navbar::after,
-.navbar::before {
-    display: none !important;
-    content: none !important;
+/* Header Section */
+.header-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background: transparent;
 }
 
-/* Text transformation */
-.capitalized-first-letter::first-letter {
-    text-transform: uppercase;
+.header-section.header-fixed {
+    position: fixed;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeInDown 0.5s;
 }
 
-/* Small devices */
+/* Logo */
+.navbar-brand img.logo {
+    width: 300px;
+    height: auto;
+    transition: all 0.3s ease;
+}
+
 @media (max-width: 575px) {
     .navbar-brand img.logo {
         max-width: 180px;
     }
+}
 
-    .dropdown-menu {
-        width: 100%;
+/* Navbar links */
+/* .navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+    color: #fea123 !important;
+} */
+
+/* Animation */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
 .dropdown-toggle::after {
-    display: none !important;
+    display: none;
 }
 
-/* Dropdown styling */
-.navbar-nav .nav-hover {
-    position: relative;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    border-radius: 8px; /* Ensures the same border-radius for both dropdowns */
+.btn-login:hover {
+    box-shadow: none;
 }
 
-.nav-hover:hover,
-.navbar-nav .nav-hover:focus {
-    /* background-color: #fea123 !important; */
-    /* color: white !important; */
-    border-radius: 8px; /* Ensures rounded corners */
+
+/* Additional targeting to ensure no other styles interfere */
+
+
+
+.roundmenu .nav-link {
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+    transition: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px; /* Adjust as needed */
+    width: 100px;  /* Adjust as needed */
+    text-align: center;
+    color: #fff !important;
 }
 
-/* Dropdown menu items */
-.navbar-nav .nav-hover .dropdown-menu {
-    border-radius: 8px !important;
-    overflow: hidden;
-}
-
-/* Individual dropdown items */
-.navbar-nav .nav-hover .dropdown-item {
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.navbar-nav .nav-hover .dropdown-item:hover {
-    background-color: #fea123 !important;
-    color: white !important;
+.roundmenu .nav-link:hover,
+.roundmenu .nav-link:focus,
+.roundmenu .nav-link:active {
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+    color: #fff;
+    background-color: #fea123 !important; /* Change if needed */
 }

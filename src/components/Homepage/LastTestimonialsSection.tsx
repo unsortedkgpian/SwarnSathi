@@ -14,8 +14,27 @@ interface TestimonialData {
 }
 
 const LastTestimonialsSection: React.FC = () => {
-    const [testimonials, setTestimonials] = useState<TestimonialData[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [testimonials, setTestimonials] = useState<TestimonialData[]>([
+        {
+            image: "assets/admin/img/client/thumbnail/1661422345.4393_thumb.png",
+            description:
+                "I  have been running a Kirana store for the past 15 years. Last month, as I planned to expand my inventory and product range for the upcoming festive season, I chose Swarn Sathi for a gold loan. The process was seamless, and I received the loan effortlessly on my very first visit.",
+            name: "Sanjiv Ghosh (Fultala)",
+        },
+        {
+            image: "assets/admin/img/client/thumbnail/1661420562.3613_thumb.png",
+            description:
+                "I was working in a factory, but during the lockdown, I lost my job and struggled to find an alternative source of income. I decided to buy an auto-rickshaw to support my livelihood. After pooling all my savings, I was still short by a lakh. That’s when I turned to Swarn Sathi, and they provided the financial support I needed to rebuild my future.",
+            name: "Biswanath Ram (Sitakundu)",
+        },
+        {
+            image: "assets/admin/img/client/thumbnail/1661418962.411_thumb.png",
+            description:
+                "I wanted to start my own garment shop and spent several days approaching banks and financial institutions for funding. Eventually, I connected with a Self-Help Group (SHG), which referred me to Swarn Sathi Gold Loan. To my surprise, I received my gold loan in just 30 minutes—quickly and without any hassle.",
+            name: "Malati Naskar (Ramnagar)",
+        },
+    ]);
+    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -54,7 +73,7 @@ const LastTestimonialsSection: React.FC = () => {
             }
         };
 
-        fetchTestimonials();
+        // fetchTestimonials();
     }, []);
 
     // Slick settings for the slider
