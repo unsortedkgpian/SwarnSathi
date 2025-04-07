@@ -8,28 +8,28 @@ import "slick-carousel/slick/slick-theme.css";
 
 // Define interfaces for our types
 interface TestimonialData {
-    image: string;
-    description: string;
+    img: string;
+    text: string;
     name: string;
 }
 
 const LastTestimonialsSection: React.FC = () => {
     const [testimonials, setTestimonials] = useState<TestimonialData[]>([
         {
-            image: "assets/admin/img/client/thumbnail/1661422345.4393_thumb.png",
-            description:
+            img: "assets/admin/img/client/thumbnail/1661422345.4393_thumb.png",
+            text:
                 "I  have been running a Kirana store for the past 15 years. Last month, as I planned to expand my inventory and product range for the upcoming festive season, I chose Swarn Sathi for a gold loan. The process was seamless, and I received the loan effortlessly on my very first visit.",
             name: "Sanjiv Ghosh (Fultala)",
         },
         {
-            image: "assets/admin/img/client/thumbnail/1661420562.3613_thumb.png",
-            description:
+            img: "assets/admin/img/client/thumbnail/1661420562.3613_thumb.png",
+            text:
                 "I was working in a factory, but during the lockdown, I lost my job and struggled to find an alternative source of income. I decided to buy an auto-rickshaw to support my livelihood. After pooling all my savings, I was still short by a lakh. That’s when I turned to Swarn Sathi, and they provided the financial support I needed to rebuild my future.",
             name: "Biswanath Ram (Sitakundu)",
         },
         {
-            image: "assets/admin/img/client/thumbnail/1661418962.411_thumb.png",
-            description:
+            img: "assets/admin/img/client/thumbnail/1661418962.411_thumb.png",
+             text:
                 "I wanted to start my own garment shop and spent several days approaching banks and financial institutions for funding. Eventually, I connected with a Self-Help Group (SHG), which referred me to Swarn Sathi Gold Loan. To my surprise, I received my gold loan in just 30 minutes—quickly and without any hassle.",
             name: "Malati Naskar (Ramnagar)",
         },
@@ -44,27 +44,25 @@ const LastTestimonialsSection: React.FC = () => {
                 const response = await axios.get(
                     `${process.env.NEXT_PUBLIC_API_URL}/api/testimonials`
                 );
+                console.log(response.data);
                 setTestimonials(response.data);
                 setError(null);
             } catch (err) {
                 console.error("Error fetching testimonials:", err);
                 setTestimonials([
                     {
-                        image: "assets/admin/img/client/thumbnail/1661422345.4393_thumb.png",
-                        description:
-                            "I  have been running a Kirana store for the past 15 years. Last month, as I planned to expand my inventory and product range for the upcoming festive season, I chose Swarn Sathi for a gold loan. The process was seamless, and I received the loan effortlessly on my very first visit.",
+                        img: "assets/admin/img/client/thumbnail/1661422345.4393_thumb.png",
+                        text: "I  have been running a Kirana store for the past 15 years. Last month, as I planned to expand my inventory and product range for the upcoming festive season, I chose Swarn Sathi for a gold loan. The process was seamless, and I received the loan effortlessly on my very first visit.",
                         name: "Sanjiv Ghosh (Fultala)",
                     },
                     {
-                        image: "assets/admin/img/client/thumbnail/1661420562.3613_thumb.png",
-                        description:
-                            "I was working in a factory, but during the lockdown, I lost my job and struggled to find an alternative source of income. I decided to buy an auto-rickshaw to support my livelihood. After pooling all my savings, I was still short by a lakh. That’s when I turned to Swarn Sathi, and they provided the financial support I needed to rebuild my future.",
+                        img: "assets/admin/img/client/thumbnail/1661420562.3613_thumb.png",
+                        text: "I was working in a factory, but during the lockdown, I lost my job and struggled to find an alternative source of income. I decided to buy an auto-rickshaw to support my livelihood. After pooling all my savings, I was still short by a lakh. That’s when I turned to Swarn Sathi, and they provided the financial support I needed to rebuild my future.",
                         name: "Biswanath Ram (Sitakundu)",
                     },
                     {
-                        image: "assets/admin/img/client/thumbnail/1661418962.411_thumb.png",
-                        description:
-                            "I wanted to start my own garment shop and spent several days approaching banks and financial institutions for funding. Eventually, I connected with a Self-Help Group (SHG), which referred me to Swarn Sathi Gold Loan. To my surprise, I received my gold loan in just 30 minutes—quickly and without any hassle.",
+                        img: "assets/admin/img/client/thumbnail/1661418962.411_thumb.png",
+                        text: "I wanted to start my own garment shop and spent several days approaching banks and financial institutions for funding. Eventually, I connected with a Self-Help Group (SHG), which referred me to Swarn Sathi Gold Loan. To my surprise, I received my gold loan in just 30 minutes—quickly and without any hassle.",
                         name: "Malati Naskar (Ramnagar)",
                     },
                 ]);
@@ -73,7 +71,7 @@ const LastTestimonialsSection: React.FC = () => {
             }
         };
 
-        // fetchTestimonials();
+        fetchTestimonials();
     }, []);
 
     // Slick settings for the slider
@@ -141,12 +139,13 @@ const LastTestimonialsSection: React.FC = () => {
                                         >
                                             <div className="thumb">
                                                 <img
-                                                    src={`${testimonial.image}`}
+                                                    src={`${process.env.NEXT_PUBLIC_API_URL}/${testimonial.img}`}
                                                     alt="client"
                                                     className="rounded-circle"
                                                     style={{
                                                         width: "100px",
                                                         height: "100px",
+                                                        objectFit: "cover",
                                                     }}
                                                 />
                                             </div>
@@ -163,7 +162,7 @@ const LastTestimonialsSection: React.FC = () => {
                                                         margin: "0 auto",
                                                     }}
                                                 >
-                                                    {testimonial.description}
+                                                    {testimonial.text}
                                                 </p>
                                                 <h5 className="name mt-2">
                                                     {testimonial.name}

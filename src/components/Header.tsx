@@ -342,12 +342,12 @@ const Header = () => {
                                     </NavDropdown.Item>
                                 </NavDropdown>
 
-                                <Nav.Item
+                                {/* <Nav.Item
                                     className={`${
                                         isMobile ? "mt-2" : ""
                                     } roundmenu`}
-                                >
-                                    {isLoading ? (
+                                > */}
+                                    {/* {isLoading ? (
                                         <div
                                             className="spinner-border spinner-border-sm text-primary mx-2"
                                             role="status"
@@ -379,6 +379,69 @@ const Header = () => {
                                                 Logout
                                             </NavDropdown.Item>
                                         </NavDropdown>
+                                    ) : (
+                                        <Nav.Link
+                                            as={Link}
+                                            href="/login"
+                                            className="text-center"
+                                            style={{
+                                                boxShadow: "none !important",
+                                                filter: "none !important",
+                                                textShadow: "none",
+                                                transition: "none",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                padding: "0",
+                                                height: "30px",
+                                                margin: "0",
+                                                color: "#fff !important",
+                                                backgroundColor: isActive(
+                                                    "/login"
+                                                )
+                                                    ? "#fea123"
+                                                    : "transparent",
+                                            }}
+                                            onClick={handleLinkClick}
+                                        >
+                                            LOGIN
+                                        </Nav.Link>
+                                    )} */}
+
+                                    <Nav.Item
+                                    className={`${
+                                        isMobile ? "mt-2" : ""
+                                    } roundmenu`}
+                                >
+                                    {isLoading ? (
+                                        <div
+                                            className="spinner-border spinner-border-sm text-primary mx-2"
+                                            role="status"
+                                        >
+                                            <span className="visually-hidden">
+                                                Loading...
+                                            </span>
+                                        </div>
+                                    ) : isLoggedIn ? (
+                                        <Nav.Link
+                                            onClick={handleLogout}
+                                            className="text-center"
+                                            style={{
+                                                boxShadow: "none !important",
+                                                filter: "none !important",
+                                                textShadow: "none",
+                                                transition: "none",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                padding: "0",
+                                                height: "30px",
+                                                margin: "0",
+                                                color: "#fff !important",
+                                                backgroundColor: "transparent",
+                                                cursor: "pointer",
+                                            }}
+                                        >
+                                            LOGOUT
+                                        </Nav.Link>
                                     ) : (
                                         <Nav.Link
                                             as={Link}
