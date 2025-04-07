@@ -136,13 +136,13 @@ const LastTestimonialsSection: React.FC = () => {
                                         >
                                             <div className="thumb">
                                                 <img
-                                                    src={`${process.env.NEXT_PUBLIC_API_URL}/${testimonial.img}`}
+                                                    src={`${testimonial.img}`}
                                                     alt="client"
                                                     className="rounded-circle"
                                                     style={{
                                                         width: "100px",
                                                         height: "100px",
-                                                        objectFit: "cover",
+                                                        // objectFit: "cover",
                                                     }}
                                                 />
                                             </div>

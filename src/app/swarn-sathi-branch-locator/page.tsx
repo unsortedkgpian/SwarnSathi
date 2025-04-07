@@ -1,3 +1,5 @@
+'use client'
+// import { useState, useEffect } from "react";
 import BranchInnerBanner from "@/components/swarn-sathi-branch-locator/BranchInnerBanner";
 import CounterEducation from "@/components/swarn-sathi-branch-locator/CounterEducation";
 import MapSection from "@/components/swarn-sathi-branch-locator/MapSection";
@@ -25,6 +27,9 @@ const sampleLocations = [
 ];
 
 const page = () => {
+    // const [locationData, setLocationData] = useState(sampleLocations);
+
+    
     return (
         <>
             <BranchInnerBanner />
