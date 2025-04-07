@@ -68,7 +68,7 @@ const LastTestimonialsSection: React.FC = () => {
             }
         };
 
-        // fetchTestimonials();
+        fetchTestimonials();
     }, []);
 
     // Slick settings for the slider
@@ -136,7 +136,7 @@ const LastTestimonialsSection: React.FC = () => {
                                         >
                                             <div className="thumb">
                                                 <img
-                                                    src={`${testimonial.img}`}
+                                                    src={`${process.env.NEXT_PUBLIC_API_URL}/${testimonial.img}`}
                                                     alt="client"
                                                     className="rounded-circle"
                                                     style={{
