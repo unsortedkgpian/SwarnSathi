@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
         const message = `${otp} -is your six digit otp for swarn sathi mobile verification`;
         console.log(otp);
 
-        // await sendSMS(phone, message);
+        await sendSMS(phone, message);
 
         return NextResponse.json(
             {
