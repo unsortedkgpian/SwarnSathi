@@ -29,7 +29,7 @@
 .apply-now {
     flex: 1;
     border: none;
-    background: transparent;
+    /* background: transparent; */
     padding: 12px;
     outline: none;
     font-size: 16px;
@@ -68,7 +68,7 @@
 }
 
 .validation-message:not(:empty) {
-/*     margin-bottom: 1rem; */
+    /*     margin-bottom: 1rem; */
 }
 
 .contact-info {
@@ -148,5 +148,53 @@
         flex-wrap: wrap;
         justify-content: flex-start;
         gap: 10px;
+    }
+}
+
+.banner-section.topbanner {
+    position: relative;
+    background: url("/banner-bg.png") center/cover no-repeat;
+    color: white;
+}
+
+@media (max-width: 992px) {
+    .banner-section.topbanner {
+        background-image: url("/tab-photo.jpg");
+    }
+}
+
+@media (max-width: 768px) {
+    .banner-section.topbanner {
+        background-image: url("/mobile.jpg");
+    }
+}
+
+@media (max-width: 767px) {
+    .banner-section.topbanner {
+        padding-top: 80px !important;
+    }
+
+    .banner-section .banner-content {
+        min-height: unset !important;
+    }
+
+    .banner-content.d-flex.align-items-center {
+        align-items: flex-start !important;
+        padding-top: 10px !important;
+    }
+
+    .main-content .top-area {
+        padding-top: 0 !important;
+        margin-top: -10px !important;
+    }
+
+    .sub-title {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .banner-section .container {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
     }
 }

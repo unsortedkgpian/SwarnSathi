@@ -157,7 +157,7 @@ const GoldValueCalculator = () => {
                                                     }}
                                                     className="resp-val-label"
                                                 >
-                                                    Approx Value:&nbsp;
+                                                    Gold Price:&nbsp;
                                                 </label>
                                                 <input
                                                     type="text"
