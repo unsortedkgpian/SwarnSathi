@@ -1,5 +1,5 @@
 'use client'
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import BranchInnerBanner from "@/components/swarn-sathi-branch-locator/BranchInnerBanner";
 import CounterEducation from "@/components/swarn-sathi-branch-locator/CounterEducation";
 import MapSection from "@/components/swarn-sathi-branch-locator/MapSection";
@@ -14,6 +14,15 @@ import { width } from "@fortawesome/free-brands-svg-icons/fa42Group";
 //     loading: () => <div>Loading Map...</div>,
 // });
 
+interface Location {
+    lat: number;
+    lng: number;
+    title: string;
+    description: string;
+    highlight?: boolean;
+    highlightColor?: string;
+}
+
 const sampleLocations = [
     {
         lat: 22.54166015314027,
@@ -27,9 +36,39 @@ const sampleLocations = [
 ];
 
 const page = () => {
-    // const [locationData, setLocationData] = useState(sampleLocations);
+    const [locationData, setLocationData] = useState<Location[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    
+    useEffect(() => {
+        const fetchLocationData = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/store-locations`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log('API Response:', data);
+                
+                const formattedLocations = data.map((location: any) => ({
+                    lat: Number(location.longitude), // Swap these values
+                    lng: Number(location.latitude),  // Swap these values
+                    title: location.name,
+                    description: location.description,
+                    highlight: true,
+                    highlightColor: "#FF0000"
+                }));
+                console.log('Formatted Locations:', formattedLocations);
+                setLocationData(formattedLocations);
+            } catch (error) {
+                console.error('Error fetching locations:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchLocationData();
+    }, []);
+
     return (
         <>
             <BranchInnerBanner />
@@ -73,7 +112,11 @@ const page = () => {
                             boxShadow: "6px 7px 20px 0px #fc9f3e61",
                         }}
                     >
-                        <Map locations={sampleLocations} />
+                        {isLoading ? (
+                            <div>Loading map...</div>
+                        ) : (
+                            <Map locations={locationData} />
+                        )}
                     </div>
                 </div>
             </div>

@@ -1,828 +1,3 @@
-// "use client";
-
-// import React, { useState } from "react";
-// import axios from "axios";
-// import { useRouter } from "next/navigation";
-// import "./JobApplicationForm.css";
-
-// interface FormData {
-//     personalInfo: {
-//         fullName: string;
-//         dob: string;
-//         email: string;
-//         phone: string;
-//         currentAddress: string;
-//         permanentAddress: string;
-//     };
-//     positionDetails: {
-//         positionApplied: string;
-//         expectedSalary: string;
-//         availableJoiningDate: string;
-//         preferredLocation: string;
-//         willingToRelocate: boolean;
-//     };
-//     educationalBackground: {
-//         qualification: string;
-//         institution: string;
-//         yearPassing: string;
-//         percentage: string;
-//     }[];
-//     workExperience: {
-//         organization: string;
-//         jobTitle: string;
-//         duration: { from: string; to: string };
-//         responsibilities: string[];
-//         reasonLeaving: string;
-//     }[];
-//     skills: string[];
-//     references: { name: string; contact: string; relation: string }[];
-//     declaration: { signature: string; date: string };
-//     resume: File | null;
-// }
-
-// const JobApplicationForm: React.FC = () => {
-//     const router = useRouter();
-//     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
-//     const initialFormData: FormData = {
-//         personalInfo: {
-//             fullName: "",
-//             dob: "",
-//             email: "",
-//             phone: "",
-//             currentAddress: "",
-//             permanentAddress: "",
-//         },
-//         positionDetails: {
-//             positionApplied: "",
-//             expectedSalary: "",
-//             availableJoiningDate: "",
-//             preferredLocation: "",
-//             willingToRelocate: false,
-//         },
-//         educationalBackground: [
-//             {
-//                 qualification: "",
-//                 institution: "",
-//                 yearPassing: "",
-//                 percentage: "",
-//             },
-//         ],
-//         workExperience: [
-//             {
-//                 organization: "",
-//                 jobTitle: "",
-//                 duration: { from: "", to: "" },
-//                 responsibilities: [""],
-//                 reasonLeaving: "",
-//             },
-//         ],
-//         skills: [""],
-//         references: [{ name: "", contact: "", relation: "" }],
-//         declaration: { signature: "", date: "" },
-//         resume: null,
-//     };
-
-//     const steps: (keyof FormData)[] = [
-//         "personalInfo",
-//         "positionDetails",
-//         "educationalBackground",
-//         "workExperience",
-//         "skills",
-//         "resume",
-//     ];
-
-//     const stepTitles = {
-//         personalInfo: "Personal Information",
-//         positionDetails: "Position Details",
-//         educationalBackground: "Educational Background",
-//         workExperience: "Work Experience",
-//         skills: "Skills & Expertise",
-//         resume: "Resume Upload",
-//     };
-
-//     const [formData, setFormData] = useState<FormData>(initialFormData);
-//     const [currentStep, setCurrentStep] = useState(0);
-//     const [loading, setLoading] = useState(false);
-//     const [error, setError] = useState<string | null>(null);
-//     const [success, setSuccess] = useState<string | null>(null);
-
-//     const handleInputChange = (
-//         e: React.ChangeEvent<
-//             HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-//         >,
-//         section: keyof FormData,
-//         index?: number,
-//         subField?: string
-//     ) => {
-//         const { name, value, type } = e.target;
-
-//         if (type === "file") {
-//             const file = (e.target as HTMLInputElement).files?.[0];
-//             setFormData((prev) => ({ ...prev, resume: file || null }));
-//             return;
-//         }
-
-//         if (index !== undefined && Array.isArray(formData[section])) {
-//             const updatedArray = [...(formData[section] as any[])];
-//             if (subField) {
-//                 updatedArray[index] = {
-//                     ...updatedArray[index],
-//                     [subField]: value,
-//                 };
-//             } else {
-//                 updatedArray[index] = { ...updatedArray[index], [name]: value };
-//             }
-//             setFormData((prev) => ({ ...prev, [section]: updatedArray }));
-//         } else {
-//             setFormData((prev) => ({
-//                 ...prev,
-//                 [section]: {
-//                     ...prev[section],
-//                     [name]:
-//                         type === "checkbox"
-//                             ? (e.target as HTMLInputElement).checked
-//                             : value,
-//                 },
-//             }));
-//         }
-//     };
-
-//     const addArrayField = (section: keyof FormData) => {
-//         const newEntry = {
-//             educationalBackground: {
-//                 qualification: "",
-//                 institution: "",
-//                 yearPassing: "",
-//                 percentage: "",
-//             },
-//             workExperience: {
-//                 organization: "",
-//                 jobTitle: "",
-//                 duration: { from: "", to: "" },
-//                 responsibilities: [""],
-//                 reasonLeaving: "",
-//             },
-//             skills: "",
-//             references: { name: "", contact: "", relation: "" },
-//         }[section];
-
-//         setFormData((prev) => ({
-//             ...prev,
-//             [section]: [...(prev[section] as any[]), newEntry],
-//         }));
-//     };
-
-//     const removeArrayField = (section: keyof FormData, index: number) => {
-//         setFormData((prev) => ({
-//             ...prev,
-//             [section]: (prev[section] as any[]).filter((_, i) => i !== index),
-//         }));
-//     };
-
-//     const validateSection = (section: keyof FormData): string | null => {
-//         switch (section) {
-//             case "personalInfo":
-//                 if (!formData.personalInfo.fullName.trim())
-//                     return "Full Name is required";
-//                 if (!formData.personalInfo.dob)
-//                     return "Date of Birth is required";
-//                 if (!formData.personalInfo.email.match(/^\S+@\S+\.\S+$/))
-//                     return "Valid email is required";
-//                 if (!formData.personalInfo.phone.match(/^\d{10}$/))
-//                     return "Valid phone number is required";
-//                 return null;
-//             case "positionDetails":
-//                 if (!formData.positionDetails.positionApplied)
-//                     return "Position Applied is required";
-//                 return null;
-//             case "resume":
-//                 if (!formData.resume) return "Resume is required";
-//                 return null;
-//             default:
-//                 return null;
-//         }
-//     };
-
-//     const handleNext = () => {
-//         const currentSection = steps[currentStep];
-//         const error = validateSection(currentSection);
-//         if (error) return setError(error);
-//         setError(null);
-//         if (currentStep < steps.length - 1) setCurrentStep(currentStep + 1);
-//     };
-
-//     const handlePrevious = () => {
-//         setCurrentStep(currentStep - 1);
-//     };
-
-//     // const handleSubmit = async (e: React.FormEvent) => {
-//     //     e.preventDefault();
-//     //     const validationError = validateSection("resume");
-//     //     if (validationError) return setError(validationError);
-
-//     //     try {
-//     //         setLoading(true);
-//     //         setError(null);
-//     //         const formPayload = new FormData();
-//     //         formPayload.append("resume", formData.resume as File);
-//     //         formPayload.append("data", JSON.stringify(formData));
-
-//     //         const response = await axios.post(
-//     //             `${apiUrl}/application`,
-//     //             formPayload,
-//     //             {
-//     //                 headers: { "Content-Type": "multipart/form-data" },
-//     //             }
-//     //         );
-
-//     //         if (response.status === 201) {
-//     //             setSuccess("Application submitted successfully!");
-//     //             setFormData(initialFormData);
-//     //             router.push("/thank-you");
-//     //         }
-//     //     } catch (err) {
-//     //         setError("Submission failed. Please try again.");
-//     //     } finally {
-//     //         setLoading(false);
-//     //     }
-//     // };
-
-//     // const handleSubmit = async (e: React.FormEvent) => {
-//     //     e.preventDefault();
-//     //     const validationError = validateSection("resume");
-//     //     if (validationError) return setError(validationError);
-
-//     //     try {
-//     //         setLoading(true);
-//     //         setError(null);
-
-//     //         const response = await axios.post(
-//     //             `${apiUrl}/application`,
-//     //             formData,
-//     //             {
-//     //                 headers: {
-//     //                     "Content-Type": "application/json",
-//     //                 },
-//     //             }
-//     //         );
-
-//     //         if (response.status === 201) {
-//     //             setSuccess("Application submitted successfully!");
-//     //             setFormData(initialFormData);
-//     //             router.push("/thank-you");
-//     //         }
-//     //     } catch (err) {
-//     //         setError("Submission failed. Please try again.");
-//     //     } finally {
-//     //         setLoading(false);
-//     //     }
-//     // };
-
-//     const handleSubmit = async (e: React.FormEvent) => {
-//         e.preventDefault();
-//         const validationError = validateSection("resume");
-//         if (validationError) return setError(validationError);
-
-//         try {
-//             setLoading(true);
-//             setError(null);
-
-//             // Create FormData and append the resume file and other data
-//             const formPayload = new FormData();
-//             if (formData.resume) {
-//                 formPayload.append("resume", formData.resume);
-//             }
-//             formPayload.append("data", JSON.stringify(formData));
-
-//             const response = await axios.post(
-//                 `${apiUrl}/api/application`,
-//                 formPayload,
-//                 {
-//                     headers: { "Content-Type": "multipart/form-data" },
-//                 }
-//             );
-
-//             if (response.status === 201) {
-//                 setSuccess("Application submitted successfully!");
-//                 setFormData(initialFormData);
-//                 router.push("/thank-you");
-//             }
-//         } catch (err) {
-//             setError("Submission failed. Please try again.");
-//         } finally {
-//             setLoading(false);
-//         }
-//     };
-
-//     const formatLabel = (key: string): string => {
-//         const formatted = key
-//             .replace(/([A-Z])/g, " $1")
-//             .replace(/^./, (str) => str.toUpperCase());
-//         const requiredFields = [
-//             "fullName",
-//             "dob",
-//             "email",
-//             "phone",
-//             "positionApplied",
-//         ];
-//         return requiredFields.includes(key) ? `${formatted} *` : formatted;
-//     };
-
-//     const renderSection = () => {
-//         const section = steps[currentStep];
-
-//         switch (section) {
-//             case "personalInfo":
-//                 return (
-//                     <div className="form-section">
-//                         <div className="section-header">
-//                             <h3>{stepTitles[section]}</h3>
-//                         </div>
-//                         <div className="input-grid">
-//                             {Object.entries(formData.personalInfo).map(
-//                                 ([key, value]) => (
-//                                     <div className="form-group" key={key}>
-//                                         <label htmlFor={`personal-${key}`}>
-//                                             {formatLabel(key)}
-//                                         </label>
-//                                         <input
-//                                             id={`personal-${key}`}
-//                                             type={
-//                                                 key === "dob" ? "date" : "text"
-//                                             }
-//                                             name={key}
-//                                             value={value}
-//                                             onChange={(e) =>
-//                                                 handleInputChange(
-//                                                     e,
-//                                                     "personalInfo"
-//                                                 )
-//                                             }
-//                                             required={[
-//                                                 "fullName",
-//                                                 "dob",
-//                                                 "email",
-//                                                 "phone",
-//                                             ].includes(key)}
-//                                         />
-//                                     </div>
-//                                 )
-//                             )}
-//                         </div>
-//                     </div>
-//                 );
-
-//             case "positionDetails":
-//                 return (
-//                     <div className="form-section">
-//                         <div className="section-header">
-//                             <h3>{stepTitles[section]}</h3>
-//                         </div>
-//                         <div className="input-grid">
-//                             {Object.entries(formData.positionDetails).map(
-//                                 ([key, value]) => {
-//                                     if (typeof value === "boolean") {
-//                                         return (
-//                                             <div
-//                                                 className="form-group"
-//                                                 key={key}
-//                                             >
-//                                                 <div className="checkbox-group">
-//                                                     <input
-//                                                         id={`position-${key}`}
-//                                                         type="checkbox"
-//                                                         name={key}
-//                                                         checked={value}
-//                                                         onChange={(e) =>
-//                                                             handleInputChange(
-//                                                                 e,
-//                                                                 "positionDetails"
-//                                                             )
-//                                                         }
-//                                                     />
-//                                                     <label
-//                                                         htmlFor={`position-${key}`}
-//                                                     >
-//                                                         {formatLabel(key)}
-//                                                     </label>
-//                                                 </div>
-//                                             </div>
-//                                         );
-//                                     }
-//                                     return (
-//                                         <div className="form-group" key={key}>
-//                                             <label htmlFor={`position-${key}`}>
-//                                                 {formatLabel(key)}
-//                                             </label>
-//                                             <input
-//                                                 id={`position-${key}`}
-//                                                 type={
-//                                                     key ===
-//                                                     "availableJoiningDate"
-//                                                         ? "date"
-//                                                         : "text"
-//                                                 }
-//                                                 name={key}
-//                                                 value={value}
-//                                                 onChange={(e) =>
-//                                                     handleInputChange(
-//                                                         e,
-//                                                         "positionDetails"
-//                                                     )
-//                                                 }
-//                                                 required={
-//                                                     key === "positionApplied"
-//                                                 }
-//                                             />
-//                                         </div>
-//                                     );
-//                                 }
-//                             )}
-//                         </div>
-//                     </div>
-//                 );
-
-//             case "educationalBackground":
-//                 return (
-//                     <div className="form-section">
-//                         <div className="section-header">
-//                             <h3>{stepTitles[section]}</h3>
-//                         </div>
-//                         {formData.educationalBackground.map((edu, index) => (
-//                             <div key={index} className="array-item">
-//                                 <div className="array-item-header">
-//                                     <h4>Education #{index + 1}</h4>
-//                                     {index > 0 && (
-//                                         <button
-//                                             type="button"
-//                                             className="remove-btn"
-//                                             onClick={() =>
-//                                                 removeArrayField(
-//                                                     "educationalBackground",
-//                                                     index
-//                                                 )
-//                                             }
-//                                         >
-//                                             Remove
-//                                         </button>
-//                                     )}
-//                                 </div>
-//                                 <div className="input-grid">
-//                                     {Object.entries(edu).map(([key, value]) => (
-//                                         <div className="form-group" key={key}>
-//                                             <label
-//                                                 htmlFor={`edu-${key}-${index}`}
-//                                             >
-//                                                 {formatLabel(key)}
-//                                             </label>
-//                                             <input
-//                                                 id={`edu-${key}-${index}`}
-//                                                 type="text"
-//                                                 name={key}
-//                                                 value={value}
-//                                                 onChange={(e) =>
-//                                                     handleInputChange(
-//                                                         e,
-//                                                         "educationalBackground",
-//                                                         index
-//                                                     )
-//                                                 }
-//                                             />
-//                                         </div>
-//                                     ))}
-//                                 </div>
-//                             </div>
-//                         ))}
-//                         <button
-//                             type="button"
-//                             className="add-btn"
-//                             onClick={() =>
-//                                 addArrayField("educationalBackground")
-//                             }
-//                         >
-//                             Add Education
-//                         </button>
-//                     </div>
-//                 );
-
-//             case "workExperience":
-//                 return (
-//                     <div className="form-section">
-//                         <div className="section-header">
-//                             <h3>{stepTitles[section]}</h3>
-//                         </div>
-//                         {formData.workExperience.map((exp, index) => (
-//                             <div key={index} className="array-item">
-//                                 <div className="array-item-header">
-//                                     <h4>Experience #{index + 1}</h4>
-//                                     {index > 0 && (
-//                                         <button
-//                                             type="button"
-//                                             className="remove-btn"
-//                                             onClick={() =>
-//                                                 removeArrayField(
-//                                                     "workExperience",
-//                                                     index
-//                                                 )
-//                                             }
-//                                         >
-//                                             Remove
-//                                         </button>
-//                                     )}
-//                                 </div>
-//                                 <div className="input-grid">
-//                                     <div className="form-group">
-//                                         <label htmlFor={`org-${index}`}>
-//                                             Organization
-//                                         </label>
-//                                         <input
-//                                             id={`org-${index}`}
-//                                             type="text"
-//                                             value={exp.organization}
-//                                             onChange={(e) =>
-//                                                 handleInputChange(
-//                                                     e,
-//                                                     "workExperience",
-//                                                     index
-//                                                 )
-//                                             }
-//                                             name="organization"
-//                                         />
-//                                     </div>
-//                                     <div className="form-group">
-//                                         <label htmlFor={`job-${index}`}>
-//                                             Job Title
-//                                         </label>
-//                                         <input
-//                                             id={`job-${index}`}
-//                                             type="text"
-//                                             value={exp.jobTitle}
-//                                             onChange={(e) =>
-//                                                 handleInputChange(
-//                                                     e,
-//                                                     "workExperience",
-//                                                     index
-//                                                 )
-//                                             }
-//                                             name="jobTitle"
-//                                         />
-//                                     </div>
-//                                     <div className="form-group">
-//                                         <label htmlFor={`from-${index}`}>
-//                                             From Date
-//                                         </label>
-//                                         <input
-//                                             id={`from-${index}`}
-//                                             type="date"
-//                                             value={exp.duration.from}
-//                                             onChange={(e) =>
-//                                                 handleInputChange(
-//                                                     e,
-//                                                     "workExperience",
-//                                                     index,
-//                                                     "from"
-//                                                 )
-//                                             }
-//                                             name="from"
-//                                         />
-//                                     </div>
-//                                     <div className="form-group">
-//                                         <label htmlFor={`to-${index}`}>
-//                                             To Date
-//                                         </label>
-//                                         <input
-//                                             id={`to-${index}`}
-//                                             type="date"
-//                                             value={exp.duration.to}
-//                                             onChange={(e) =>
-//                                                 handleInputChange(
-//                                                     e,
-//                                                     "workExperience",
-//                                                     index,
-//                                                     "to"
-//                                                 )
-//                                             }
-//                                             name="to"
-//                                         />
-//                                     </div>
-//                                     <div className="form-group full-width">
-//                                         <label htmlFor={`resp-${index}`}>
-//                                             Responsibilities
-//                                         </label>
-//                                         <textarea
-//                                             id={`resp-${index}`}
-//                                             value={exp.responsibilities.join(
-//                                                 "\n"
-//                                             )}
-//                                             onChange={(e) => {
-//                                                 const updated = [
-//                                                     ...formData.workExperience,
-//                                                 ];
-//                                                 updated[
-//                                                     index
-//                                                 ].responsibilities =
-//                                                     e.target.value.split("\n");
-//                                                 setFormData((prev) => ({
-//                                                     ...prev,
-//                                                     workExperience: updated,
-//                                                 }));
-//                                             }}
-//                                             rows={3}
-//                                         />
-//                                     </div>
-//                                     <div className="form-group full-width">
-//                                         <label htmlFor={`reason-${index}`}>
-//                                             Reason for Leaving
-//                                         </label>
-//                                         <input
-//                                             id={`reason-${index}`}
-//                                             type="text"
-//                                             value={exp.reasonLeaving}
-//                                             onChange={(e) =>
-//                                                 handleInputChange(
-//                                                     e,
-//                                                     "workExperience",
-//                                                     index
-//                                                 )
-//                                             }
-//                                             name="reasonLeaving"
-//                                         />
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         ))}
-//                         <button
-//                             type="button"
-//                             className="add-btn"
-//                             onClick={() => addArrayField("workExperience")}
-//                         >
-//                             Add Experience
-//                         </button>
-//                     </div>
-//                 );
-
-//             case "skills":
-//                 return (
-//                     <div className="form-section">
-//                         <div className="section-header">
-//                             <h3>{stepTitles[section]}</h3>
-//                         </div>
-//                         <div className="skills-container">
-//                             {formData.skills.map((skill, index) => (
-//                                 <div key={index} className="skill-item">
-//                                     <input
-//                                         type="text"
-//                                         value={skill}
-//                                         onChange={(e) => {
-//                                             const updated = [
-//                                                 ...formData.skills,
-//                                             ];
-//                                             updated[index] = e.target.value;
-//                                             setFormData((prev) => ({
-//                                                 ...prev,
-//                                                 skills: updated,
-//                                             }));
-//                                         }}
-//                                         placeholder="Enter skill"
-//                                     />
-//                                     {index > 0 && (
-//                                         <button
-//                                             type="button"
-//                                             className="remove-skill-btn"
-//                                             onClick={() =>
-//                                                 removeArrayField(
-//                                                     "skills",
-//                                                     index
-//                                                 )
-//                                             }
-//                                         >
-//                                             ✕
-//                                         </button>
-//                                     )}
-//                                 </div>
-//                             ))}
-//                         </div>
-//                         <button
-//                             type="button"
-//                             className="add-btn"
-//                             onClick={() => addArrayField("skills")}
-//                         >
-//                             Add Skill
-//                         </button>
-//                     </div>
-//                 );
-
-//             case "resume":
-//                 return (
-//                     <div className="form-section">
-//                         <div className="section-header">
-//                             <h3>{stepTitles[section]}</h3>
-//                         </div>
-//                         <div className="file-upload-container">
-//                             <input
-//                                 type="file"
-//                                 id="resume-upload"
-//                                 onChange={(e) => handleInputChange(e, "resume")}
-//                                 accept=".pdf,.doc,.docx"
-//                             />
-//                             <label
-//                                 htmlFor="resume-upload"
-//                                 className="file-upload-label"
-//                             >
-//                                 {formData.resume
-//                                     ? formData.resume.name
-//                                     : "Choose Resume File"}
-//                             </label>
-//                             <p>Accepted formats: PDF, DOC, DOCX (Max: 10MB)</p>
-//                             {formData.resume && (
-//                                 <div className="file-details">
-//                                     Selected: {formData.resume.name} -{" "}
-//                                     {(formData.resume.size / 1024).toFixed(1)}{" "}
-//                                     KB
-//                                 </div>
-//                             )}
-//                         </div>
-//                     </div>
-//                 );
-
-//             default:
-//                 return null;
-//         }
-//     };
-
-//     return (
-//         <div className="form-container">
-//             <div className="form-wrapper">
-//                 <div className="form-header">
-//                     <h2>Job Application Form</h2>
-//                     <div className="step-indicator">
-//                         Step {currentStep + 1} of {steps.length}:{" "}
-//                         {stepTitles[steps[currentStep]]}
-//                     </div>
-//                     <div className="progress-bar">
-//                         <div
-//                             className="progress-fill"
-//                             style={{
-//                                 width: `${
-//                                     ((currentStep + 1) / steps.length) * 100
-//                                 }%`,
-//                             }}
-//                         ></div>
-//                     </div>
-//                 </div>
-
-//                 {error && <div className="error-message">{error}</div>}
-//                 {success && <div className="success-message">{success}</div>}
-
-//                 <form onSubmit={handleSubmit}>
-//                     {renderSection()}
-
-//                     <div className="form-navigation">
-//                         {currentStep > 0 && (
-//                             <button
-//                                 type="button"
-//                                 onClick={handlePrevious}
-//                                 className="nav-btn prev-btn"
-//                             >
-//                                 Previous
-//                             </button>
-//                         )}
-//                         {currentStep < steps.length - 1 ? (
-//                             <button
-//                                 type="button"
-//                                 onClick={handleNext}
-//                                 className="nav-btn next-btn"
-//                             >
-//                                 Next
-//                             </button>
-//                         ) : (
-//                             <button
-//                                 type="submit"
-//                                 disabled={loading}
-//                                 className="nav-btn submit-btn"
-//                             >
-//                                 {loading ? (
-//                                     <>
-//                                         <span className="loading-spinner"></span>
-//                                         Submitting...
-//                                     </>
-//                                 ) : (
-//                                     "Submit Application"
-//                                 )}
-//                             </button>
-//                         )}
-//                     </div>
-//                 </form>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default JobApplicationForm;
-
-
-
 "use client";
 
 import React, { useState } from "react";
@@ -865,7 +40,11 @@ interface FormData {
     resume: File | null;
 }
 
-const JobApplicationForm: React.FC = () => {
+interface JobApplicationFormProps {
+    defaultPosition?: string;
+}
+
+const JobApplicationForm: React.FC<JobApplicationFormProps> = ({ defaultPosition = '' }) => {
     const router = useRouter();
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -879,7 +58,7 @@ const JobApplicationForm: React.FC = () => {
             permanentAddress: "",
         },
         positionDetails: {
-            positionApplied: "",
+            positionApplied: defaultPosition,
             expectedSalary: "",
             availableJoiningDate: "",
             preferredLocation: "",
@@ -1049,7 +228,7 @@ const JobApplicationForm: React.FC = () => {
                 break;
 
             case "positionDetails":
-                if (!formData.positionDetails.positionApplied.trim())
+                if (!formData.positionDetails.positionApplied)
                     errors.positionApplied = "Position Applied is required";
                 if (!formData.positionDetails.expectedSalary.trim())
                     errors.expectedSalary = "Expected Salary is required";
@@ -1134,7 +313,8 @@ const JobApplicationForm: React.FC = () => {
         return Object.keys(errors).length === 0;
     };
 
-    const handleNext = () => {
+    const handleNext = (e: React.MouseEvent) => {
+        e.preventDefault(); // Prevent form submission
         const currentSection = steps[currentStep];
         const isValid = validateSection(currentSection);
         if (!isValid) return;
@@ -1148,21 +328,41 @@ const JobApplicationForm: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const isValid = steps.every((step) => validateSection(step));
-        if (!isValid) return;
+        const allSectionsValid = steps.every((step) => validateSection(step));
+        if (!allSectionsValid) {
+            setError("Please complete all required fields");
+            return;
+        }
 
         try {
             setLoading(true);
             setError(null);
 
             const formPayload = new FormData();
-            if (formData.resume) formPayload.append("resume", formData.resume);
-            formPayload.append("data", JSON.stringify(formData));
+            if (formData.resume) {
+                // Append the resume file with its original name
+                formPayload.append("resume", formData.resume, formData.resume.name);
+            } else {
+                setError("Resume is required");
+                setLoading(false);
+                return;
+            }
+
+            // Create a copy of form data without the resume file
+            const dataToSend = { ...formData };
+            delete dataToSend.resume; // Remove the resume file from JSON data
+            
+            // Append the rest of the form data as a JSON string
+            formPayload.append("data", JSON.stringify(dataToSend));
 
             const response = await axios.post(
                 `${apiUrl}/api/application`,
                 formPayload,
-                { headers: { "Content-Type": "multipart/form-data" } }
+                {
+                    headers: { 
+                        "Content-Type": "multipart/form-data"
+                    }
+                }
             );
 
             if (response.status === 201) {
@@ -1171,7 +371,9 @@ const JobApplicationForm: React.FC = () => {
                 router.push("/");
             }
         } catch (err) {
-            setError("Submission failed. Please try again.");
+            console.error("Error submitting form:", err);
+            const errorMessage = err.response?.data?.message || err.response?.data?.error || "Submission failed. Please try again.";
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }
@@ -1303,6 +505,12 @@ const JobApplicationForm: React.FC = () => {
                                                     )
                                                 }
                                                 required
+                                                readOnly={key === "positionApplied"}
+                                                disabled={key === "positionApplied"}
+                                                style={key === "positionApplied" ? {
+                                                    backgroundColor: "#f5f5f5",
+                                                    cursor: "not-allowed"
+                                                } : undefined}
                                                 min={
                                                     key ===
                                                     "availableJoiningDate"
@@ -1720,7 +928,7 @@ const JobApplicationForm: React.FC = () => {
         <div className="form-container">
             <div className="form-wrapper">
                 <div className="form-header">
-                    <h2>Job Application Form</h2>
+                    <h2>Job Application Form for {defaultPosition}</h2>
                     <div className="step-indicator">
                         Step {currentStep + 1} of {steps.length}:{" "}
                         {stepTitles[steps[currentStep]]}
@@ -1740,7 +948,7 @@ const JobApplicationForm: React.FC = () => {
                 {error && <div className="error-message">{error}</div>}
                 {success && <div className="success-message">{success}</div>}
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} noValidate>
                     {renderSection()}
 
                     <div className="form-navigation">

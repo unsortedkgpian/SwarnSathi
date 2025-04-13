@@ -131,10 +131,10 @@ const Header = () => {
     return (
         <header
             className="header-section animated fadeInDown header-fixed zIndex-1000 "
-            style={{ height: "60px", padding: "0 !important" }}
+            style={{ height: "80px", padding: "0 !important" }}
         >
             {/* <TopSocialBar /> */}
-            <div className="overlay">
+            <div className="overlay py-2">
                 <Container>
                     <Navbar
                         expand="lg"

@@ -179,7 +179,7 @@ const FooterSection: React.FC = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/swarnsathi-partner#swarnsathi-champion">
+                                    <a href="/swarnsathi-champion#Business_Associate">
                                         Business Associate
                                     </a>
                                 </li>
@@ -189,7 +189,7 @@ const FooterSection: React.FC = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/lending-partnerswarnsathi-champion">
+                                    <a href="/swarnsathi-champion#Lending_Partner">
                                         Lending Partner
                                     </a>
                                 </li>

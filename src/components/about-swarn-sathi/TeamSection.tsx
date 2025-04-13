@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
+import { FaLinkedinIn } from "react-icons/fa";
 interface TeamMember {
     _id: string;
     name: string;
@@ -76,12 +76,12 @@ const TeamSection = () => {
 
     const teamCategories = [
         "Founding_Team",
-        "Core_Team",
-        "Interns",
-        "Advisors",
-        "Investors",
-        "Leadership Team",
+        // "Core_Team",
+        // "Interns",
+        // "Advisors",
+        // "Investors",
         "Board of Director",
+        "Leadership Team",
     ];
 
     return (
@@ -222,7 +222,7 @@ const TeamSection = () => {
                                                                                 target="_blank"
                                                                                 rel="noopener noreferrer"
                                                                             >
-                                                                                <i className="fab fa-linkedin-in"></i>
+                                                                                <FaLinkedinIn className="text-[#fc9f3f]" />
                                                                             </a>
                                                                         </p>
                                                                     )}

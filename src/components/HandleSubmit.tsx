@@ -920,255 +920,292 @@ const ModalComponent: React.FC<ModalProps> = ({
         }
     };
 
-    // if (!show) return null;
+    // Don't render if show is false
+    if (!show) return null;
 
     return (
-        <div className="modal fade show fixed"  role="dialog">
-            <div
-                className="modal-dialog modal-dialog-centered modal-lg"
-                style={{ position: "fixed" }}
+        <>
+            <div 
+                className="modal-backdrop fade show" 
+                style={{ 
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    zIndex: 99999
+                }}
+            />
+            <div 
+                className="modal fade show" 
+                style={{
+                    display: 'block',
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 100000,
+                    overflow: 'auto'
+                }}
+                role="dialog"
             >
-                <div className="modal-content">
-                    <div className="modal-body p-0">
-                        <button
-                            type="button"
-                            className="btn-close"
-                            onClick={onClose}
-                            aria-label="Close"
-                        ></button>
+                <div
+                    className="modal-dialog modal-dialog-centered modal-lg"
+                    style={{ 
+                        transform: 'none',
+                        margin: '1.75rem auto'
+                    }}
+                >
+                    <div className="modal-content">
+                        <div className="modal-body p-0">
+                            <button
+                                type="button"
+                                className="btn-close"
+                                onClick={onClose}
+                                aria-label="Close"
+                                style={{
+                                    position: 'absolute',
+                                    right: '1rem',
+                                    top: '1rem',
+                                    zIndex: 1
+                                }}
+                            />
 
-                        <section
-                            className="sign-in-up register"
-                            style={{ marginTop: 0 }}
-                        >
-                            <div
-                                className="overlay"
-                                style={{ padding: "10px 10px 20px 20px" }}
+                            <section
+                                className="sign-in-up register"
+                                style={{ marginTop: 0 }}
                             >
-                                <div className="container">
-                                    <div className="row">
-                                        <div className="section-header">
-                                            <h5 className="sub-title">
-                                                The Power of Financial Freedom
-                                            </h5>
-                                            <h2 className="title">
-                                                Gold Loan Application
-                                            </h2>
-                                        </div>
+                                <div
+                                    className="overlay"
+                                    style={{ padding: "10px 10px 20px 20px" }}
+                                >
+                                    <div className="container">
+                                        <div className="row">
+                                            <div className="section-header">
+                                                <h5 className="sub-title">
+                                                    The Power of Financial Freedom
+                                                </h5>
+                                                <h2 className="title">
+                                                    Gold Loan Application
+                                                </h2>
+                                            </div>
 
-                                        <div className="col-lg-6">
-                                            <div className="form-content">
-                                                {error && (
-                                                    <div className="alert alert-danger">
-                                                        {error}
-                                                    </div>
-                                                )}
-                                                {success && (
-                                                    <div className="alert alert-success">
-                                                        {success}
-                                                    </div>
-                                                )}
+                                            <div className="col-lg-6">
+                                                <div className="form-content">
+                                                    {error && (
+                                                        <div className="alert alert-danger">
+                                                            {error}
+                                                        </div>
+                                                    )}
+                                                    {success && (
+                                                        <div className="alert alert-success">
+                                                            {success}
+                                                        </div>
+                                                    )}
 
-                                                <form onSubmit={handleSubmit}>
-                                                    <div className="single-input">
-                                                        <label>Full Name</label>
-                                                        <input
-                                                            type="text"
-                                                            value={
-                                                                formData.name
-                                                            }
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                            name="name"
-                                                            required
-                                                            disabled={
-                                                                !otpVerified
-                                                            }
-                                                        />
-                                                    </div>
-
-                                                    <div className="single-input">
-                                                        <label>
-                                                            Mobile Number
-                                                        </label>
-                                                        <div className="input-group">
+                                                    <form onSubmit={handleSubmit}>
+                                                        <div className="single-input">
+                                                            <label>Full Name</label>
                                                             <input
-                                                                type="tel"
+                                                                type="text"
                                                                 value={
-                                                                    formData.phone
+                                                                    formData.name
                                                                 }
                                                                 onChange={
                                                                     handleChange
                                                                 }
-                                                                name="phone"
+                                                                name="name"
                                                                 required
                                                                 disabled={
-                                                                    otpVerified
+                                                                    !otpVerified
                                                                 }
-                                                                maxLength={10}
                                                             />
-                                                            {!otpVerified && (
-                                                                <button
-                                                                    type="button"
-                                                                    className="btn btn-primary"
-                                                                    onClick={
-                                                                        handleSendOtp
-                                                                    }
-                                                                    disabled={
-                                                                        loading ||
-                                                                        showOtpInput
-                                                                    }
-                                                                >
-                                                                    {loading
-                                                                        ? "Sending..."
-                                                                        : "Verify"}
-                                                                </button>
-                                                            )}
                                                         </div>
-                                                    </div>
 
-                                                    {showOtpInput &&
-                                                        !otpVerified && (
-                                                            <div className="single-input">
-                                                                <label>
-                                                                    OTP
-                                                                    Verification
-                                                                </label>
-                                                                <div className="input-group">
-                                                                    <input
-                                                                        type="text"
-                                                                        value={
-                                                                            otp
-                                                                        }
-                                                                        onChange={(
-                                                                            e
-                                                                        ) =>
-                                                                            setOtp(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                        }
-                                                                        placeholder="Enter OTP"
-                                                                        style={{
-                                                                            fontSize:
-                                                                                "24px",
-                                                                            letterSpacing:
-                                                                                "0.5em",
-                                                                        }}
-                                                                        maxLength={
-                                                                            6
-                                                                        }
-                                                                    />
+                                                        <div className="single-input">
+                                                            <label>
+                                                                Mobile Number
+                                                            </label>
+                                                            <div className="input-group">
+                                                                <input
+                                                                    type="tel"
+                                                                    value={
+                                                                        formData.phone
+                                                                    }
+                                                                    onChange={
+                                                                        handleChange
+                                                                    }
+                                                                    name="phone"
+                                                                    required
+                                                                    disabled={
+                                                                        otpVerified
+                                                                    }
+                                                                    maxLength={10}
+                                                                />
+                                                                {!otpVerified && (
                                                                     <button
                                                                         type="button"
                                                                         className="btn btn-primary"
                                                                         onClick={
-                                                                            handleVerifyOtp
+                                                                            handleSendOtp
                                                                         }
                                                                         disabled={
-                                                                            loading
+                                                                            loading ||
+                                                                            showOtpInput
                                                                         }
                                                                     >
                                                                         {loading
-                                                                            ? "Verifying..."
-                                                                            : "Verify OTP"}
+                                                                            ? "Sending..."
+                                                                            : "Verify"}
                                                                     </button>
-                                                                </div>
-                                                                <div className="d-flex justify-content-between mt-2">
-                                                                    <button
-                                                                        type="button"
-                                                                        className="btn btn-link"
-                                                                        onClick={() =>
-                                                                            setShowOtpInput(
-                                                                                false
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        Edit
-                                                                        Number
-                                                                    </button>
-                                                                    <button
-                                                                        type="button"
-                                                                        className={`btn btn-link ${
-                                                                            !canResend
-                                                                                ? "text-muted"
-                                                                                : ""
-                                                                        }`}
-                                                                        onClick={
-                                                                            handleResendOtp
-                                                                        }
-                                                                        disabled={
-                                                                            !canResend
-                                                                        }
-                                                                    >
-                                                                        Resend
-                                                                        OTP{" "}
-                                                                        {timer >
-                                                                            0 &&
-                                                                            `(${formatTime(
-                                                                                timer
-                                                                            )})`}
-                                                                    </button>
-                                                                </div>
+                                                                )}
                                                             </div>
-                                                        )}
+                                                        </div>
 
-                                                    <div className="single-input">
-                                                        <label>Pincode</label>
-                                                        <input
-                                                            type="text"
-                                                            value={
-                                                                formData.pincode
-                                                            }
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                            name="pincode"
-                                                            required
-                                                            maxLength={6}
-                                                            disabled={
-                                                                !otpVerified
-                                                            }
-                                                        />
-                                                    </div>
+                                                        {showOtpInput &&
+                                                            !otpVerified && (
+                                                                <div className="single-input">
+                                                                    <label>
+                                                                        OTP
+                                                                        Verification
+                                                                    </label>
+                                                                    <div className="input-group">
+                                                                        <input
+                                                                            type="text"
+                                                                            value={
+                                                                                otp
+                                                                            }
+                                                                            onChange={(
+                                                                                e
+                                                                            ) =>
+                                                                                setOtp(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                )
+                                                                            }
+                                                                            placeholder="Enter OTP"
+                                                                            style={{
+                                                                                fontSize:
+                                                                                    "24px",
+                                                                                letterSpacing:
+                                                                                    "0.5em",
+                                                                            }}
+                                                                            maxLength={
+                                                                                6
+                                                                            }
+                                                                        />
+                                                                        <button
+                                                                            type="button"
+                                                                            className="btn btn-primary"
+                                                                            onClick={
+                                                                                handleVerifyOtp
+                                                                            }
+                                                                            disabled={
+                                                                                loading
+                                                                            }
+                                                                        >
+                                                                            {loading
+                                                                                ? "Verifying..."
+                                                                                : "Verify OTP"}
+                                                                        </button>
+                                                                    </div>
+                                                                    <div className="d-flex justify-content-between mt-2">
+                                                                        <button
+                                                                            type="button"
+                                                                            className="btn btn-link"
+                                                                            onClick={() =>
+                                                                                setShowOtpInput(
+                                                                                    false
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            Edit
+                                                                            Number
+                                                                        </button>
+                                                                        <button
+                                                                            type="button"
+                                                                            className={`btn btn-link ${
+                                                                                !canResend
+                                                                                    ? "text-muted"
+                                                                                    : ""
+                                                                            }`}
+                                                                            onClick={
+                                                                                handleResendOtp
+                                                                            }
+                                                                            disabled={
+                                                                                !canResend
+                                                                            }
+                                                                        >
+                                                                            Resend
+                                                                            OTP{" "}
+                                                                            {timer >
+                                                                                0 &&
+                                                                                `(${formatTime(
+                                                                                    timer
+                                                                                )})`}
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            )}
 
-                                                    <div className="btn-area submitmodal">
-                                                        <button
-                                                            type="submit"
-                                                            className="cmn-btn"
-                                                            disabled={
-                                                                loading ||
-                                                                !otpVerified
-                                                            }
-                                                        >
-                                                            {loading
-                                                                ? "Submitting..."
-                                                                : "Apply Now"}
-                                                        </button>
-                                                    </div>
-                                                </form>
+                                                        <div className="single-input">
+                                                            <label>Pincode</label>
+                                                            <input
+                                                                type="text"
+                                                                value={
+                                                                    formData.pincode
+                                                                }
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                name="pincode"
+                                                                required
+                                                                maxLength={6}
+                                                                disabled={
+                                                                    !otpVerified
+                                                                }
+                                                            />
+                                                        </div>
+
+                                                        <div className="btn-area submitmodal">
+                                                            <button
+                                                                type="submit"
+                                                                className="cmn-btn"
+                                                                disabled={
+                                                                    loading ||
+                                                                    !otpVerified
+                                                                }
+                                                            >
+                                                                {loading
+                                                                    ? "Submitting..."
+                                                                    : "Apply Now"}
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="col-lg-6 d-none d-sm-block">
-                                            <div className="d-flex justify-content-center">
-                                                <img
-                                                    src="/images/sign-in-up-bg.png"
-                                                    className="imagewel"
-                                                    alt="welcome"
-                                                />
+                                            <div className="col-lg-6 d-none d-sm-block">
+                                                <div className="d-flex justify-content-center">
+                                                    <img
+                                                        src="/images/sign-in-up-bg.png"
+                                                        className="imagewel"
+                                                        alt="welcome"
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

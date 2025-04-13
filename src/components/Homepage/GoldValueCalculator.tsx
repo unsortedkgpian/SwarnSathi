@@ -27,6 +27,10 @@ const GoldValueCalculator = () => {
         const purityRatio = goldPurity / 24;
         return (purityRatio * goldWeight * GOLD_PRICE_PER_GRAM).toFixed(2);
     };
+    const yourGoldValue = () => {
+        const goldValue = parseFloat(calculateApproxValue());
+        return (goldValue * 0.75).toFixed(2);
+    };
 
     const updateSliderStyle = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
@@ -157,7 +161,7 @@ const GoldValueCalculator = () => {
                                                     }}
                                                     className="resp-val-label"
                                                 >
-                                                    Gold Price:&nbsp;
+                                                    Maximum Gold Price:&nbsp;
                                                 </label>
                                                 <input
                                                     type="text"
@@ -169,6 +173,30 @@ const GoldValueCalculator = () => {
                                                         fontSize: "37px",
                                                     }}
                                                     value={`₹${calculateApproxValue()}`}
+                                                />
+                                            </h4>
+                                        </div>
+                                        <div className="range-amount">
+                                            <h4 className="d-flex align-items-center justify-content-center resp-val">
+                                                <label
+                                                    style={{
+                                                        fontSize: "30px",
+                                                        fontWeight: "500",
+                                                    }}
+                                                    className="resp-val-label"
+                                                >
+                                                    Your Gold Price:&nbsp;
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    disabled
+                                                    id="approx-value"
+                                                    className="resp-val-input"
+                                                    style={{
+                                                        
+                                                        fontSize: "37px",
+                                                    }}
+                                                    value={`₹${yourGoldValue()}`}
                                                 />
                                             </h4>
                                         </div>

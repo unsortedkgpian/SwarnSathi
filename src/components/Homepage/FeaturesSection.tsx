@@ -1,4 +1,4 @@
-"use clinet";
+"use client";
 
 import React, { useState } from "react";
 import ModalComponent from "../HandleSubmit";
@@ -10,10 +10,11 @@ const FeaturesSection: React.FC = () => {
     const [loanType, setLoanType] = useState("gold-loan"); // Default loan type
 
     const applyNow = (type: string) => {
-        // Set the loan type and show the modal
-        setLoanType(type);
+        // Format the loan type to match the expected format
+        const formattedType = type.toLowerCase().replace(/_/g, '-');
+        setLoanType(formattedType);
         setShowModal(true);
-        console.log(`Apply now clicked for ${type}`);
+        console.log(`Apply now clicked for ${formattedType}`);
     };
 
     const checkIcon = (
@@ -61,13 +62,12 @@ const FeaturesSection: React.FC = () => {
                                         </span>
                                     </li>
                                 </ul>
-                                <a
-                                    href="javascript:void(0)"
+                                <button
                                     className="applybutton cmn-btn inputapply mt-4"
                                     onClick={() => applyNow("instant-gold-loan")}
                                 >
                                     Apply now
-                                </a>
+                                </button>
                             </div>
                         </div>
                         <div className="col-lg-6 text-center">
@@ -108,13 +108,12 @@ const FeaturesSection: React.FC = () => {
                                     </li>
                                     
                                 </ul>
-                                <a
-                                    href="javascript:void(0)"
+                                <button
                                     className="applybutton cmn-btn inputapply mt-4"
                                     onClick={() => applyNow("secured-gold-loan")}
                                 >
                                     Apply now
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -143,13 +142,12 @@ const FeaturesSection: React.FC = () => {
                                         <span>Free transit insurance</span>
                                     </li>
                                 </ul>
-                                <a
-                                    href="javascript:void(0)"
+                                <button
                                     className="applybutton cmn-btn inputapply mt-4"
                                     onClick={() => applyNow("insured-gold-loan")}
                                 >
                                     Apply now
-                                </a>
+                                </button>
                             </div>
                         </div>
                         <div className="col-lg-6 text-end">
@@ -192,13 +190,12 @@ const FeaturesSection: React.FC = () => {
                                     </li>
                                     
                                 </ul>
-                                <a
-                                    href="javascript:void(0)"
+                                <button
                                     className="applybutton cmn-btn inputapply mt-4"
                                     onClick={() => applyNow("flexible-repayment-loan")}
                                 >
                                     Apply now
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>

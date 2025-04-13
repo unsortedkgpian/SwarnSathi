@@ -1,4 +1,26 @@
+'use client'
+import { useEffect, useState } from "react";
+
 const AboutSection = () => {
+    const [locationCount, setLocationCount] = useState(0);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/store-locations`);
+                const data = await response.json();
+                
+                // Count the number of unique locations, pincodes, and partners
+                if (data && Array.isArray(data)) {
+                    setLocationCount(data.length);
+                    
+                }
+            } catch (error) {
+                console.error("Error fetching location data:", error);
+            }
+        };
+        fetchData();
+    }, []);
     return (
         <section className="about-section" id="our-company">
             <div className="overlay pt-120 pb-120">
@@ -29,7 +51,7 @@ const AboutSection = () => {
                                 <div className="col-xl-4 col-md-4">
                                     <div className="count-content text-center">
                                         <div className="count-number">
-                                            <h4 className="counter" style={{fontWeight:800}}>2</h4>
+                                            <h4 className="counter" style={{ fontWeight: 800 }}>{locationCount}</h4>
                                         </div>
                                         <p>Locations covered</p>
                                     </div>
@@ -37,7 +59,7 @@ const AboutSection = () => {
                                 <div className="col-xl-4 col-md-4">
                                     <div className="count-content text-center">
                                         <div className="count-number ">
-                                            <h4 className="counter" style={{fontWeight:800}}>175</h4>
+                                            <h4 className="counter" style={{ fontWeight: 800 }}>175</h4>
                                         </div>
                                         <p>Pincode covered</p>
                                     </div>
@@ -45,7 +67,7 @@ const AboutSection = () => {
                                 <div className="col-xl-4 col-md-4">
                                     <div className="count-content text-center">
                                         <div className="count-number ">
-                                            <h4 className="counter" style={{fontWeight:800}}>2</h4>
+                                            <h4 className="counter" style={{ fontWeight: 800 }}>2</h4>
                                         </div>
                                         <p>Partner shops</p>
                                     </div>
@@ -60,14 +82,14 @@ const AboutSection = () => {
                                     alt="Company building"
                                 />
                                 <img
-                                    className="img-2"
+                                    className="img-3"
                                     src="/images/branchall.png"
-                                    alt="Branch locations"
+                                    alt="Branch network"
                                 />
                                 <img
-                                    className="img-3"
-                                    src="/images/branchall1.png"
-                                    alt="Branch network"
+                                    className="img-2"
+                                    src="/images/office.webp"
+                                    alt="Branch locations"
                                 />
                             </div>
                         </div>

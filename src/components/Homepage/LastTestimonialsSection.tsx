@@ -131,7 +131,7 @@ const LastTestimonialsSection: React.FC = () => {
                                 {testimonials.map((testimonial, index) => (
                                     <div className="slide-item" key={index}>
                                         <div
-                                            className="single-slide text-center"
+                                            className="single-slide text-center shadow-md"
                                             style={{ padding: "10px" }}
                                         >
                                             <div className="thumb">

@@ -1918,6 +1918,13 @@ a.cmn-btn.navbarbtn {
 
 .testimonials .single-slide {
     display: flex;
+    height: 300px;
+    box-shadow: 3px 4px 10px #fc9f3e61;
+    padding: 25px 50px;
+    border-radius: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-bottom: 25px;
 }
 
 .testimonials .single-slide .thumb {
@@ -2507,7 +2514,7 @@ a.cmn-btn.navbarbtn {
 .howworkshome {
     border-radius: 25px;
     background: #fff;
-    box-shadow: 6px 7px 20px 0px #fc9f3e61;
+    box-shadow: 3px 4px 10px 0px #fc9f3e61;
     padding: 25px 50px;
 }
 .iconhowboxhome img {

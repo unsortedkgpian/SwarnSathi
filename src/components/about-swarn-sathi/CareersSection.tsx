@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Link from 'next/link';
 
 interface Job {
     _id: string;
@@ -182,14 +183,15 @@ const CareersSection: React.FC = () => {
                                                         verticalAlign: "middle",
                                                     }}
                                                 >
-                                                    <a
+                                                    <Link
                                                         className="cmn-btn"
-                                                        href={
-                                                            job.googleSheetLink
-                                                        }
+                                                        href={{
+                                                            pathname: '/careers',
+                                                            query: { position: job.jobName }
+                                                        }}
                                                     >
                                                         Apply now
-                                                    </a>
+                                                    </Link>
                                                 </td>
                                             </tr>
                                         ))}
