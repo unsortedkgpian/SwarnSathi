@@ -120,20 +120,7 @@ const FooterSection: React.FC = () => {
                                 Democratising credit to provide easy access to
                                 funds!
                             </p>
-                            {/* <div className="social-link d-flex align-items-center">
-                                <a href="javascript:void(0)">
-                                    <i className="fab fa-facebook-f"></i>
-                                </a>
-                                <a href="javascript:void(0)">
-                                    <i className="fab fa-twitter"></i>
-                                </a>
-                                <a href="javascript:void(0)">
-                                    <i className="fab fa-linkedin-in"></i>
-                                </a>
-                                <a href="javascript:void(0)">
-                                    <i className="fab fa-instagram"></i>
-                                </a>
-                            </div> */}
+
                             <TopSocialBar />
                         </div>
                     </div>
@@ -169,9 +156,7 @@ const FooterSection: React.FC = () => {
                             <h5>Useful links</h5>
                             <ul className="footer-link">
                                 <li>
-                                    <a href="/schemes">
-                                        Scheme
-                                    </a>
+                                    <a href="/schemes">Scheme</a>
                                 </li>
                                 <li>
                                     <a href="/swarn-sathi-branch-locator">
@@ -220,7 +205,8 @@ const FooterSection: React.FC = () => {
                         <div className="footer-box">
                             <h5>Subscribe</h5>
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14739.978596312914!2d88.386655!3d22.5418732!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbecd8f2f0a839d63!2sRegal%20Fincorp%20%E2%84%A2!5e0!3m2!1sen!2sin!4v1660184550498!5m2!1sen!2sin"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.6834973083835!2d88.3452501!3d22.5532488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02770e37f7a67f%3A0xcdfc7d34b2f8f6af!2sChatterjee%20International%20Center%2C%2033%20A%2C%20Jawaharlal%20Nehru%20Rd%2C%20Park%20Street%20area%2C%20Kolkata%2C%20West%20Bengal%20700071!5e0!3m2!1sen!2sin!4v1713083520944!5m2!1sen!2sin"
+                                // src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14739.978596312914!2d88.386655!3d22.5418732!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbecd8f2f0a839d63!2sRegal%20Fincorp%20%E2%84%A2!5e0!3m2!1sen!2sin!4v1660184550498!5m2!1sen!2sin"
                                 width="100%"
                                 height="100%"
                                 style={{ border: 0 }}

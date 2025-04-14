@@ -58,7 +58,7 @@ const page = () => {
                         iconSrc: "/images/icon/need-help-1.png",
                         iconAlt: "phone icon",
                         title: "Contact",
-                        content: "9007711488#033-4804-0009",
+                        content: "+91-9007711488",
                         hasBr: true,
                     },
                     {

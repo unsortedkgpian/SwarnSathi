@@ -1,37 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "./LoanCalculation.css";
+import ModalComponent from "../HandleSubmit";
 
 interface ModalComponentProps {
     show: boolean;
     onClose: () => void;
 }
 
-const ModalComponent: React.FC<ModalComponentProps> = ({ show, onClose }) => {
-    if (!show) return null;
-
-    return (
-        <div className="modal-overlay">
-            <div className="modal-container">
-                <div className="modal-header">
-                    <h3>Apply for Gold Loan</h3>
-                    <button onClick={onClose}>×</button>
-                </div>
-                <div className="modal-body">
-                    <p>Coming soon...</p>
-                    {/* Form fields would go here */}
-                </div>
-                <div className="modal-footer">
-                    <button className="cmn-btn" onClick={onClose}>
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-};
-
 const LoanCalculation: React.FC = () => {
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [showModal, setShowModal] = useState<boolean>(false);
     const [loanAmount, setLoanAmount] = useState<number>(3000);
     const [tenure, setTenure] = useState<number>(1);
@@ -44,6 +22,15 @@ const LoanCalculation: React.FC = () => {
     const [principalFrequency, setPrincipalFrequency] =
         useState<string>("Daily");
     const [interestFrequency, setInterestFrequency] = useState<string>("Daily");
+    const[loanType, setLoanType] = useState("")
+
+    const applyNow = (type: string) => {
+        // Format the loan type to match the expected format
+        const formattedType = type.toLowerCase().replace(/_/g, "-");
+        setLoanType(formattedType);
+        setShowModal(true);
+        console.log(`Apply now clicked for ${formattedType}`);
+    };
 
     // Initialize slider positions
     useEffect(() => {
@@ -406,6 +393,8 @@ const LoanCalculation: React.FC = () => {
             <ModalComponent
                 show={showModal}
                 onClose={() => setShowModal(false)}
+                phoneNumber={phoneNumber}
+                loanType={loanType}
             />
         </section>
     );

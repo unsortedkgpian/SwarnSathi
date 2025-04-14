@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef, useMemo, useState } from "react";
 import { CountUp } from "countup.js"; // ✅ Correct Import
 import ModalComponent from "../HandleSubmit";
@@ -87,10 +85,8 @@ const CounterEducation = ({
                                                         ] = el;
                                                 }}
                                                 className="counter"
-                                            >
-                                                {counter.number}
-                                            </span>
-                                            {counter.suffix}
+                                            />
+                                            {/* Removed the manual suffix rendering here */}
                                         </h3>
                                         <p>{counter.label}</p>
                                     </div>
@@ -99,7 +95,7 @@ const CounterEducation = ({
                             <div className="btn-area">
                                 <button
                                     className="cmn-btn"
-                                    onClick={()=>setShowModal(true)}
+                                    onClick={() => setShowModal(true)}
                                     type="button"
                                 >
                                     {buttonText}

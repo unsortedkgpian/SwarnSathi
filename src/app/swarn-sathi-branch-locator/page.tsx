@@ -115,7 +115,7 @@ const page = () => {
                         {isLoading ? (
                             <div>Loading map...</div>
                         ) : (
-                            <Map locations={locationData} />
+                            <Map />
                         )}
                     </div>
                 </div>

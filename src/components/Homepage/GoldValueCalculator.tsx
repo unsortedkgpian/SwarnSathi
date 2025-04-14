@@ -148,7 +148,7 @@ const GoldValueCalculator = () => {
                                             style={{ marginTop: "10px" }}
                                         >
                                             <p>0</p>
-                                            <p>50</p>
+                                            <p>60</p>
                                         </div>
 
                                         {/* Approx Value Section */}

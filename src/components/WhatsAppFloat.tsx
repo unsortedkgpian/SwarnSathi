@@ -12,7 +12,7 @@ const WhatsAppFloat: React.FC = () => {
     const url=`https://wa.me/91${phone}#${telephone}`;
     return (
         <a
-            href="https://wa.me/919007711488#033-4804-0009"
+            href="https://wa.me/919007711488"
             // href="https://wa.me/919007711488#033-4804-0009"
             target="_blank"
             rel="noopener noreferrer"
