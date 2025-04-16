@@ -9,6 +9,8 @@ import {
     faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 
+//this is a test comment
+
 import React from "react";
 // import "./FooterSection.css"; // Import the CSS file
 import '../app/globals.css'
