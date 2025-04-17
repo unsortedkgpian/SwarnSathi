@@ -341,7 +341,7 @@ li {
     left: 0;
     right: 0;
     text-align: center;
-    margin-top: -11%;
+    margin-top: -200px;
 }
 .chattbox {
     font-size: 12px;
@@ -408,6 +408,15 @@ li {
     .mt-60 {
         margin-top: 40px;
     }
+    .hoverslide{
+        text-align: center;
+        margin-top: -159px;
+        margin-left: auto;
+        margin-right: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
 }
 
 @media (max-width: 575px) {
@@ -416,8 +425,18 @@ li {
     }
 
     .testimonials-section.personal-loan {
-        margin-bottom: 145px !important;
+        /* margin-bottom: 145px !important; */
     }
+    .hoverslide{
+        text-align: center;
+        margin-top: -90px;
+        margin-left: auto;
+        margin-right: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+    
 }
 
 .pb-120 {
@@ -4000,7 +4019,7 @@ a.cmn-btn.navbarbtn {
 
 .testimonials-section.personal-loan {
     background: none;
-    margin-bottom: 45px;
+    /* margin-bottom: 45px; */
 }
 
 .testimonials-section.personal-loan .section-header h2,

@@ -1,6 +1,6 @@
 .banner-section.topbanner {
     position: relative;
-    background: url("/banner-bg.png") center auto no-repeat;
+    background: url("/images/banner-full-width-desktop-swarnsathi.jpg") center auto no-repeat;
     color: white;
 }
 
@@ -186,7 +186,7 @@
 
 .banner-section.topbanner {
     position: relative;
-    background: url("/banner-bg.png") center/cover no-repeat;
+    background: url("/images/banner-full-width-desktop-swarnsathi.jpg") center/cover no-repeat;
     color: white;
 }
 
@@ -205,6 +205,7 @@
 @media (max-width: 767px) {
     .banner-section.topbanner {
         padding-top: 80px !important;
+        height: 55vh;
     }
 
     .banner-section .banner-content {
@@ -213,7 +214,7 @@
 
     .banner-content.d-flex.align-items-center {
         align-items: flex-start !important;
-        padding-top: 10px !important;
+        padding-top: 82px !important;
     }
 
     .main-content .top-area {

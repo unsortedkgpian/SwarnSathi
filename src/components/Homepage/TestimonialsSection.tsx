@@ -50,14 +50,14 @@ const TestimonialsSection = () => {
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 },
-            },
+            },            
         ],
     };
     return (
-        <section className="testimonials-section personal-loan pt-120 " style={{marginTop:"100px"}}>
+        <section className="testimonials-section personal-loan pt-120 " >
             <div className=" hoverslide">
                 <div className="container wow fadeInUp">
                     <div className="row">
