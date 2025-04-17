@@ -43,7 +43,7 @@ const FeaturesSection: React.FC = () => {
                         </div>
                     </div>
                     <div className="row align-items-center">
-                        <div className="col-lg-6 d-flex flex-column justify-content-center">
+                        <div className="col-lg-6 d-flex flex-column justify-content-center order-2 order-lg-1">
                             <div className="top-section">
                                 <h2
                                     className="title"
@@ -58,7 +58,7 @@ const FeaturesSection: React.FC = () => {
                                     <li className="list-item d-flex align-items-center">
                                         {checkIcon}
                                         <span>
-                                        We ensure complete transparency with no hidden charges and require only minimal           documentation for a hassle-free experience.
+                                        We ensure complete transparency with no hidden charges and require only minimal documentation for a hassle-free experience.
                                         </span>
                                     </li>
                                 </ul>
@@ -70,7 +70,7 @@ const FeaturesSection: React.FC = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className="col-lg-6 text-center">
+                        <div className="col-lg-6 text-center order-1 order-lg-2">
                             <div className="img-area">
                                 <img
                                     src="/images/Instant-loan-approval.png"
@@ -80,7 +80,7 @@ const FeaturesSection: React.FC = () => {
                         </div>
                     </div>
                     <div className="row align-items-center">
-                        <div className="col-lg-6 text-start">
+                        <div className="col-lg-6 text-start order-1">
                             <div className="img-area">
                                 <img
                                     src="/images/Security-with-no-compromises.png"
@@ -88,7 +88,7 @@ const FeaturesSection: React.FC = () => {
                                 />
                             </div>
                         </div>
-                        <div className="col-lg-6 d-flex flex-column justify-content-center">
+                        <div className="col-lg-6 d-flex flex-column justify-content-center order-2">
                             <div className="top-section">
                                 <h2
                                     className="title"
@@ -106,7 +106,6 @@ const FeaturesSection: React.FC = () => {
                                         Rest assured, your gold will be returned to you in its original condition. Your peace of mind is our commitment.
                                         </span>
                                     </li>
-                                    
                                 </ul>
                                 <button
                                     className="applybutton cmn-btn inputapply mt-4"
@@ -118,7 +117,7 @@ const FeaturesSection: React.FC = () => {
                         </div>
                     </div>
                     <div className="row align-items-center">
-                        <div className="col-lg-6 d-flex flex-column justify-content-center">
+                        <div className="col-lg-6 d-flex flex-column justify-content-center order-2 order-lg-1">
                             <div className="top-section">
                                 <h2
                                     className="title"
@@ -150,7 +149,7 @@ const FeaturesSection: React.FC = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className="col-lg-6 text-end">
+                        <div className="col-lg-6 text-end order-1 order-lg-2">
                             <div className="img-area">
                                 <img
                                     src="/images/Free-Insurance-on-the-asset.png"
@@ -160,7 +159,7 @@ const FeaturesSection: React.FC = () => {
                         </div>
                     </div>
                     <div className="row align-items-center">
-                        <div className="col-lg-6 text-start">
+                        <div className="col-lg-6 text-start order-1">
                             <div className="img-area">
                                 <img
                                     src="/images/hassle-free-payments.png"
@@ -168,7 +167,7 @@ const FeaturesSection: React.FC = () => {
                                 />
                             </div>
                         </div>
-                        <div className="col-lg-6 d-flex flex-column justify-content-center">
+                        <div className="col-lg-6 d-flex flex-column justify-content-center order-2">
                             <div className="top-section">
                                 <h2
                                     className="title"
@@ -177,9 +176,7 @@ const FeaturesSection: React.FC = () => {
                                     Hassle free repayment
                                 </h2>
                                 <p>
-                                We value your time and convenience, which is why we have simplified the repayment    process for you. There is no need to visit our branches—now you can repay your dues   effortlessly from the comfort of your home.
-                                
-
+                                We value your time and convenience, which is why we have simplified the repayment process for you. There is no need to visit our branches—now you can repay your dues effortlessly from the comfort of your home.
                                 </p>
                                 <ul className="list">
                                     <li className="list-item d-flex align-items-center">
@@ -188,7 +185,6 @@ const FeaturesSection: React.FC = () => {
                                         Make payments seamlessly using any UPI application, digital wallets, or net banking.
                                         </span>
                                     </li>
-                                    
                                 </ul>
                                 <button
                                     className="applybutton cmn-btn inputapply mt-4"

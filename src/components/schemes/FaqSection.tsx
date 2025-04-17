@@ -86,6 +86,11 @@ const FaqSection: React.FC = () => {
         fetchFaqs();
     }, []);
 
+    // Custom CSS for responsive font sizing
+    const faqQuestionStyle = {
+        fontSize: '0.9rem'
+    };
+
     return (
         <section className="faqs-section account" id="faq">
             <div className="overlay pt-120 pb-120">
@@ -115,6 +120,17 @@ const FaqSection: React.FC = () => {
                             ) : (
                                 <div className="faq-box wow fadeInUp">
                                     <div className="accordion">
+                                        <style jsx>{`
+                                            .faq-question {
+                                                font-size: 0.9rem !important;
+                                            }
+                                            
+                                            @media (min-width: 768px) {
+                                                .faq-question {
+                                                    font-size: 1rem !important;
+                                                }
+                                            }
+                                        `}</style>
                                         {faqItems.map((item) => (
                                             <div
                                                 className="accordion-item"
@@ -122,7 +138,7 @@ const FaqSection: React.FC = () => {
                                             >
                                                 <h5 className="accordion-header border-none">
                                                     <button
-                                                        className={`accordion-button ${openFaq === item.id ? '' : 'collapsed'} border-none"`}
+                                                        className={`accordion-button faq-question ${openFaq === item.id ? '' : 'collapsed'} border-none"`}
                                                         type="button"
                                                         onClick={() => toggleFaq(item.id)}
                                                     >

@@ -44,7 +44,9 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
             success: false,
             message: "OTP is incorect",
-        });
+        },
+        { status: 400 }
+    );
     } catch (error) {
         console.error("Error verifying OTP:", error);
         return NextResponse.json(

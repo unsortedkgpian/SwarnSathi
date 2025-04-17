@@ -21,7 +21,7 @@ const TopSocialBar = () => (
             <Row className="p-0 ">
                 <Col md={6}></Col>
                 <Col md={6}>
-                    <div className="social-link-top d-flex justify-content-end align-items-center gap-2" style={{textDecoration:"none"}}>
+                    <div className="social-link-top d-flex justify-content-center justify-content-md-end align-items-center gap-2" style={{textDecoration:"none"}}>
                         <a
                             href="https://www.facebook.com/swarnsathi2022"
                             target="_blank"
@@ -110,7 +110,7 @@ const FooterSection: React.FC = () => {
         <div className="footer-section">
             <div className="container">
                 <div className="row cus-mar pt-120 pb-120 justify-content-between wow fadeInUp">
-                    <div className="col-xl-3 col-lg-3 col-md-4 col-6">
+                    <div className="col-xl-3 col-lg-3 col-md-12 col-12 mb-4 mb-lg-0">
                         <div className="footer-box">
                             <a href="index.html" className="logo">
                                 <img
@@ -126,7 +126,7 @@ const FooterSection: React.FC = () => {
                             <TopSocialBar />
                         </div>
                     </div>
-                    <div className="col-xl-2 col-lg-2 col-6">
+                    <div className="col-xl-2 col-lg-2 col-md-12 col-12 mb-4 mb-lg-0">
                         <div className="footer-box">
                             <h5>Company</h5>
                             <ul className="footer-link">
@@ -153,7 +153,7 @@ const FooterSection: React.FC = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-xl-2 col-lg-2 col-6">
+                    <div className="col-xl-2 col-lg-2 col-md-12 col-12 mb-4 mb-lg-0">
                         <div className="footer-box">
                             <h5>Useful links</h5>
                             <ul className="footer-link">
@@ -183,7 +183,7 @@ const FooterSection: React.FC = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-xl-2 col-lg-2 col-6">
+                    <div className="col-xl-2 col-lg-2 col-md-12 col-12 mb-4 mb-lg-0">
                         <div className="footer-box">
                             <h5>Support</h5>
                             <ul className="footer-link">
@@ -203,12 +203,11 @@ const FooterSection: React.FC = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-xl-3 col-8">
+                    <div className="col-xl-3 col-lg-3 col-md-12 col-12">
                         <div className="footer-box">
                             <h5>Subscribe</h5>
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.6834973083835!2d88.3452501!3d22.5532488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02770e37f7a67f%3A0xcdfc7d34b2f8f6af!2sChatterjee%20International%20Center%2C%2033%20A%2C%20Jawaharlal%20Nehru%20Rd%2C%20Park%20Street%20area%2C%20Kolkata%2C%20West%20Bengal%20700071!5e0!3m2!1sen!2sin!4v1713083520944!5m2!1sen!2sin"
-                                // src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14739.978596312914!2d88.386655!3d22.5418732!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbecd8f2f0a839d63!2sRegal%20Fincorp%20%E2%84%A2!5e0!3m2!1sen!2sin!4v1660184550498!5m2!1sen!2sin"
                                 width="100%"
                                 height="100%"
                                 style={{ border: 0 }}
@@ -224,7 +223,6 @@ const FooterSection: React.FC = () => {
                         <div className="footer-bottom">
                             <div className="left">
                                 <p>
-                                    {" "}
                                     Copyright © <a href="/">Swarn Sathi</a>
                                 </p>
                             </div>
@@ -233,10 +231,10 @@ const FooterSection: React.FC = () => {
                                     href="/swarn-sathi-branch-locator"
                                     className="cus-bor"
                                 >
-                                    Privacy{" "}
+                                    Privacy
                                 </a>
                                 <a href="/swarn-sathi-branch-locator">
-                                    Terms &amp; Conditions{" "}
+                                    Terms &amp; Conditions
                                 </a>
                             </div>
                         </div>

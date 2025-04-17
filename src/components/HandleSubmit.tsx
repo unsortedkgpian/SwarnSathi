@@ -898,20 +898,27 @@ const ModalComponent: React.FC<ModalProps> = ({
         try {
             setLoading(true);
             setError(null);
-            const response = await axios.post(
-                `${url}/api/registration`,
-                formData
-            );
-
+            
+            const response = await axios.post(`${url}/api/registration`, formData);
+            
             if (response.data.success) {
-                setSuccess("Application submitted successfully!");
+                setSuccess("Registration successful! Redirecting to home page...");
+                
+                // Reset form
                 setFormData({
                     name: "",
                     phone: "",
                     pincode: "",
                     type: "gold_loan",
                 });
-                onClose();
+                resetState();
+
+                // Wait for 3 seconds then redirect
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 3000);
+            } else {
+                setError(response.data.message || "Submission failed. Please try again.");
             }
         } catch (err) {
             setError("Submission failed. Please try again.");
@@ -1031,34 +1038,23 @@ const ModalComponent: React.FC<ModalProps> = ({
                                                             <div className="input-group">
                                                                 <input
                                                                     type="tel"
-                                                                    value={
-                                                                        formData.phone
-                                                                    }
-                                                                    onChange={
-                                                                        handleChange
-                                                                    }
+                                                                    value={formData.phone}
+                                                                    onChange={handleChange}
                                                                     name="phone"
                                                                     required
-                                                                    disabled={
-                                                                        otpVerified
-                                                                    }
+                                                                    disabled={otpVerified}
                                                                     maxLength={10}
+                                                                    style={{ marginBottom: '10px' }}
                                                                 />
                                                                 {!otpVerified && (
                                                                     <button
                                                                         type="button"
-                                                                        className="btn btn-primary"
-                                                                        onClick={
-                                                                            handleSendOtp
-                                                                        }
-                                                                        disabled={
-                                                                            loading ||
-                                                                            showOtpInput
-                                                                        }
+                                                                        className="btn btn-primary "
+                                                                        onClick={handleSendOtp}
+                                                                        disabled={loading || showOtpInput}
+                                                                        style={{ marginTop: '10px', borderRadius: '5px' }}
                                                                     >
-                                                                        {loading
-                                                                            ? "Sending..."
-                                                                            : "Verify"}
+                                                                        {loading ? "Sending..." : "Verify"}
                                                                     </button>
                                                                 )}
                                                             </div>
@@ -1074,38 +1070,24 @@ const ModalComponent: React.FC<ModalProps> = ({
                                                                     <div className="input-group">
                                                                         <input
                                                                             type="text"
-                                                                            value={
-                                                                                otp
-                                                                            }
-                                                                            onChange={(
-                                                                                e
-                                                                            ) =>
-                                                                                setOtp(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                )
+                                                                            value={otp}
+                                                                            onChange={(e) =>
+                                                                                setOtp(e.target.value)
                                                                             }
                                                                             placeholder="Enter OTP"
                                                                             style={{
-                                                                                fontSize:
-                                                                                    "24px",
-                                                                                letterSpacing:
-                                                                                    "0.5em",
+                                                                                fontSize: "24px",
+                                                                                letterSpacing: "0.5em",
+                                                                                marginBottom: '10px'
                                                                             }}
-                                                                            maxLength={
-                                                                                6
-                                                                            }
+                                                                            maxLength={6}
                                                                         />
                                                                         <button
                                                                             type="button"
                                                                             className="btn btn-primary"
-                                                                            onClick={
-                                                                                handleVerifyOtp
-                                                                            }
-                                                                            disabled={
-                                                                                loading
-                                                                            }
+                                                                            onClick={handleVerifyOtp}
+                                                                            disabled={loading}
+                                                                            style={{ marginTop: '10px', borderRadius: '5px' }}
                                                                         >
                                                                             {loading
                                                                                 ? "Verifying..."

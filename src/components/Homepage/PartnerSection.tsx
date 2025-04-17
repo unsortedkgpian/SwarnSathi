@@ -74,7 +74,15 @@ const PartnerSection = () => {
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
                 },
             },
         ],
@@ -93,14 +101,10 @@ const PartnerSection = () => {
             <div className="partner">
                 <div className="container">
                     <div className="row align-items-center">
-                        <div className="col-md-3 col-3">
-                            <h4 style={{marginBottom:"0px"}}>
-                               
-                                    Partners
-                               
-                            </h4>
+                        <div className="col-md-3 col-3 d-none d-md-block">
+                            <h4 style={{marginBottom:"0px"}}>Partners</h4>
                         </div>
-                        <div className="col-md-9 col-9">
+                        <div className="col-md-9 col-12">
                             <Slider
                                 {...sliderSettings}
                                 className="partner-box partner-carousel"

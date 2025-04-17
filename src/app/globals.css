@@ -320,7 +320,7 @@ li {
     padding-top: 120px;
 }
 .inputapply {
-    width: 190px !important;
+    width: 190px ;
     padding-top: 7px !important;
     padding-bottom: 7px !important;
     font-size: 16px;
@@ -5649,8 +5649,8 @@ a.cmn-btn.navbarbtn {
     }
 
     .inputapply {
-        width: 166px !important;
-        padding: 12px 12px !important;
+        width: 166px ;
+        padding: 12px 12px ;
     }
 
     input#confirmPass {
@@ -6029,4 +6029,49 @@ h6 > a {
 body {
     font-family: var(--body-font);
     /* Other body styles remain */
+}
+
+/* Footer Responsive Styles */
+@media (max-width: 768px) {
+    .footer-section .footer-box {
+        text-align: left;
+        margin-bottom: 30px;
+    }
+
+    .footer-section .footer-box h5 {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    .footer-section .footer-box .logo {
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    .footer-section .footer-link {
+        padding-left: 0;
+        margin-bottom: 20px;
+    }
+
+    .footer-section .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .footer-section .footer-bottom .left,
+    .footer-section .footer-bottom .right {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .social-link-top {
+        justify-content: center !important;
+        width: 100%;
+        margin: 20px auto;
+    }
+
+    .social-link-top a {
+        margin: 0 10px;
+    }
 }

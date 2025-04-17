@@ -69,7 +69,7 @@ const TopBanner = () => {
             console.error("Error sending OTP:", err);
             setValidMessage(
                 err.response?.data?.message ||
-                    "Failed to send OTP. Please try again."
+                "Failed to send OTP. Please try again."
             );
         } finally {
             setIsLoading(false);
@@ -129,8 +129,8 @@ const TopBanner = () => {
             console.error("Error during verification/registration:", err);
             setValidMessage(
                 err.response?.data?.message ||
-                    err.message ||
-                    "Verification failed. Please try again."
+                err.message ||
+                "Verification failed. Please try again."
             );
         } finally {
             setIsLoading(false);
@@ -171,54 +171,60 @@ const TopBanner = () => {
                                     <div className="align-items-center">
                                         <div className="row">
                                             <div className="col-md-8 col-sm-12 col-12">
-                                                <div
-                                                    className="input-container"
-                                                    style={{
-                                                        background: "#8ed7fddd",
-                                                    }}
-                                                >
-                                                    <div className="phone-prefix">
-                                                        +91
-                                                    </div>
-                                                    <input
-                                                        type="text"
-                                                        className={`apply-now ${
-                                                            validMessage.includes(
-                                                                "✓"
-                                                            )
-                                                                ? "valid"
-                                                                : ""
-                                                        }`}
-                                                        placeholder="Enter your phone number"
-                                                        value={phoneNumber}
-                                                        onChange={(e) =>
-                                                            setPhoneNumber(
-                                                                e.target.value.replace(
-                                                                    /\D/g,
-                                                                    ""
+                                                {
+                                                    !showOtpInput && (
+                                                        <div
+                                                            className="input-container"
+                                                            style={{
+                                                                background: "#8ed7fddd",
+                                                            }}
+                                                        >
+                                                            <div className="phone-prefix">
+                                                                +91
+                                                            </div>
+                                                            <input
+                                                                type="text"
+                                                                className={`apply-now ${validMessage.includes(
+                                                                    "✓"
                                                                 )
-                                                            )
-                                                        }
-                                                        maxLength={10}
-                                                    />
-                                                    <button
-                                                        className="applybutton cmn-btn inputapply"
-                                                        onClick={
-                                                            validatePhoneNumber
-                                                        }
-                                                        disabled={isLoading}
-                                                    >
-                                                        {isLoading
-                                                            ? "Loading..."
-                                                            : "Apply now"}
-                                                    </button>
-                                                </div>
+                                                                        ? "valid"
+                                                                        : ""
+                                                                    }`}
+                                                                placeholder="Enter your phone number"
+                                                                value={phoneNumber}
+                                                                onChange={(e) =>
+                                                                    setPhoneNumber(
+                                                                        e.target.value.replace(
+                                                                            /\D/g,
+                                                                            ""
+                                                                        )
+                                                                    )
+                                                                }
+                                                                maxLength={10}
+                                                            />
+                                                            <button
+                                                                className="applybutton cmn-btn inputapply"
+                                                                onClick={
+                                                                    validatePhoneNumber
+                                                                }
+                                                                disabled={isLoading}
+                                                                style={{
+                                                                    marginRight: "10px",
+                                                                }}
+                                                            >
+                                                                {isLoading
+                                                                    ? "Loading..."
+                                                                    : "Apply now"}
+                                                            </button>
+                                                        </div>
+                                                    )
+                                                }
                                                 <div className="validation-message">
                                                     {validMessage}
                                                 </div>
                                                 {showOtpInput && (
                                                     <div
-                                                        className="input-container mt-3"
+                                                        className="input-container"
                                                         style={{
                                                             background:
                                                                 "#8ed7fddd",
@@ -246,6 +252,9 @@ const TopBanner = () => {
                                                                 isLoading ||
                                                                 otp.length !== 6
                                                             }
+                                                            style={{
+                                                                marginRight: "10px",
+                                                            }}
                                                         >
                                                             {isLoading
                                                                 ? "Verifying..."
