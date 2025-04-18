@@ -8,6 +8,7 @@ import {
     faLinkedinIn,
     faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+import { useEffect, useState } from "react";
 
 //this is a test comment
 
@@ -15,95 +16,157 @@ import React from "react";
 // import "./FooterSection.css"; // Import the CSS file
 import '../app/globals.css'
 
-const TopSocialBar = () => (
-    <div className="overlay topsocial left-1/2 m-0 p-1 bg:{#ddd}">
-        <Container>
-            <Row className="p-0 ">
-                <Col md={6}></Col>
-                <Col md={6}>
-                    <div className="social-link-top d-flex justify-content-center justify-content-md-end align-items-center gap-2" style={{textDecoration:"none"}}>
-                        <a
-                            href="https://www.facebook.com/swarnsathi2022"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                                width: "24px",
-                                height: "24px",
-                                border: "1px solid #fc9f3e",
-                                borderRadius: "50%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                            }}
-                        >
-                            <FontAwesomeIcon
-                                icon={faFacebookF}
-                                className="top-icon-sytle"
-                            />
-                        </a>
-                        <a
-                            href="https://twitter.com/Swarnsathi2022"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                                width: "24px",
-                                height: "24px",
-                                border: "1px solid #fc9f3e",
-                                borderRadius: "50%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                            }}
-                        >
-                            <FontAwesomeIcon
-                                icon={faTwitter}
-                                className="top-icon-sytle"
-                            />
-                        </a>
-                        <a
-                            href="https://www.linkedin.com/company/swarn-sathi"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                                width: "24px",
-                                height: "24px",
-                                border: "1px solid #fc9f3e",
-                                borderRadius: "50%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                            }}
-                        >
-                            <FontAwesomeIcon
-                                icon={faLinkedinIn}
-                                className="top-icon-sytle"
-                            />
-                        </a>
-                        <a
-                            href="https://www.instagram.com/swarn_sathi/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                                width: "24px",
-                                height: "24px",
-                                border: "1px solid #fc9f3e",
-                                borderRadius: "50%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                            }}
-                        >
-                            <FontAwesomeIcon
-                                icon={faInstagram}
-                                className="top-icon-sytle"
-                            />
-                        </a>
-                    </div>
-                </Col>
-            </Row>
-        </Container>
-    </div>
-);
+interface SocialMedia {
+    facebook: string;
+    twitter: string;
+    instagram: string;
+    linkedin: string;
+}
+
+const TopSocialBar = () => {
+    const url = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+    const [socialLinks, setSocialLinks] = useState<SocialMedia>({
+        facebook: "",
+        twitter: "",
+        linkedin: "",
+        instagram: ""
+    });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+
+    useEffect(() => {
+        const fetchSocialMedia = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`${url}/api/social`);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch social media links");
+                }
+                const data = await response.json();
+                console.log(data);
+                setSocialLinks(data);
+                setError(false);
+            } catch (error) {
+                console.error("Error fetching social media links:", error);
+                setError(true);
+                // Set fallback values on error
+                setSocialLinks({
+                    facebook: "https://www.facebook.com/swarnsathi2022",
+                    twitter: "https://twitter.com/Swarnsathi2022",
+                    linkedin: "https://www.linkedin.com/company/swarn-sathi",
+                    instagram: "https://www.instagram.com/swarn_sathi/"
+                });
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchSocialMedia();
+    }, [url]);
+
+    // Skip rendering if we're still loading or if all links are empty
+    if (loading) {
+        return <div className="loading-indicator">Loading social links...</div>;
+    }
+
+    return (
+        <div className="overlay topsocial left-1/2 m-0 p-1 bg:{#ddd}">
+            <Container>
+                <Row className="p-0 ">
+                    <Col md={6}></Col>
+                    <Col md={6}>
+                        <div className="social-link-top d-flex justify-content-center justify-content-md-end align-items-center gap-2" style={{textDecoration:"none"}}>
+                            {socialLinks.facebook && (
+                                <a
+                                    href={socialLinks.facebook}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        width: "24px",
+                                        height: "24px",
+                                        border: "1px solid #fc9f3e",
+                                        borderRadius: "50%",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faFacebookF}
+                                        className="top-icon-sytle"
+                                    />
+                                </a>
+                            )}
+                            {socialLinks.twitter && (
+                                <a
+                                    href={socialLinks.twitter}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        width: "24px",
+                                        height: "24px",
+                                        border: "1px solid #fc9f3e",
+                                        borderRadius: "50%",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faTwitter}
+                                        className="top-icon-sytle"
+                                    />
+                                </a>
+                            )}
+                            {socialLinks.linkedin && (
+                                <a
+                                    href={socialLinks.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        width: "24px",
+                                        height: "24px",
+                                        border: "1px solid #fc9f3e",
+                                        borderRadius: "50%",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faLinkedinIn}
+                                        className="top-icon-sytle"
+                                    />
+                                </a>
+                            )}
+                            {socialLinks.instagram && (
+                                <a
+                                    href={socialLinks.instagram}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        width: "24px",
+                                        height: "24px",
+                                        border: "1px solid #fc9f3e",
+                                        borderRadius: "50%",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faInstagram}
+                                        className="top-icon-sytle"
+                                    />
+                                </a>
+                            )}
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
+    );
+};
 
 const FooterSection: React.FC = () => {
     return (
