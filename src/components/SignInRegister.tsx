@@ -3,6 +3,7 @@ import { useState } from "react";
 import './SignInRegister.tsx'
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { setCookie } from 'cookies-next';
 
 const SignInRegister = () => {
     const [genOtp, setGenOtp] = useState("");
@@ -34,7 +35,7 @@ const SignInRegister = () => {
         setIsLoading(true);
         setError("");
         setSuccess("");
-        console.log("before sending otp",phoneNumber);
+        console.log("Sending OTP to:", phoneNumber);
 
         try {
             const response = await axios.post(`/api/send-otp`, {
@@ -42,15 +43,17 @@ const SignInRegister = () => {
                 loanType: "gold-loan",
             });
             
+            console.log("OTP response:", response.data);
+            
             if (response.data.success) {
                 setSuccess("OTP sent successfully to your mobile number");
                 setOtpSent(true);
-                setGenOtp(response.data.genOtp);
-                // console.log("DEBUG: OTP sent response:", response.data);
-                // For development, show OTP in console if available
-                // if (response.data.otp) {
-                //     console.log("DEBUG: OTP for testing:", response.data.otp);
-                // }
+                
+                // Store generated OTP if returned (for development purposes)
+                if (response.data.genOtp) {
+                    setGenOtp(response.data.genOtp);
+                    console.log("OTP received for testing:", response.data.genOtp);
+                }
             } else {
                 setError(response.data.message || "Failed to send OTP. Please try again.");
             }
@@ -76,23 +79,29 @@ const SignInRegister = () => {
             console.log("Verifying OTP:", { phone: phoneNumber, otp });
             const response = await axios.post(`/api/verify-otp`, {
                 phoneNumber,
-                otp: otp,
-                genOtp:genOtp,
+                otp: otp
             });
             
             console.log("OTP verification response:", response.data);
             
             if (response.data.success) {
-                // Store the JWT token
-                localStorage.setItem("token", response.data.token);
+                // Store the JWT token in localStorage and cookies
+                const token = response.data.token;
+                localStorage.setItem("token", token);
+                setCookie('token', token, { maxAge: 60 * 60 * 24 * 30 }); // 30 days
+                
+                // Store user info if available
+                if (response.data.user) {
+                    localStorage.setItem("user", JSON.stringify(response.data.user));
+                }
                 
                 // Show success message
                 setSuccess("Successfully logged in! Redirecting...");
                 setIsLoggedIn(true);
                 
-                // Redirect to dashboard or homepage after a short delay
+                // Redirect to dashboard after a short delay
                 setTimeout(() => {
-                    router.push("/");
+                    router.push("/dashboard");
                 }, 1500);
             } else {
                 setError(response.data.message || "OTP verification failed. Please try again.");
@@ -118,21 +127,29 @@ const SignInRegister = () => {
         setSuccess("");
 
         try {
-            const response = await axios.post(`${url}/api/be-our-partner/login`, {
+            const response = await axios.post(`/api/login`, {
                 phone: phoneNumber,
                 password: password
             });
             
             if (response.data.success) {
-                // Store the JWT token
-                localStorage.setItem("token", response.data.token);
+                // Store the JWT token in localStorage and cookies
+                const token = response.data.token;
+                localStorage.setItem("token", token);
+                setCookie('token', token, { maxAge: 60 * 60 * 24 * 30 }); // 30 days
+                
+                // Store user info if available
+                if (response.data.user) {
+                    localStorage.setItem("user", JSON.stringify(response.data.user));
+                }
                 
                 // Show success message
                 setSuccess("Successfully logged in! Redirecting...");
+                setIsLoggedIn(true);
                 
-                // Redirect to dashboard or homepage after a short delay
+                // Redirect to dashboard after a short delay
                 setTimeout(() => {
-                    router.push("/");
+                    router.push("/dashboard");
                 }, 1500);
             } else {
                 setError(response.data.message || "Login failed. Please check your credentials.");

@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import axios from "axios";
+import { deleteCookie } from 'cookies-next';
 
 const DropdownArrow = () => (
     <span className="dropdown-arrow ms-2">
@@ -52,7 +53,7 @@ const Header = () => {
 
             try {
                 const response = await axios.get(
-                    `${url}/api/be-our-partner/get-me`,
+                    `/api/get-me`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -63,15 +64,20 @@ const Header = () => {
                 if (response.data.success) {
                     setIsLoggedIn(true);
                     setUser(response.data.data);
+                    
+                    // Update user data in localStorage if needed
+                    localStorage.setItem("user", JSON.stringify(response.data.data));
                 } else {
                     // Handle invalid token
                     localStorage.removeItem("token");
+                    localStorage.removeItem("user");
                     setIsLoggedIn(false);
                 }
             } catch (error) {
                 console.error("Error fetching user data:", error);
                 // If token is invalid or expired
                 localStorage.removeItem("token");
+                localStorage.removeItem("user");
                 setIsLoggedIn(false);
             } finally {
                 setIsLoading(false);
@@ -121,10 +127,37 @@ const Header = () => {
         }
     };
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        const token = localStorage.getItem("token");
+        
+        if (token) {
+            try {
+                // Call the backend logout API via proxy
+                await axios.post(`/api/logout`, { 
+                    token 
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                
+                console.log("Logged out successfully from the server");
+            } catch (error) {
+                console.error("Error during logout:", error);
+                // Continue with local logout even if server logout fails
+            }
+        }
+        
+        // Clear local storage and cookies
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        deleteCookie('token');
+        
+        // Update state
         setIsLoggedIn(false);
         setUser(null);
+        
+        // Redirect to login page
         router.push("/login");
     };
 
@@ -342,72 +375,7 @@ const Header = () => {
                                     </NavDropdown.Item>
                                 </NavDropdown>
 
-                                {/* <Nav.Item
-                                    className={`${
-                                        isMobile ? "mt-2" : ""
-                                    } roundmenu`}
-                                > */}
-                                    {/* {isLoading ? (
-                                        <div
-                                            className="spinner-border spinner-border-sm text-primary mx-2"
-                                            role="status"
-                                        >
-                                            <span className="visually-hidden">
-                                                Loading...
-                                            </span>
-                                        </div>
-                                    ) : isLoggedIn ? (
-                                        <NavDropdown
-                                            title={
-                                                <span
-                                                    style={{
-                                                        color: "#fff",
-                                                        backgroundColor:
-                                                            isActive("/login")
-                                                                ? "#fea123"
-                                                                : "transparent",
-                                                    }}
-                                                >
-                                                    {user?.name || "Account"}
-                                                </span>
-                                            }
-                                            id="user-dropdown"
-                                        >
-                                            <NavDropdown.Item
-                                                onClick={handleLogout}
-                                            >
-                                                Logout
-                                            </NavDropdown.Item>
-                                        </NavDropdown>
-                                    ) : (
-                                        <Nav.Link
-                                            as={Link}
-                                            href="/login"
-                                            className="text-center"
-                                            style={{
-                                                boxShadow: "none !important",
-                                                filter: "none !important",
-                                                textShadow: "none",
-                                                transition: "none",
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                padding: "0",
-                                                height: "30px",
-                                                margin: "0",
-                                                color: "#fff !important",
-                                                backgroundColor: isActive(
-                                                    "/login"
-                                                )
-                                                    ? "#fea123"
-                                                    : "transparent",
-                                            }}
-                                            onClick={handleLinkClick}
-                                        >
-                                            LOGIN
-                                        </Nav.Link>
-                                    )} */}
-
-                                    <Nav.Item
+                                <Nav.Item
                                     className={`${
                                         isMobile ? "mt-2" : ""
                                     } roundmenu`}
@@ -423,7 +391,8 @@ const Header = () => {
                                         </div>
                                     ) : isLoggedIn ? (
                                         <Nav.Link
-                                            onClick={handleLogout}
+                                            as={Link}
+                                            href="/dashboard"
                                             className="text-center"
                                             style={{
                                                 boxShadow: "none !important",
@@ -436,11 +405,13 @@ const Header = () => {
                                                 height: "30px",
                                                 margin: "0",
                                                 color: "#fff !important",
-                                                backgroundColor: "transparent",
-                                                cursor: "pointer",
+                                                backgroundColor: isActive("/dashboard")
+                                                    ? "#fea123"
+                                                    : "transparent",
                                             }}
+                                            onClick={handleLinkClick}
                                         >
-                                            LOGOUT
+                                            DASHBOARD
                                         </Nav.Link>
                                     ) : (
                                         <Nav.Link
