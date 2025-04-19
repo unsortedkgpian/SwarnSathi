@@ -429,12 +429,15 @@ li {
     }
     .hoverslide{
         text-align: center;
-        margin-top: -90px;
+        margin-top: -120px;
         margin-left: auto;
         margin-right: auto;
         position: absolute;
         left: 0;
         right: 0;
+    }
+    .partner-section{
+        margin-top: 36px;
     }
     
 }

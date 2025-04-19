@@ -204,10 +204,10 @@
 
 @media (max-width: 767px) {
     .banner-section.topbanner {
-        padding-top: 80px !important;
+        padding-top: 0px !important;
         height: 55vh;
     }
-
+    
     .banner-section .banner-content {
         min-height: unset !important;
     }
