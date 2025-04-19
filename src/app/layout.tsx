@@ -111,7 +111,7 @@ export default function RootLayout({
                     <ContactProvider>
                         <BootstrapClient />
                         <Header />
-                        <div className="m-0 p-0">{children}</div>
+                        <div className="main-content">{children}</div>
                         <FooterSection />
                         <WhatsAppFloat />
                     </ContactProvider>

@@ -113,9 +113,14 @@
 
 .header-section.header-fixed {
     position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     background: #fff;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     animation: fadeInDown 0.5s;
+    z-index: 1000;
 }
 
 /* Logo */
