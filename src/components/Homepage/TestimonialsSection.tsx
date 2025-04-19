@@ -53,6 +53,13 @@ const TestimonialsSection = () => {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 },
+            }, 
+            {
+                breakpoint: 578,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                },
             },            
         ],
     };

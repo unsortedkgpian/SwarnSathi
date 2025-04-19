@@ -341,7 +341,7 @@ li {
     left: 0;
     right: 0;
     text-align: center;
-    margin-top: -200px;
+    margin-top: -210px;
 }
 .chattbox {
     font-size: 12px;
@@ -6099,7 +6099,7 @@ body {
 
 /* Main content wrapper - ensures proper spacing from fixed header */
 .main-content {
-  padding-top: 20px; /* Additional spacing below the header */
+  /* padding-top: 20px; Additional spacing below the header */
 }
 
 /* Spacing utilities for page content */
@@ -6112,8 +6112,12 @@ body {
 }
 
 /* Make sure all pages have minimum height for proper footer positioning */
-.main-content {
-  min-height: calc(100vh - 80px - 300px); /* viewport height minus header and estimated footer height */
-  padding-top: 20px;
-  padding-bottom: 40px;
+/* .main-content { */
+  /*min-height: calc(100vh - 80px - 300px);  viewport height minus header and estimated footer height */
+  /* padding-top: 20px;
+  padding-bottom: 40px; */
+/* } */
+.nav-item a {
+    font-size: 13px;
+  font-weight: 400;
 }
