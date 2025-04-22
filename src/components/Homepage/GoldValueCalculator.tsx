@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-
+import "./GoldValueCalculator.css";
 
 const validPurities = [10, 14, 18, 20, 22, 24];
 
@@ -90,7 +90,7 @@ export default function GoldValueCalculator() {
                                             step="1"
                                             value={goldPurity}
                                             onChange={handlePurityChange}
-                                            className="orange-slider"
+                                            className="form-range orange-slider"
                                             id="gold-purity-slider"
                                             list="purity-values"
                                         />
@@ -126,7 +126,7 @@ export default function GoldValueCalculator() {
                                             max="60"
                                             value={goldWeight}
                                             onChange={(e) => setGoldWeight(Number(e.target.value))}
-                                            className="orange-slider"
+                                            className="form-range orange-slider"
                                             id="gold-weight-slider"
                                         />
                                         <div className="d-flex justify-content-between" style={{ marginTop: "10px" }}>
