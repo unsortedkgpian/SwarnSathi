@@ -18,9 +18,9 @@ interface CounterEducationProps {
 const CounterEducation = ({
     title = "We believe you are more than a number.",
     counters = [
-        { number: 1, suffix: "M+", label: "Loans given" },
-        { number: 100, suffix: "+", label: "Customers served" },
-        { number: 167, label: "Pincode" },
+        { number: 5, suffix: "Cr", label: "Loans given" },
+        { number: 1000, suffix: "+", label: "Customers served" },
+        { number: 167, label: "Pincode Covered" },
     ],
     buttonText = "Apply for a Swarn Sathi gold loan",
     imageSrc = "images/details-of-loan-disbursed.png",

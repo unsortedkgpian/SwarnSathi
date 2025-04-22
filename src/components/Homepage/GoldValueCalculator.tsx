@@ -37,16 +37,37 @@ export default function GoldValueCalculator() {
         if (!goldRate24K) return 0;
         return (goldRate24K * goldWeight).toFixed(2);
     };
+    useEffect(() => {
+        const initializeSlider = (selector: string, value: number) => {
+            const slider = document.querySelector(selector) as HTMLInputElement;
+            if (slider) {
+                const min = Number(slider.min);
+                const max = Number(slider.max);
+                const progress = ((value - min) / (max - min)) * 100;
+                slider.style.setProperty("--progress", `${progress}%`);
+            }
+        };
 
+        initializeSlider("#gold-purity-slider", 22);
+        initializeSlider("#gold-weight-slider", 10);
+    }, []);
     const yourGoldValue = () => {
         if (!goldRate24K) return 0;
         const purityRatio = goldPurity / 24;
         return (goldRate24K * goldWeight * purityRatio).toFixed(2);
     };
-
+    const updateSliderStyle = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Number(e.target.value);
+        const min = Number(e.target.min);
+        const max = Number(e.target.max);
+        const progress = ((value - min) / (max - min)) * 100;
+        e.target.style.setProperty("--progress", `${progress}%`);
+    };
     const handlePurityChange = (e) => {
+        updateSliderStyle(e);
         setGoldPurity(Number(e.target.value));
     };
+
 
     return (
         <section className="business-loan-section personal-loan">
@@ -79,6 +100,7 @@ export default function GoldValueCalculator() {
                                                     disabled
                                                     value={`${goldPurity}K`}
                                                     id="personal-amount"
+                                                    
                                                 />
                                             </h4>
                                         </div>
@@ -125,7 +147,7 @@ export default function GoldValueCalculator() {
                                             min="0"
                                             max="60"
                                             value={goldWeight}
-                                            onChange={(e) => setGoldWeight(Number(e.target.value))}
+                                            onChange={(e) => {setGoldWeight(Number(e.target.value));updateSliderStyle(e)}}
                                             className="form-range orange-slider"
                                             id="gold-weight-slider"
                                         />
