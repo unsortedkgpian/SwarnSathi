@@ -34,7 +34,7 @@ body {
     background-color: var(--body-color);
     font-size: 18px;
     line-height: 30px;
-    padding: 80px 0; /* Same as the header height */
+    /* padding: 0px 0; Same as the header height */
     margin: 0;
     font-weight: 400;
     overflow-x: hidden;
