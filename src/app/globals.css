@@ -4485,10 +4485,10 @@ a.cmn-btn.navbarbtn {
     font-size: 35px;
 }
 .top-section p {
-    font-size: 15px;
+    font-size: 12px;
 }
 .top-section span {
-    font-size: 15px;
+    font-size: 12px;
 }
 .section-text .title {
     font-size: 35px;
@@ -4497,13 +4497,13 @@ a.cmn-btn.navbarbtn {
     font-size: 55px;
 }
 .section-text p {
-    font-size: 15px;
+    font-size: 12px;
 }
 .section-header .title {
     font-size: 35px;
 }
 .section-header p {
-    font-size: 15px;
+    font-size: 12px;
 }
 .callus {
     font-size: 13px;
@@ -4800,7 +4800,7 @@ a.cmn-btn.navbarbtn {
         margin-bottom: 10px;
     }
     .footer-section .footer-box {
-        margin-bottom: 40px;
+        /* margin-bottom: 40px; */
     }
     .footer-section .cus-mar {
         margin-bottom: -50px;
@@ -5661,7 +5661,7 @@ a.cmn-btn.navbarbtn {
     textarea,
     h6,
     h6 > a {
-        font-size: 10px;
+        font-size: 12px;
         line-height: 19px;
     }
 
@@ -6057,7 +6057,7 @@ body {
 @media (max-width: 768px) {
     .footer-section .footer-box {
         text-align: left;
-        margin-bottom: 30px;
+        /* margin-bottom: 30px; */
     }
 
     .footer-section .footer-box h5 {
@@ -6088,9 +6088,9 @@ body {
     }
 
     .social-link-top {
-        justify-content: center !important;
+        /* justify-content: center !important; */
         width: 100%;
-        margin: 20px auto;
+        /* margin: 20px auto; */
     }
 
     .social-link-top a {

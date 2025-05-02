@@ -154,7 +154,7 @@ const LastTestimonialsSection: React.FC = () => {
                                                 />
                                                 <p
                                                     style={{
-                                                        fontSize: "14px",
+                                                        fontSize: "12px",
                                                         maxWidth: "350px",
                                                         margin: "0 auto",
                                                     }}

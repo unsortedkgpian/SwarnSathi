@@ -75,15 +75,15 @@ const TopSocialBar = () => {
                 <Row className="p-0 ">
                     <Col md={6}></Col>
                     <Col md={6}>
-                        <div className="social-link-top d-flex justify-content-center justify-content-md-end align-items-center gap-2" style={{textDecoration:"none"}}>
+                        <div className="social-link-top d-flex justify-content-md-end" style={{textDecoration:"none"}}>
                             {socialLinks.facebook && (
                                 <a
                                     href={socialLinks.facebook}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{
-                                        width: "24px",
-                                        height: "24px",
+                                        width: "50px",
+                                        height: "50px",
                                         border: "1px solid #fc9f3e",
                                         borderRadius: "50%",
                                         display: "flex",
@@ -103,8 +103,8 @@ const TopSocialBar = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{
-                                        width: "24px",
-                                        height: "24px",
+                                        width: "50px",
+                                        height: "50px",
                                         border: "1px solid #fc9f3e",
                                         borderRadius: "50%",
                                         display: "flex",
@@ -124,8 +124,8 @@ const TopSocialBar = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{
-                                        width: "24px",
-                                        height: "24px",
+                                        width: "50px",
+                                        height: "50px",
                                         border: "1px solid #fc9f3e",
                                         borderRadius: "50%",
                                         display: "flex",
@@ -145,8 +145,8 @@ const TopSocialBar = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{
-                                        width: "24px",
-                                        height: "24px",
+                                        width: "50px",
+                                        height: "50px",
                                         border: "1px solid #fc9f3e",
                                         borderRadius: "50%",
                                         display: "flex",
