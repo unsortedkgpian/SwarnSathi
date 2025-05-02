@@ -164,10 +164,10 @@ const Header = () => {
     return (
         <header
             className="header-section animated fadeInDown header-fixed zIndex-1000 "
-            style={{ height: "80px", padding: "0 !important" }}
+            // style={{ height: "56px", padding: "0 !important" }}
         >
             {/* <TopSocialBar /> */}
-            <div className="overlay py-2">
+            <div className="overlay">
                 <Container>
                     <Navbar
                         expand="lg"
@@ -194,7 +194,7 @@ const Header = () => {
                                 className="logo"
                                 alt="logo"
                                 style={{
-                                    maxWidth: isMobile ? "200px" : "300px",
+                                    maxWidth: isMobile ? "180px" : "180px",
                                 }}
                             />
                         </Navbar.Brand>

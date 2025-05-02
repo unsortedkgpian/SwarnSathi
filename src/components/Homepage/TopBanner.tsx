@@ -262,14 +262,13 @@ const TopBanner = () => {
                                                         </button>
                                                     </div>
                                                 )}
-                                                <div className="contact-info">
+                                                <div className="contact-info" >
                                                     <div>
                                                         <FontAwesomeIcon
                                                             icon={faPhone}
                                                             className="contact-icon"
                                                         />
-                                                        <span className="callus">
-                                                            Call us at{" "}
+                                                        <span className="callus">                                                            
                                                             <Link
                                                                 href={`tel:+91${telephone}`}
                                                                 className="contact-link"
@@ -284,8 +283,7 @@ const TopBanner = () => {
                                                             icon={faWhatsapp}
                                                             className="contact-icon"
                                                         />
-                                                        <span className="callus">
-                                                            WhatsApp{" "}
+                                                        <span className="callus">                                                           
                                                             <Link
                                                                 href={urlo}
                                                                 target="_blank"

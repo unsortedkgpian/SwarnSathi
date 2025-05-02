@@ -672,7 +672,7 @@ a.cmn-btn.navbarbtn {
     width: 100%;
     z-index: 999;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
-    padding: 20px;
+    padding: 12px 0px 12px 0px;
 }
 
 .header-section .navbar-toggler {
@@ -4772,7 +4772,7 @@ a.cmn-btn.navbarbtn {
         font-size: 12px !important;
     }
     .banner-section .overlay .banner-content {
-        padding: 270px 0 210px;
+        /* padding: 270px 0 210px; */
     }
     .banner-section.inner-banner .overlay .banner-content {
         padding: 215px 0 100px;
@@ -5280,14 +5280,14 @@ a.cmn-btn.navbarbtn {
         background-image: unset;
     }
     .banner-section .overlay {
-        background-image: url(/images/banner-bg-mobile.png);
+        /* background-image: url(/images/banner-bg-mobile.jpg); */
         /* background-size: contain; */
         background-position: top;
         background-size: 101%;
         background-position: center !important;
     }
     .topbanner {
-        background-image: url(/images/banner-bg-mobile.png);
+        background-image: url(/images/banner-bg-mobile.jpg);
         /* background-size: contain; */
         /* background-position: unset; */
         background-position: right center;
@@ -5390,7 +5390,7 @@ a.cmn-btn.navbarbtn {
         margin-top: 15px;
     }
     .banner-section .overlay .banner-content {
-        padding: 200px 0 190px;
+        /* padding: 200px 0 190px; */
     }
     .banner-section.inner-banner .overlay .banner-content {
         padding: 379px 0 50px;
@@ -5753,7 +5753,7 @@ a.cmn-btn.navbarbtn {
         padding-right: 10px;
     }
     .banner-section .overlay .banner-content {
-        padding: 180px 0 30px;
+        /* padding: 130px 0 30px; */
     }
     .testimonials .single-slide .top-content {
         margin-bottom: 25px;
