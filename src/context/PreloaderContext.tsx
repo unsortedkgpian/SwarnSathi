@@ -19,7 +19,7 @@ export const PreloaderProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         // Ensure that preloader is removed even if API call fails
-        const timeout = setTimeout(() => setIsLoading(false), 5000); // Max wait time 5s
+        const timeout = setTimeout(() => setIsLoading(false), 300); // Max wait time 5s
 
         return () => clearTimeout(timeout);
     }, []);
