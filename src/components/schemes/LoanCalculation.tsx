@@ -65,10 +65,26 @@ const LoanCalculation: React.FC = () => {
         e.target.style.setProperty("--progress", `${progress}%`);
     };
 
+    const updateSliderStyle2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const loanSlider = document.getElementById(
+            "home-loan-slide"
+        ) as HTMLInputElement;
+        const value = Number(e.target.value);
+        const min = Number(e.target.min);
+        const max = Number(e.target.max);
+        const progress = ((value - min) / (max - min)) * 100;
+        loanSlider.style.setProperty("--progress", `${progress}%`);
+    };
+
     const handleLoanAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newAmount = Number(e.target.value);
         setLoanAmount(newAmount);
         updateSliderStyle(e);
+    };
+    const handleLoanAmountChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newAmount = Number(e.target.value);
+        setLoanAmount(newAmount);
+        updateSliderStyle2(e);
     };
 
     const handleTenureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,10 +166,19 @@ const LoanCalculation: React.FC = () => {
                                         Loan Amount&nbsp;(Rs)&nbsp;:&nbsp;
                                     </label>
                                     <input
-                                        type="text"
-                                        disabled
+                                        type="text"  
+                                        disabled                                     
+                                        id="home-loan-amount"                                        
+                                        value="₹"
+                                    />
+                                    <input
+                                        type="Number"
+                                        min="3000"
+                                        max="200000"
+                                        className="!w-24 !h-10 px-4 text-base border rounded-md"
                                         id="home-loan-amount"
-                                        value={`₹${loanAmount.toLocaleString()}`}
+                                        onChange={handleLoanAmountChange2}
+                                        value={loanAmount}
                                     />
                                 </h5>
                             </div>

@@ -89,7 +89,7 @@ const InnerBanner: React.FC<InnerBannerProps> = ({
                     <div className="container">
                         <div className="row justify-content-start">
                             <div className="col-lg-7 col-md-10">
-                                <div className="main-content">
+                                <div className="main-content  ">
                                     <h1 className="fw-semibold">{pageTitle}</h1>
 
                                     <div className="breadcrumb-area">

@@ -64,6 +64,14 @@ function GoldValueCalculator() {
         const progress = ((value - min) / (max - min)) * 100;
         e.target.style.setProperty("--progress", `${progress}%`);
     };
+    const updateSliderStyle2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const slider = document.querySelector("#gold-weight-slider") as HTMLInputElement;
+        const value = Number(e.target.value);
+        const min = Number(e.target.min);
+        const max = Number(e.target.max);
+        const progress = ((value - min) / (max - min)) * 100;
+        slider.style.setProperty("--progress", `${progress}%`);
+    };
     const handlePurityChange = (e) => {
         updateSliderStyle(e);
         setGoldPurity(Number(e.target.value));
@@ -101,7 +109,7 @@ function GoldValueCalculator() {
                                                     disabled
                                                     value={`${goldPurity}K`}
                                                     id="personal-amount"
-                                                    
+    
                                                 />
                                             </h4>
                                         </div>
@@ -134,19 +142,37 @@ function GoldValueCalculator() {
                                                 <label style={{ fontSize: "30px", fontWeight: "400" }}>
                                                     Gold Weight:&nbsp;
                                                 </label>
+                                                
+                                                <input
+                                                    type="number"
+                                                    className="!w-24 !h-10 px-4 text-base border rounded-md"
+                                                    step="0.01"
+                                                    min="0"
+                                                    max="100"
+                                                    value={goldWeight}
+                                                    onChange={(e) => {
+                                                    setGoldWeight(Number(e.target.value));
+                                                    updateSliderStyle2(e);
+                                                    }}
+                                                    id="personal-amount-inter"
+                                                    
+                                                />
                                                 <input
                                                     type="text"
                                                     disabled
-                                                    value={`${goldWeight}g`}
-                                                    id="personal-amount-inter"
+                                                    value={`G`}
+                                                    id="personal-amount"
+    
                                                 />
+                                                   
                                             </h4>
                                         </div>
 
                                         <input
                                             type="range"
+                                            step="0.01"
                                             min="0"
-                                            max="60"
+                                            max="100"
                                             value={goldWeight}
                                             onChange={(e) => {setGoldWeight(Number(e.target.value));updateSliderStyle(e)}}
                                             className="form-range orange-slider"
@@ -154,7 +180,7 @@ function GoldValueCalculator() {
                                         />
                                         <div className="d-flex justify-content-between" style={{ marginTop: "10px" }}>
                                             <p>0</p>
-                                            <p>60</p>
+                                            <p>100</p>
                                         </div>
 
                                         {/* Approx Value Section */}
