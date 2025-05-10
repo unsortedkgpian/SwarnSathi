@@ -4032,9 +4032,17 @@ const RegistrationForm: React.FC = () => {
         return "Swarnsathi_Champion";
     };
 
-    const [activeTab, setActiveTab] = useState<(typeof validTabs)[number]>(
-        getInitialTab()
-    );
+    const [activeTab, setActiveTab] = useState<(typeof validTabs)[number]>(() => {
+    if (typeof window !== "undefined") {
+        const hash = window.location.hash.substring(1);
+        return validTabs.includes(hash as any)
+            ? (hash as (typeof validTabs)[number])
+            : "Swarnsathi_Champion";
+    }
+    return "Swarnsathi_Champion";
+});
+
+
     const [formData, setFormData] = useState<FormData>({
         name: "",
         phone: "",
@@ -4067,17 +4075,22 @@ const RegistrationForm: React.FC = () => {
     }, [activeTab]);
 
     // Handle hash changes
-    useEffect(() => {
-        const handleHashChange = () => {
-            const newHash = window.location.hash.substring(1);
-            if (validTabs.includes(newHash as any)) {
-                setActiveTab(newHash as (typeof validTabs)[number]);
-            }
-        };
+useEffect(() => {
+    const handleHashChange = () => {
+        const newHash = window.location.hash.substring(1);
+        console.log("newHash"+newHash);
+        if (validTabs.includes(newHash as any)) {
+            setActiveTab(newHash as (typeof validTabs)[number]);
+        }
+    };
 
-        window.addEventListener("hashchange", handleHashChange);
-        return () => window.removeEventListener("hashchange", handleHashChange);
-    }, []);
+    // Initial setup
+    handleHashChange();
+    
+    // Listen for future hash changes (browser navigation)
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+}, []);
 
     const resetState = () => {
         setError(null);
@@ -4089,9 +4102,15 @@ const RegistrationForm: React.FC = () => {
     };
 
     const handleTabChange = (tab: (typeof validTabs)[number]) => {
-        window.location.hash = tab;
-        setActiveTab(tab);
-    };
+    // Always directly set the state first
+    setActiveTab(tab);
+    
+    // Then update the hash
+    window.location.hash = tab;
+    
+    // Reset form state if needed
+    resetState();
+};
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
