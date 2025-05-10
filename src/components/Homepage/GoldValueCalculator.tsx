@@ -10,6 +10,54 @@ export default function GoldValueCalculator() {
     const [goldRate24K, setGoldRate24K] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
+    const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+
+    useEffect(() => {
+    const fetchGoldRate = async () => {
+        try {
+            const cached = localStorage.getItem("goldRateCache");
+            const now = new Date();
+
+            if (cached) {
+                const { rate, timestamp } = JSON.parse(cached);
+                const cachedDate = new Date(timestamp);
+
+                // Check if data is from today
+                const isStale = now.toDateString() !== cachedDate.toDateString();
+
+                if (!isStale) {
+                    setGoldRate24K(rate);
+                    setLastUpdated(timestamp);
+                    setIsLoading(false);
+                    return;
+                }
+            }
+
+            // Fetch fresh data if no cache or stale
+            const res = await fetch(url + "/api/goldrate");
+            const data = await res.json();
+            if (data?.rate) {
+                setGoldRate24K(data.rate);
+                setLastUpdated(data.timestamp);
+                localStorage.setItem(
+                    "goldRateCache",
+                    JSON.stringify({ rate: data.rate, timestamp: data.timestamp })
+                );
+            } else {
+                throw new Error("Invalid response from API");
+            }
+        } catch (err) {
+            console.error("Error fetching gold rate:", err);
+            setError("Failed to fetch gold rate");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    fetchGoldRate();
+}, []);
+
+
     const url = process.env.NEXT_PUBLIC_API_URL;
     // Fetch the 24K gold rate from backend API
     useEffect(() => {
@@ -76,7 +124,32 @@ export default function GoldValueCalculator() {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="main-content">
-                                <div className="section-text">
+                                {!isLoading && goldRate24K && lastUpdated && (
+    <div
+        style={{
+            position: "relative",
+            top: "0",
+            left: "0",
+            backgroundColor: "white",
+            padding: "2px 4px",
+            borderRadius: "10px",
+            color: "black",
+            zIndex: 10,
+            width: "200px",
+            fontFamily: "Segoe UI, Roboto, sans-serif",
+            lineHeight: 1.5
+        }}
+    >
+        <div style={{ fontSize: "17px", fontWeight: 700, color: "#fc9f3e" }}> 
+           Gold rate:  ₹{goldRate24K.toFixed(2)} /g
+        </div>
+        <div style={{ fontSize: "13px", marginTop: "6px", color: "#fc9f3e" }}>
+            Updated: {new Date(lastUpdated).toLocaleString()}
+        </div>
+    </div>
+)}
+
+                                <div className="section-text">                                    
                                     <h2 className="title" style={{ textTransform: "capitalize" }}>
                                         Check the value of your jewellery
                                     </h2>
