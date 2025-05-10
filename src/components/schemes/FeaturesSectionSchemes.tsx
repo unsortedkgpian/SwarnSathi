@@ -3,11 +3,14 @@
 import Image from "next/image";
 import ModalComponent from "../HandleSubmit";
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // Add this import
+
 
 
 
 const FeaturesSectionSchemes = () => {
     const [showModal, setShowModal] = useState(false);
+    const router = useRouter(); // Initialize router
     const features = [
         {
             title: "0% Interest for the first month",
@@ -53,8 +56,17 @@ const FeaturesSectionSchemes = () => {
 
     const handleApplyNow = (e: React.MouseEvent) => {
         e.preventDefault();
-        // Handle apply now logic here
-        setShowModal(true);
+        
+        // Check if user is logged in (using localStorage token)
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+            // Redirect to login if not authenticated
+            router.push('/login');
+        } else {
+            // Show modal if authenticated
+            setShowModal(true);
+        }
     };
 
     return (
