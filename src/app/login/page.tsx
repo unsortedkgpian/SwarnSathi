@@ -8,6 +8,9 @@ import React from "react";
 const LoginPage = () => {
     return (
         <>
+        <br></br>
+        <br></br>
+        <br></br>
             <PageTitle 
                 title="Login to Your Account" 
                 bgColor="#f8f9fa"

@@ -163,7 +163,7 @@ const SignInRegister = () => {
     };
 
     return (
-        <section className="sign-in-up register pt-120">
+        <section className="sign-in-up register pt-80">
             <div className="overlay pt-120 pb-120">
                 <div className="container">
                     <div className="row align-items-center justify-content-between">
