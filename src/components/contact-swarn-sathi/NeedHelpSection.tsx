@@ -40,31 +40,26 @@ const NeedHelpSection = ({
                         </div>
                     </div>
                     <div className="row cus-mar">
+                      
                         {contactMethods.map((method, index) => (
-                            <div className="col-md-4" key={index}>
-                                <div className="single-box">
-                                    <div className="icon-box">
-                                        <img
-                                            src={method.iconSrc}
-                                            alt={method.iconAlt}
-                                            // Consider using Next.js Image component in production:
-                                            // <Image
-                                            //   src={method.iconSrc}
-                                            //   alt={method.iconAlt}
-                                            //   width={40}
-                                            //   height={40}
-                                            // />
-                                        />
-                                    </div>
-                                    <h5>{method.title}</h5>
-                                    <p>{method.content}</p>
-                                    {method.hasBr && <br />}
-                                </div>
-                            </div>
+                             <div className="col-md-4 d-flex" key={index} >
+                            <div className="single-box flex-fill d-flex flex-column justify-content-between" >               
+                              <div className="icon-box">
+                                <img
+                                  src={method.iconSrc}
+                                  alt={method.iconAlt}
+                                />
+                              </div>
+                              <h5>{method.title}</h5>
+                              <p >{method.content}</p>
+                              {method.hasBr && <br />}
+                            </div>  
+                            </div>                        
                         ))}
+                        </div> 
                     </div>
                 </div>
-            </div>
+            
         </section>
     );
 };

@@ -109,7 +109,11 @@ const HowItWorks = () => {
                             return (
                                 <div key={index} className="col-lg-3 col-12">
                                     {step.link ? (
-                                        <Link href={step.link}>{cardContent}</Link>
+                                        <Link href={step.link}>
+                                        <div className="text-black no-underline">
+                                          {cardContent}
+                                        </div>
+                                      </Link>
                                     ) : (
                                         cardContent
                                     )}
