@@ -418,7 +418,6 @@ const LoanCalculation: React.FC = () => {
             <ModalComponent
                 show={showModal}
                 onClose={() => setShowModal(false)}
-                phoneNumber={phoneNumber}
                 loanType={loanType}
             />
         </section>
