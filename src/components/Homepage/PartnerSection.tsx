@@ -102,7 +102,7 @@ const PartnerSection = () => {
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-md-3 col-3 d-none d-md-block">
-                            <h4 style={{marginBottom:"0px"}}>Partners</h4>
+                            <h4 style={{marginBottom:"0px"}}>Our Partners</h4>
                         </div>
                         <div className="col-md-9 col-12">
                             <Slider

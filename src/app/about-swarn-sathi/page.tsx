@@ -3,6 +3,7 @@ import AboutSection from '@/components/about-swarn-sathi/AboutSection';
 import CareersSection from '@/components/about-swarn-sathi/CareersSection';
 import CoreValues from '@/components/about-swarn-sathi/CoreValues';
 import TeamSection from '@/components/about-swarn-sathi/TeamSection';
+import ContactUs from '@/components/about-swarn-sathi/ContactUs';
 import React from 'react'
 
 const page = () => {
@@ -13,6 +14,7 @@ const page = () => {
           <CoreValues />
           <TeamSection />
           <CareersSection/>
+          <ContactUs/>
       </>
   )
 }

@@ -311,20 +311,27 @@ const Header = () => {
                                     >
                                         CAREERS
                                     </NavDropdown.Item>
+                                    <NavDropdown.Item
+                                        as={Link}
+                                        href="/about-swarn-sathi#contact-us"
+                                        onClick={handleLinkClick}
+                                    >
+                                        CONTACT US
+                                    </NavDropdown.Item>
                                 </NavDropdown>
 
                                 <Nav.Item>
                                     <Nav.Link
                                         as={Link}
-                                        href="/contact-swarn-sathi"
+                                        href="/gold-valuation"
                                         className={`nav-hover ${
-                                            isActive("/contact-swarn-sathi")
+                                            isActive("/gold-valuation")
                                                 ? "active-link"
                                                 : ""
                                         }`}
                                         onClick={handleLinkClick}
                                     >
-                                        CONTACT US
+                                        GOLD EVALUATOR
                                     </Nav.Link>
                                 </Nav.Item>
 
