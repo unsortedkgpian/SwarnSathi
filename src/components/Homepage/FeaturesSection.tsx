@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // Added router
 import ModalComponent from "../HandleSubmit";
 
 const FeaturesSection: React.FC = () => {
@@ -8,9 +9,19 @@ const FeaturesSection: React.FC = () => {
     const [validMessage, setValidMessage] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [loanType, setLoanType] = useState("gold-loan"); // Default loan type
+    const router = useRouter(); // Initialize router
 
     const applyNow = (type: string) => {
-        // Format the loan type to match the expected format
+        // Check if user is logged in
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+            // Redirect to login if not authenticated
+            router.push('/login');
+            return;
+        }
+
+        // Proceed if authenticated
         const formattedType = type.toLowerCase().replace(/_/g, '-');
         setLoanType(formattedType);
         setShowModal(true);
@@ -200,7 +211,6 @@ const FeaturesSection: React.FC = () => {
             <ModalComponent
                 show={showModal}
                 onClose={() => setShowModal(false)}
-                phoneNumber={phoneNumber}
                 loanType={loanType}
             />
         </section>
