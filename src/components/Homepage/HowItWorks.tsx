@@ -91,34 +91,77 @@ const HowItWorks = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="row cus-mar">
+                        <div
+                            className="row cus-mar"
+                            style={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                marginLeft: "-10px",
+                                marginRight: "-10px",
+                            }}
+                        >
                         {steps.map((step, index) => {
+                            
                             const cardContent = (
-                                <div className="single-box howworkshome">
-                                    <div className="icon-box iconhowboxhome">
+                                
+                                <div
+                                    className="single-box howworkshome"
+                                    style={{
+                                        flex: 1,
+                                        padding: "20px",
+                                        backgroundColor: "#fff",
+                                        borderRadius: "8px",
+                                        boxShadow: "0 2px 12px rgba(0, 0, 0, 0.05)",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "flex-start",
+                                        textAlign: "center",
+                                        width: "100%",
+                                        height: "100%",
+                                    }}
+                                    >
+                                    <div className="flex flex-col">
+                                    <div className="flex-[2] flex items-center icon-box iconhowboxhome">
                                         <img src={step.howWorksIcon} alt="how it works icon" />
                                     </div>
-                                    <div className="icon-box">
-                                        <img src={`${url}/${step.icon}`} alt="step icon" />
+                                    <div className="flex-[3] flex items-center justify-center">
+                                    <div className="flex flex-col">
+                                    <div className="flex-[3] flex items-center justify-center">
+                                        <img src={`${url}/${step.icon}`} alt="step icon" className="max-h-full max-w-full" />
                                     </div>
-                                    <h5 style={{ textTransform: "capitalize" }}>{step.title}</h5>
-                                    <p>{step.description}</p>
+                                    <h5 className="flex-[1] text-center capitalize flex items-center justify-center">
+                                        {step.title}
+                                    </h5>
+                                    <p className="flex-[1] text-center flex items-center justify-center px-2">
+                                        {step.description}
+                                    </p>
+                                    </div>
+                                    </div>
+                                    </div>
                                 </div>
                             );
 
                             return (
-                                <div key={index} className="col-lg-3 col-12">
-                                    {step.link ? (
-                                        <Link href={step.link}>
-                                        <div className="text-black no-underline">
-                                          {cardContent}
-                                        </div>
-                                      </Link>
-                                    ) : (
-                                        cardContent
-                                    )}
-                                </div>
-                            );
+                                    <div
+                                        key={index}
+                                        className="col-lg-3 col-sm-6 col-12"
+                                        style={{
+                                            display: "flex",
+                                            padding: "0 10px",
+                                            marginBottom: "3rem",
+                                        }}
+                                    >
+                                        {step.link ? (
+                                            <Link href={step.link} style={{ flex: 1 }}>
+                                                <div className="text-black no-underline">
+                                                {cardContent}
+                                                </div>
+                                            </Link>
+                                        ) : (
+                                            cardContent
+                                        )}
+                                    </div>
+                                );
                         })}
                     </div>
                 </div>
