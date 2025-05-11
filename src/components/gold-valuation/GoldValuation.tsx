@@ -145,7 +145,7 @@ function GoldValueCalculator() {
                                                 
                                                 <input
                                                     type="number"
-                                                    className="!w-24 !h-10 px-4 text-base border rounded-md"
+                                                    className="resp-val-input"
                                                     step="0.01"
                                                     min="0"
                                                     max="100"
@@ -155,6 +155,13 @@ function GoldValueCalculator() {
                                                     updateSliderStyle2(e);
                                                     }}
                                                     id="personal-amount-inter"
+                                                    style={{
+                                                    width: `${goldWeight.toString().length + 1}ch`,
+                                                    minWidth: "5ch",
+                                                    border: "1px solid #ccc",
+                                                    boxShadow: "0 1px 4px rgba(0, 0, 0, 0.1)",
+                                                    borderRadius: "0.375rem",
+                                                    }}
                                                     
                                                 />
                                                 <input
@@ -162,6 +169,10 @@ function GoldValueCalculator() {
                                                     disabled
                                                     value={`G`}
                                                     id="personal-amount"
+                                                    style={{
+                                                    width: "1ch",
+                                                    minWidth: "1ch",
+                                                    }}  
     
                                                 />
                                                    

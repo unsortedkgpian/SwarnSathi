@@ -11,9 +11,20 @@ interface Step {
     link?: string; // Optional link
 }
 
+
 const HowItWorks = () => {
     const [steps, setSteps] = useState<Step[]>([]);
     const url = process.env.NEXT_PUBLIC_API_URL;
+    const [isNarrow, setIsNarrow] = useState(false);
+
+    useEffect(() => {
+    const handleResize = () => {
+        setIsNarrow(window.innerWidth < 1217);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Check on mount
+    return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     useEffect(() => {
         const fetchSteps = async () => {
@@ -145,7 +156,7 @@ const HowItWorks = () => {
                             return (
                                     <div
                                         key={index}
-                                        className="col-md-3 d-flex"
+                                        className={`${isNarrow ? "col-md-6" : "col-md-3"} d-flex`}
                                         style={{
                                             display: "flex",
                                             padding: "0 10px",
