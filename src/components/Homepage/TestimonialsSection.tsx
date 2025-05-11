@@ -2,14 +2,48 @@ import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import TextModal from "../TextModal";
 
 const TestimonialsSection = () => {
     const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
+    const [showTextModal, setShowTextModal] = useState(false);
+
+    const [refId, setRefId] = useState();
+    const [refText, setRefText] = useState("Please login to get your referral id");
+
+    const getRefId = async () =>{
+        const user = localStorage.getItem("user");
+        if(!user) return null;
+        const userJson = JSON.parse(user);
+        const phoneNumber = userJson.phone;
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"/api/referrals/phone/"+phoneNumber, {
+            method: "GET"
+         }) 
+
+         const data = await response.json();
+
+         console.log(data.referralId)
+        // const a = data.data.referralId; 
+        // console.log("data ="+data);
+        // console.log("data.data ="+data.data);
+
+
+// console.log("a ="+a);
+// console.log(refId)
+        setRefId(data.referralId);
+// console.log(refId)
+
+        let reftext = "Refer a friend and earn rewards! Share this message: 'Join Swarn Sathi for amazing gold loan benefits! Use my referral code: ";
+        reftext+= data.referralId;
+        return reftext;
+    }
 
     useEffect(() => {
         const checkScreenSize = () => {
             setIsMobileOrTablet(window.innerWidth <= 991);
         };
+
+        getRefId()
 
         checkScreenSize();
         window.addEventListener("resize", checkScreenSize);
@@ -27,11 +61,11 @@ const TestimonialsSection = () => {
         },
         {
             image: "/images/Refer a friend.png",
-            link: "https://wa.me/919876543210?text=Hi%2C%20I%27m%20interested%20in%20learning%20more%20about%20Swarn%20Sathi%20Champions!",
+            action: "modal" // Special marker for modal action
         },
         {
             image: "/images/Business Associate.png",
-    link: "/swarnsathi-champion#Business_Associate",
+            link: "/swarnsathi-champion#Business_Associate",
         },
     ];
 
@@ -56,8 +90,25 @@ const TestimonialsSection = () => {
         ],
     };
 
+    const handleReferralClick = async (e: React.MouseEvent) => {
+        e.preventDefault();
+        const reftext = await getRefId();
+        if(reftext==null){
+            setRefText("Please login to get your referral id")
+        } 
+        else setRefText(reftext);
+        setShowTextModal(true);
+    };
+
     return (
         <section className="testimonials-section personal-loan pt-120">
+            {showTextModal  && (
+                <TextModal
+                    onClose={() => setShowTextModal(false)}
+                    text={refText}
+                />
+            )}
+
             <div className="hoverslide">
                 <div className="container wow fadeInUp">
                     <div className="row">
@@ -66,17 +117,37 @@ const TestimonialsSection = () => {
                                 <Slider {...settings} className="testimonials-slider-two">
                                     {testimonials.map((t, index) => (
                                         <div key={index} className="single-slide">
-                                            <a href={t.link} rel="noopener noreferrer">
-                                                <img
-                                                    src={t.image}
-                                                    alt={`Testimonial ${index + 1}`}
-                                                    style={{
+                                            {index === 2 ? (
+                                                <div 
+                                                    onClick={handleReferralClick}
+                                                    style={{ 
+                                                        cursor: "pointer",
                                                         borderRadius: "16px",
-                                                        width: "100%",
-                                                        height: "auto",
+                                                        overflow: "hidden"
                                                     }}
-                                                />
-                                            </a>
+                                                >
+                                                    <img
+                                                        src={t.image}
+                                                        alt={`Testimonial ${index + 1}`}
+                                                        style={{
+                                                            width: "100%",
+                                                            height: "auto",
+                                                        }}
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <a href={t.link} rel="noopener noreferrer">
+                                                    <img
+                                                        src={t.image}
+                                                        alt={`Testimonial ${index + 1}`}
+                                                        style={{
+                                                            borderRadius: "16px",
+                                                            width: "100%",
+                                                            height: "auto",
+                                                        }}
+                                                    />
+                                                </a>
+                                            )}
                                         </div>
                                     ))}
                                 </Slider>
@@ -88,19 +159,41 @@ const TestimonialsSection = () => {
                                             style={{
                                                 flex: "1",
                                                 maxWidth: "24%",
+                                                borderRadius: "16px",
+                                                overflow: "hidden"
                                             }}
                                         >
-                                            <a href={t.link} rel="noopener noreferrer">
-                                                <img
-                                                    src={t.image}
-                                                    alt={`Testimonial ${index + 1}`}
-                                                    style={{
-                                                        borderRadius: "16px",
-                                                        width: "100%",
-                                                        height: "auto",
+                                            {index === 2 ? (
+                                                <div 
+                                                    onClick={handleReferralClick}
+                                                    style={{ 
+                                                        cursor: "pointer",
+                                                        height: "100%"
                                                     }}
-                                                />
-                                            </a>
+                                                >
+                                                    <img
+                                                        src={t.image}
+                                                        alt={`Testimonial ${index + 1}`}
+                                                        style={{
+                                                            width: "100%",
+                                                            height: "100%",
+                                                            objectFit: "cover"
+                                                        }}
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <a href={t.link} rel="noopener noreferrer">
+                                                    <img
+                                                        src={t.image}
+                                                        alt={`Testimonial ${index + 1}`}
+                                                        style={{
+                                                            width: "100%",
+                                                            height: "100%",
+                                                            objectFit: "cover"
+                                                        }}
+                                                    />
+                                                </a>
+                                            )}
                                         </div>
                                     ))}
                                 </div>

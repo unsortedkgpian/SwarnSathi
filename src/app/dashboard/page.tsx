@@ -149,7 +149,7 @@ const Dashboard = () => {
             <div className="col-12">
               <div className="card">
                 <div className="card-body">
-                  <h2 className="card-title">Welcome, {user.name} to Swarn Sathi</h2>
+                  <h2 className="card-title">Welcome, to Swarn Sathi</h2>
                   <div className="card-text">
                     <p><strong>Phone:</strong> {user.phone}</p>
                     {user.email && <p><strong>Email:</strong> {user.email}</p>}

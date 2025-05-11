@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -141,6 +142,19 @@ const TopBanner = () => {
         router.push("/");
     };
 
+    const handleApply = () => {
+    // Check authentication status
+    const token = localStorage.getItem('token');
+    
+    if (token) {
+      // User is logged in - redirect to dashboard
+      router.push('/dashboard');
+    } else {
+      // User not logged in - redirect to login
+      router.push('/login');
+    }
+}
+
     return (
         <section className="banner-section topbanner" id="applysection">
             <div className="overlay">
@@ -162,20 +176,59 @@ const TopBanner = () => {
                                         >
                                             Super fast gold loan
                                         </h1>
-                                         <p
-                                                style={{
-                                                    fontSize: "17px",
-                                                    fontWeight: "500",
-                                                    lineHeight: "1.5",
-                                                    color: "##0f0f0f", // Slightly darker if needed for readability
-                                                    marginTop: "0.5rem"
-                                                }}
-                                                >
+                                        <p className="xlr">
                                             Customised product designed for all
                                             your financial needs
                                         </p>
                                     </div>
-                                    <div className="align-items-center">
+
+                                    <div >
+                                                    <button 
+                                                        className="applybutton cmn-btn inputapply"
+                                                        onClick={handleApply}
+                                                        style={{
+                                                                    marginRight: "10px",
+                                                                }}
+                                                    >
+                                                        Apply Now
+                                                    </button>
+                                                </div>
+                                    <div className="contact-info mt-2 m-2" >
+                                                    <div>
+                                                        <FontAwesomeIcon
+                                                            icon={faPhone}
+                                                            className="contact-icon"
+                                                        />
+                                                        <span className="callus">                                                            
+                                                            <Link
+                                                                href={`tel:+91${telephone}`}
+                                                                className="contact-link"
+                                                            >
+                                                                {telephone ||
+                                                                    "Contact Number"}
+                                                            </Link>
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <FontAwesomeIcon
+                                                            icon={faWhatsapp}
+                                                            className="contact-icon"
+                                                        />
+                                                        <span className="callus">                                                           
+                                                            <Link
+                                                                href={urlo}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="contact-link"
+                                                            >
+                                                                +91-
+                                                                {phone ||
+                                                                    "WhatsApp Number"}
+                                                            </Link>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                    {/* <div className="align-items-center">
                                         <div className="row">
                                             <div className="col-md-8 col-sm-12 col-12">
                                                 {
@@ -306,7 +359,7 @@ const TopBanner = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
@@ -318,7 +371,6 @@ const TopBanner = () => {
                 <ModalComponent
                     show={showModal}
                     onClose={handleModalClose}
-                    phoneNumber={phoneNumber}
                     loanType="gold_loan"
                 />
             </div>
