@@ -18,7 +18,7 @@ interface CounterEducationProps {
 const CounterEducation = ({
     title = "We believe you are more than a number.",
     counters = [
-        { number: 5, suffix: "Cr", label: "Loans given" },
+        { number: 5, suffix: "Cr+", label: "Loans given" },
         { number: 1000, suffix: "+", label: "Customers served" },
         { number: 167, label: "Pincode Covered" },
     ],

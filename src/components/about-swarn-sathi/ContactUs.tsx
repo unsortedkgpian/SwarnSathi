@@ -45,7 +45,7 @@ const page = () => {
             <InnerBanner pageTitle="Contact Us" variant="contact" />
             <ContactMapSection
                 title="Get in touch with us."
-                description="Fill up the form and our team will get back to you within 24 hours"
+                description="Visit your nearest branch"
                 variant="contact"
             />
             {/* <Map locations={sampleLocations} /> */}
