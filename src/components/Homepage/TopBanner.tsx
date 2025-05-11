@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -163,7 +162,15 @@ const TopBanner = () => {
                                         >
                                             Super fast gold loan
                                         </h1>
-                                        <p className="xlr">
+                                         <p
+                                                style={{
+                                                    fontSize: "17px",
+                                                    fontWeight: "500",
+                                                    lineHeight: "1.5",
+                                                    color: "##0f0f0f", // Slightly darker if needed for readability
+                                                    marginTop: "0.5rem"
+                                                }}
+                                                >
                                             Customised product designed for all
                                             your financial needs
                                         </p>
