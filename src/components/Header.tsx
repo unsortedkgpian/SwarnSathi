@@ -194,7 +194,8 @@ const Header = () => {
                                 className="logo"
                                 alt="logo"
                                 style={{
-                                    maxWidth: isMobile ? "180px" : "180px",
+                                    width: isMobile ? "180px" : "300px",
+
                                 }}
                             />
                         </Navbar.Brand>

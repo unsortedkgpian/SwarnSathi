@@ -156,7 +156,7 @@ const TopBanner = () => {
 }
 
     return (
-        <section className="banner-section topbanner" id="applysection">
+        <section className="banner-section topbanner " id="applysection">
             <div className="overlay">
                 <div className="banner-content d-flex align-items-center">
                     <div className="container">

@@ -1,178 +1,181 @@
 .banner-section.topbanner {
-    position: relative;
-    background: url("/images/banner-full-width-desktop-swarnsathi.jpg") center auto no-repeat;
-    color: white;
+  position: relative;
+  background: url("/images/banner-full-width-desktop-swarnsathi.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
 }
 
 .input-container {
-    display: flex;
-    align-items: center;
-    border-radius: 30px;
-    border: 1px solid #fd8f00;
-    background: #fd8f00;
-    box-shadow: 6px 7px 20px 0px #fc9f3e61;
-    padding: 5px;
-    margin-bottom: 1rem;
-    position: relative;
-    /* Keep items horizontal with nowrap */
-    flex-wrap: nowrap;
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  border: 1px solid #fd8f00;
+  background: #fd8f00;
+  box-shadow: 6px 7px 20px 0px #fc9f3e61;
+  padding: 5px;
+  margin-bottom: 1rem;
+  position: relative;
+  /* Keep items horizontal with nowrap */
+  flex-wrap: nowrap;
 }
 
 .phone-prefix {
-    padding: 0 15px;
-    font-weight: 500;
-    color: #333;
-    /* Prevent wrapping of the +91 text */
-    white-space: nowrap;
+  padding: 0 15px;
+  font-weight: 500;
+  color: #333;
+  /* Prevent wrapping of the +91 text */
+  white-space: nowrap;
 }
 
 .apply-now {
-    flex: 1;
-    border: none;
-    /* background: transparent; */
-    padding: 12px;
-    outline: none;
-    font-size: 16px;
-    /* Allow input to shrink properly */
-    min-width: 0;
+  flex: 1;
+  border: none;
+  /* background: transparent; */
+  padding: 12px;
+  outline: none;
+  font-size: 16px;
+  /* Allow input to shrink properly */
+  min-width: 0;
 }
 
 .apply-now::placeholder {
-    color: #666;
-    opacity: 0.8;
+  color: #666;
+  opacity: 0.8;
 }
 
 .applybutton {
-    padding: 12px 25px;
-    border-radius: 25px;
-    border: none;
-    background: #fea123;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 600;
-    /* Prevent button text from wrapping */
-    white-space: nowrap;
+  padding: 12px 25px;
+  border-radius: 25px;
+  border: none;
+  background: #fea123;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  /* Prevent button text from wrapping */
+  white-space: nowrap;
 }
 
 .applybutton:hover {
-    background: #fd8f00;
+  background: #fd8f00;
 }
 
 .validation-message {
-    color: #fea123;
-    font-size: 0.9rem;
-    min-height: 20px;
-    margin-top: 0;
-    padding-left: 15px;
+  color: #fea123;
+  font-size: 0.9rem;
+  min-height: 20px;
+  margin-top: 0;
+  padding-left: 15px;
 }
 
 .validation-message:not(:empty) {
-    /*     margin-bottom: 1rem; */
+  /*     margin-bottom: 1rem; */
 }
 
 .contact-info {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-wrap: wrap;
-    margin-top: 0rem;
-    margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 0rem;
+  margin-bottom: 15px;
 }
 
 .contact-icon {
-    margin-right: 5px;
-    color: #fea123;
+  margin-right: 5px;
+  color: #fea123;
 }
 
 .contact-link {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s ease;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .contact-link:hover {
-    color: #fea123;
+  color: #fea123;
 }
 
 /* Responsive adjustments to keep horizontal layout */
 @media (max-width: 768px) {
-    .input-container {
-        flex-direction: row;
-        padding: 3px 8px;
-        max-width: 90%;
-        width: 90%;
-    }
+  .input-container {
+    flex-direction: row;
+    padding: 3px 8px;
+    max-width: 90%;
+    width: 90%;
+  }
 
-    .phone-prefix {
-        margin-bottom: 0;
-        padding: 0 5px;
-        font-size: 13px;
-    }
+  .phone-prefix {
+    margin-bottom: 0;
+    padding: 0 5px;
+    font-size: 13px;
+  }
 
-    .apply-now {
-        width: auto;
-        margin-bottom: 0;
-        padding: 6px;
-        font-size: 13px;
-        height: 36px;
-    }
+  .apply-now {
+    width: auto;
+    margin-bottom: 0;
+    padding: 6px;
+    font-size: 13px;
+    height: 36px;
+  }
 
-    .applybutton {
-        width: auto;
-        padding: 6px 12px;
-        font-size: 13px;
-        height: 36px;
-        min-width: 80px;
-    }
+  .applybutton {
+    width: auto;
+    padding: 6px 12px;
+    font-size: 13px;
+    height: 36px;
+    min-width: 80px;
+  }
 
-    .validation-message {
-        font-size: 12px;
-        padding-left: 10px;
-        max-width: 90%;
-        margin: 0 auto;
-    }
+  .validation-message {
+    font-size: 12px;
+    padding-left: 10px;
+    max-width: 90%;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 480px) {
-    .input-container {
-        margin-left: 0px;
-        max-width: 100%;
-        width: 100%;
-    }
+  .input-container {
+    margin-left: 0px;
+    max-width: 100%;
+    width: 100%;
+  }
 
-    .col-md-8 {
-        padding: 0 10px;
-    }
+  .col-md-8 {
+    padding: 0 10px;
+  }
 
-    .phone-prefix {
-        padding: 0 3px;
-        font-size: 16px;
-    }
+  .phone-prefix {
+    padding: 0 3px;
+    font-size: 16px;
+  }
 
-    .apply-now {
-        padding: 4px;
-        font-size: 16px;
-        height: 50px;
-    }
+  .apply-now {
+    padding: 4px;
+    font-size: 16px;
+    height: 50px;
+  }
 
-    .applybutton {
-        padding: 2px 20px;
-        font-size: 15px;
-        height: 42px;
-        min-width: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 0px !important;
-    }
+  .applybutton {
+    padding: 2px 20px;
+    font-size: 15px;
+    height: 42px;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0px !important;
+  }
 
-    .validation-message {
-        max-width: 85%;
-        margin: 0 auto;
-    }
+  .validation-message {
+    max-width: 85%;
+    margin: 0 auto;
+  }
 
-    /* .contact-info {
+  /* .contact-info {
         flex-wrap: wrap;
         justify-content: flex-start;
         gap: 8px;
@@ -181,69 +184,70 @@
         margin: 10px auto 0;
     } */
 
-    .contact-info .callus {
-        font-size: 15px;
-    }
+  .contact-info .callus {
+    font-size: 15px;
+  }
 }
 
-.banner-section.topbanner {
-    position: relative;
-    background: url("/images/banner-full-width-desktop-swarnsathi.jpg") center/cover no-repeat;
-    color: white;
-}
+/* .banner-section.topbanner {
+  position: relative;
+  background: url("/images/banner-full-width-desktop-swarnsathi.jpg")
+    center/cover no-repeat;
+  color: white;
+} */
 
 @media (max-width: 992px) {
-    .banner-section.topbanner {
-        /* background-image: url("/tab-photo.jpg"); */
-    }
+  .banner-section.topbanner {
+    /* background-image: url("/tab-photo.jpg"); */
+  }
 }
 
 @media (max-width: 768px) {
-    .banner-section.topbanner {
-        /* background-image: url("/mobile.jpg"); */
-    }
+  .banner-section.topbanner {
+    /* background-image: url("/mobile.jpg"); */
+  }
 }
 
 @media (max-width: 767px) {
-    .banner-section.topbanner {
-        /* padding-top: 0px !important; */
-        /* height: 72vh; */
-    }
-    
-    .banner-section .banner-content {
-        min-height: unset !important;
-    }
+  .banner-section.topbanner {
+    /* padding-top: 0px !important; */
+    /* height: 72vh; */
+  }
 
-    /* .banner-content.d-flex.align-items-center {
+  .banner-section .banner-content {
+    min-height: unset !important;
+  }
+
+  /* .banner-content.d-flex.align-items-center {
         align-items: flex-start !important;
         padding-top: 130px !important;
     } */
 
-    .main-content .top-area {
-        padding-top: 0 !important;
-        margin-top: -10px !important;
-    }
+  .main-content .top-area {
+    padding-top: 0 !important;
+    margin-top: -10px !important;
+  }
 
-    .sub-title {
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-    }
+  .sub-title {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
 
-    .banner-section .container {
-        padding-top: 0 !important;
-        margin-top: 0 !important;
-    }
+  .banner-section .container {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
 }
 
 @media (max-width: 1024px) and (min-width: 768px) {
-    .banner-section.topbanner {
-      background-image: url("/images/banner-bg-mobile.jpg");
-    }
+  .banner-section.topbanner {
+    background-image: url("/tab-photo.jpg");
   }
-  
-  /* Mobile */
-  @media (max-width: 767px) {
-    .banner-section.topbanner{
-      background-image: url("/images/banner-bg-mobile.jpg");
-    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .banner-section.topbanner {
+    background-image: url("/mobile.jpg");
   }
+}

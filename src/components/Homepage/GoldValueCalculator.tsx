@@ -116,6 +116,15 @@ export default function GoldValueCalculator() {
         setGoldPurity(Number(e.target.value));
     };
 
+    const updateSliderStyle2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const slider = document.querySelector("#gold-weight-slider") as HTMLInputElement;
+        const value = Number(e.target.value);
+        const min = Number(e.target.min);
+        const max = Number(e.target.max);
+        const progress = ((value - min) / (max - min)) * 100;
+        slider.style.setProperty("--progress", `${progress}%`);
+    };
+
 
     return (
         <section className="business-loan-section personal-loan">
@@ -206,11 +215,25 @@ export default function GoldValueCalculator() {
                                                 <label style={{ fontSize: "30px", fontWeight: "400" }}>
                                                     Gold Weight:&nbsp;
                                                 </label>
+
+                                                <input
+                                                    type="number"
+                                                    className="!w-24 !h-10 px-4 text-base border rounded-md"
+                                                    step="0.01"
+                                                    min="0"
+                                                    max="100"
+                                                    value={goldWeight}
+                                                    onChange={(e) => {
+                                                    setGoldWeight(Number(e.target.value));
+                                                    updateSliderStyle2(e);
+                                                    }}
+                                                    id="personal-amount-inter"                                                    
+                                                />
                                                 <input
                                                     type="text"
                                                     disabled
-                                                    value={`${goldWeight}g`}
-                                                    id="personal-amount-inter"
+                                                    value={`G`}
+                                                    id="personal-amount"
                                                 />
                                             </h4>
                                         </div>

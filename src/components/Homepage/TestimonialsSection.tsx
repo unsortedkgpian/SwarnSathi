@@ -70,7 +70,7 @@ const TestimonialsSection = () => {
     ];
 
     const settings = {
-        dots: false,
+        dots: true,
         arrows: false,
         infinite: true,
         speed: 500,
@@ -85,6 +85,7 @@ const TestimonialsSection = () => {
                 breakpoint: 768,
                 settings: {
                     slidesToShow: 1,
+                    slidesToScroll: 1,
                 },
             },
         ],

@@ -98,6 +98,7 @@ const HowItWorks = () => {
                                 flexWrap: "wrap",
                                 marginLeft: "-10px",
                                 marginRight: "-10px",
+                                marginTop:"20px",   
                             }}
                         >
                         {steps.map((step, index) => {
@@ -105,7 +106,7 @@ const HowItWorks = () => {
                             const cardContent = (
                                 
                                 <div
-                                    className="single-box howworkshome"
+                                    className="single-box  howworkshome"
                                     style={{
                                         flex: 1,
                                         padding: "20px",
@@ -144,7 +145,7 @@ const HowItWorks = () => {
                             return (
                                     <div
                                         key={index}
-                                        className="col-lg-3 col-sm-6 col-12"
+                                        className="col-md-3 d-flex"
                                         style={{
                                             display: "flex",
                                             padding: "0 10px",

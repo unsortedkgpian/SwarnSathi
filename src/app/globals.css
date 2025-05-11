@@ -49,6 +49,9 @@ h6 {
   padding: 0;
   margin: 0;
 }
+p {
+  font-size: 24px;
+}
 
 h1,
 h1 > a,
@@ -1922,6 +1925,16 @@ a.cmn-btn.navbarbtn {
   /*     padding-top: 16px; */
   box-shadow: 6px 7px 20px 0px #fc9f3e61;
   margin-bottom: 15px;
+}
+@media (max-width: 800px) and (min-width: 560px) {
+  .partner-section {
+    margin-top: 100px;
+  }
+}
+@media (max-width: 560px) {
+  .partner-section {
+    margin-top: 120px;
+  }
 }
 .faq {
   list-style: disc;
@@ -4468,10 +4481,10 @@ a.cmn-btn.navbarbtn {
   font-size: 35px;
 }
 .top-section p {
-  font-size: 12px;
+  font-size: 20px;
 }
 .top-section span {
-  font-size: 12px;
+  font-size: 20px;
 }
 .section-text .title {
   font-size: 35px;
@@ -4480,13 +4493,13 @@ a.cmn-btn.navbarbtn {
   font-size: 55px;
 }
 .section-text p {
-  font-size: 12px;
+  font-size: 20px;
 }
 .section-header .title {
   font-size: 35px;
 }
 .section-header p {
-  font-size: 12px;
+  font-size: 20px;
 }
 .callus {
   font-size: 13px;
@@ -4751,7 +4764,7 @@ a.cmn-btn.navbarbtn {
     width: 300px !important;
   }
   .nav-item a {
-    font-size: 12px !important;
+    font-size: 14px !important;
   }
   .banner-section .overlay .banner-content {
     /* padding: 270px 0 210px; */
@@ -4953,8 +4966,9 @@ a.cmn-btn.navbarbtn {
   p,
   span,
   li {
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 12px;
+    line-height: 24px;
+    font-style: initial;
   }
   .section-header {
     margin-top: 78px;
@@ -5026,7 +5040,7 @@ a.cmn-btn.navbarbtn {
 
   /* Ensure icons inside links are visible */
   .social-link-top a i {
-    font-size: 14px;
+    font-size: 20px;
     display: inline-block;
   }
 
@@ -5356,7 +5370,7 @@ a.cmn-btn.navbarbtn {
 
 @media (max-width: 767px) {
   .navtab {
-    font-size: 10px;
+    font-size: 20px;
     padding: 8px 6px 8px 3px;
   }
   .footer-section .footer-bottom {
@@ -5643,8 +5657,8 @@ a.cmn-btn.navbarbtn {
   textarea,
   h6,
   h6 > a {
-    font-size: 12px;
-    line-height: 19px;
+    font-size: 14px;
+    line-height: 24px;
   }
 
   .resp-val-label {
