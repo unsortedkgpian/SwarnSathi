@@ -134,29 +134,29 @@ export default function GoldValueCalculator() {
                         <div className="col-lg-12">
                             <div className="main-content">
                                 {!isLoading && goldRate24K && lastUpdated && (
-    <div
-        style={{
-            position: "relative",
-            top: "0",
-            left: "0",
-            backgroundColor: "white",
-            padding: "2px 4px",
-            borderRadius: "10px",
-            color: "black",
-            zIndex: 10,
-            width: "200px",
-            fontFamily: "Segoe UI, Roboto, sans-serif",
-            lineHeight: 1.5
-        }}
-    >
-        <div style={{ fontSize: "17px", fontWeight: 700, color: "#fc9f3e" }}> 
-           Gold rate:  ₹{goldRate24K.toFixed(2)} /g
-        </div>
-        <div style={{ fontSize: "13px", marginTop: "6px", color: "#fc9f3e" }}>
-            Updated: {new Date(lastUpdated).toLocaleString()}
-        </div>
-    </div>
-)}
+                                    <div
+                                        style={{
+                                            position: "relative",
+                                            top: "0",
+                                            left: "0",
+                                            backgroundColor: "white",
+                                            padding: "2px 4px",
+                                            borderRadius: "10px",
+                                            color: "black",
+                                            zIndex: 10,
+                                            width: "200px",
+                                            fontFamily: "Segoe UI, Roboto, sans-serif",
+                                            lineHeight: 1.5
+                                        }}
+                                    >
+                                        <div style={{ fontSize: "17px", fontWeight: 700, color: "#fc9f3e" }}> 
+                                        Gold rate:  ₹{goldRate24K.toFixed(2)} /g
+                                        </div>
+                                        <div style={{ fontSize: "13px", marginTop: "6px", color: "#fc9f3e" }}>
+                                            Updated: {new Date(lastUpdated).toLocaleString()}
+                                        </div>
+                                    </div>
+                                )}
 
                                 <div className="section-text">                                    
                                     <h2 className="title" style={{ textTransform: "capitalize" }}>
@@ -210,7 +210,7 @@ export default function GoldValueCalculator() {
                                         </div>
 
                                         {/* Gold Weight Section */}
-                                        <div className="range-amount">
+                                        <div className="range-amount relative inline-block">
                                             <h4 className="d-flex align-items-center justify-content-center">
                                                 <label style={{ fontSize: "30px", fontWeight: "400" }}>
                                                     Gold Weight:&nbsp;
@@ -218,7 +218,7 @@ export default function GoldValueCalculator() {
 
                                                 <input
                                                     type="number"
-                                                    className="!w-24 !h-10 px-4 text-base border rounded-md"
+                                                    className="resp-val-input "
                                                     step="0.01"
                                                     min="0"
                                                     max="100"
@@ -227,13 +227,25 @@ export default function GoldValueCalculator() {
                                                     setGoldWeight(Number(e.target.value));
                                                     updateSliderStyle2(e);
                                                     }}
-                                                    id="personal-amount-inter"                                                    
+                                                    id="personal-amount-inter"
+                                                    style={{
+                                                    width: `${goldWeight.toString().length + 1}ch`,
+                                                    minWidth: "5ch",
+                                                    border: "1px solid #ccc",
+                                                    boxShadow: "0 1px 4px rgba(0, 0, 0, 0.1)",
+                                                    borderRadius: "0.375rem",
+                                                    }}                                                    
                                                 />
                                                 <input
                                                     type="text"
+                                                    className="resp-val-input"
                                                     disabled
                                                     value={`G`}
                                                     id="personal-amount"
+                                                    style={{
+                                                    width: "1ch",
+                                                    minWidth: "1ch",
+                                                    }}                                                    
                                                 />
                                             </h4>
                                         </div>
@@ -241,7 +253,7 @@ export default function GoldValueCalculator() {
                                         <input
                                             type="range"
                                             min="0"
-                                            max="60"
+                                            max="100"
                                             value={goldWeight}
                                             onChange={(e) => {setGoldWeight(Number(e.target.value));updateSliderStyle(e)}}
                                             className="form-range orange-slider"
@@ -249,7 +261,7 @@ export default function GoldValueCalculator() {
                                         />
                                         <div className="d-flex justify-content-between" style={{ marginTop: "10px" }}>
                                             <p>0</p>
-                                            <p>60</p>
+                                            <p>100</p>
                                         </div>
 
                                         {/* Approx Value Section */}
