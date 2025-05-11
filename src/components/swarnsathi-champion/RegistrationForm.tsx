@@ -3997,7 +3997,6 @@
 // };
 
 // export default RegistrationForm;
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -4005,508 +4004,373 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 
 interface FormData {
-    name: string;
-    phone: string;
-    pincode?: string;
-    email?: string;
-    type: string;
+  name: string;
+  phone: string;
+  pincode?: string;
+  email?: string;
+  type: string;
 }
 
 const RegistrationForm: React.FC = () => {
-    const pathname = usePathname();
-    const url = process.env.NEXT_PUBLIC_API_URL;
-    const validTabs = [
-        "Swarnsathi_Champion",
-        "Business_Associate",
-        "Lending_Partner",
-    ] as const;
+  const pathname = usePathname();
+  const url = process.env.NEXT_PUBLIC_API_URL;
+  const validTabs = [
+    "Swarnsathi_Champion",
+    "Business_Associate",
+    "Lending_Partner",
+  ] as const;
 
-    // Get initial tab from URL hash
-    const getInitialTab = (): (typeof validTabs)[number] => {
-        if (typeof window !== "undefined") {
-            const hash = window.location.hash.substring(1);
-            return validTabs.includes(hash as any)
-                ? (hash as (typeof validTabs)[number])
-                : "Swarnsathi_Champion";
-        }
-        return "Swarnsathi_Champion";
-    };
+  const typeMap = {
+    Swarnsathi_Champion: "swarnsathi_champion",
+    Business_Associate: "business_associate",
+    Lending_Partner: "lending_partner",
+  };
 
-    const [activeTab, setActiveTab] = useState<(typeof validTabs)[number]>(() => {
+  const [activeTab, setActiveTab] = useState<(typeof validTabs)[number]>(() => {
     if (typeof window !== "undefined") {
-        const hash = window.location.hash.substring(1);
-        return validTabs.includes(hash as any)
-            ? (hash as (typeof validTabs)[number])
-            : "Swarnsathi_Champion";
+      const hash = window.location.hash.substring(1);
+      return validTabs.includes(hash as any)
+        ? (hash as (typeof validTabs)[number])
+        : "Swarnsathi_Champion";
     }
     return "Swarnsathi_Champion";
-});
+  });
 
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    phone: "",
+    type: typeMap[activeTab],
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [showOtpInput, setShowOtpInput] = useState(false);
+  const [genOtp, setGenOtp] = useState("");
+  const [otp, setOtp] = useState("");
+  const [otpVerified, setOtpVerified] = useState(false);
 
-    const [formData, setFormData] = useState<FormData>({
-        name: "",
-        phone: "",
-        pincode: undefined,
-        email: undefined,
-        type: "swarnsathi_champion",
-    });
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [success, setSuccess] = useState<string | null>(null);
-    const [showOtpInput, setShowOtpInput] = useState(false);
-    const [genOtp, setGenOtp] = useState("");
-    const [otp, setOtp] = useState("");
-    const [otpVerified, setOtpVerified] = useState(false);
-
-    // Initialize form data based on active tab
-    useEffect(() => {
-        const typeMap = {
-            Swarnsathi_Champion: "swarnsathi_champion",
-            Business_Associate: "business_associate",
-            Lending_Partner: "lending_partner",
-        };
-
-        setFormData((prev) => ({
-            ...prev,
-            pincode: activeTab === "Lending_Partner" ? undefined : "",
-            email: activeTab === "Lending_Partner" ? "" : undefined,
-            type: typeMap[activeTab],
-        }));
-    }, [activeTab]);
-
-    // Handle hash changes
-useEffect(() => {
+  useEffect(() => {
     const handleHashChange = () => {
-        const newHash = window.location.hash.substring(1);
-        console.log("newHash"+newHash);
-        if (validTabs.includes(newHash as any)) {
-            setActiveTab(newHash as (typeof validTabs)[number]);
-        }
+      const newHash = window.location.hash.substring(1);
+      if (validTabs.includes(newHash as any)) {
+        setActiveTab(newHash as (typeof validTabs)[number]);
+      }
     };
 
-    // Initial setup
-    handleHashChange();
-    
-    // Listen for future hash changes (browser navigation)
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
-}, []);
+  }, []);
 
-    const resetState = () => {
-        setError(null);
-        setSuccess(null);
-        setShowOtpInput(false);
-        setOtpVerified(false);
-        setOtp("");
-        setGenOtp("");
-    };
-
-    const handleTabChange = (tab: (typeof validTabs)[number]) => {
-    // Always directly set the state first
-    setActiveTab(tab);
-    
-    // Then update the hash
-    window.location.hash = tab;
-    
-    // Reset form state if needed
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      type: typeMap[activeTab],
+      pincode: activeTab === "Lending_Partner" ? undefined : "",
+      email: activeTab === "Lending_Partner" ? "" : undefined,
+    }));
     resetState();
-};
+  }, [activeTab]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-    };
+  const resetState = () => {
+    setError(null);
+    setSuccess(null);
+    setShowOtpInput(false);
+    setOtpVerified(false);
+    setOtp("");
+    setGenOtp("");
+  };
 
-    const handleSendOtp = async () => {
-        if (!/^\d{10}$/.test(formData.phone)) {
-            setError("Please enter a valid 10-digit phone number");
-            return;
-        }
+  const handleTabChange = (tab: (typeof validTabs)[number]) => {
+    setActiveTab(tab);
+    window.location.hash = tab;
+  };
 
-        try {
-            setLoading(true);
-            setError(null);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
-            const response = await axios.post(`/api/send-otp`, {
-                phone: formData.phone,
-                type: formData.type,
-            });
+  const handleSendOtp = async () => {
+    if (!/^\d{10}$/.test(formData.phone)) {
+      setError("Please enter a valid 10-digit phone number");
+      return;
+    }
 
-            if (response.data.success) {
-                setSuccess("OTP sent successfully");
-                setShowOtpInput(true);
-                setGenOtp(response.data.genOtp);
-            } else {
-                setError(response.data.message || "Failed to send OTP");
-            }
-        } catch (err) {
-            setError("Failed to send OTP. Please try again.");
-        } finally {
-            setLoading(false);
-        }
-    };
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await axios.post(`/api/send-otp`, {
+        phone: formData.phone,
+        type: formData.type,
+      });
 
-    const handleVerifyOtp = async () => {
-        if (!/^\d{6}$/.test(otp)) {
-            setError("Please enter a valid 6-digit OTP");
-            return;
-        }
+      if (response.data.success) {
+        setSuccess("OTP sent successfully");
+        setShowOtpInput(true);
+        setGenOtp(response.data.genOtp);
+      } else {
+        setError(response.data.message || "Failed to send OTP");
+      }
+    } catch (err) {
+      setError("Failed to send OTP. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        try {
-            setLoading(true);
-            setError(null);
+  const handleVerifyOtp = async () => {
+    if (!/^\d{6}$/.test(otp)) {
+      setError("Please enter a valid 6-digit OTP");
+      return;
+    }
 
-            const response = await axios.post(`/api/verify-otp`, {
-                phoneNumber: formData.phone,
-                otp: otp,
-                genOtp: genOtp,
-            });
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await axios.post(`/api/verify-otp`, {
+        phoneNumber: formData.phone,
+        otp: otp,
+        genOtp: genOtp,
+      });
 
-            if (response.data.success) {
-                setSuccess("Phone verified successfully");
-                setOtpVerified(true);
-            } else {
-                setError(response.data.message || "Invalid OTP");
-            }
-        } catch (err) {
-            setError("Failed to verify OTP. Please try again.");
-        } finally {
-            setLoading(false);
-        }
-    };
+      if (response.data.success) {
+        setSuccess("Phone verified successfully");
+        setOtpVerified(true);
+      } else {
+        setError(response.data.message || "Invalid OTP");
+      }
+    } catch (err) {
+      setError("Failed to verify OTP. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-        if (!formData.name.trim()) {
-            setError("Name is required");
-            return;
-        }
+    if (!formData.name.trim()) {
+      setError("Name is required");
+      return;
+    }
 
-        if (!otpVerified) {
-            setError("Please verify your phone number first");
-            return;
-        }
+    if (!otpVerified) {
+      setError("Please verify your phone number first");
+      return;
+    }
 
-        // Tab-specific validation
-        if (activeTab === "Lending_Partner") {
-            if (!/^\S+@\S+\.\S+$/.test(formData.email || "")) {
-                setError("Valid email address is required");
-                return;
-            }
-        } else {
-            if (!/^\d{6}$/.test(formData.pincode || "")) {
-                setError("Valid 6-digit pincode is required");
-                return;
-            }
-        }
+    if (activeTab === "Lending_Partner") {
+      if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
+        setError("Valid email address is required");
+        return;
+      }
+    } else {
+      if (!formData.pincode || !/^\d{6}$/.test(formData.pincode)) {
+        setError("Valid 6-digit pincode is required");
+        return;
+      }
+    }
 
-        try {
-            setLoading(true);
-            setError(null);
-            await axios.post(`${url}/api/registration`, formData);
-            setSuccess("Registration successful!");
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await axios.post(`${url}/api/partner-form/`, {
+        ...formData,
+        type: typeMap[activeTab]
+      });
 
-            // Reset form
-            setFormData({
-                name: "",
-                phone: "",
-                pincode: activeTab === "Lending_Partner" ? undefined : "",
-                email: activeTab === "Lending_Partner" ? "" : undefined,
-                type: formData.type,
-            });
-            resetState();
-        } catch (err) {
-            setError("Registration failed. Please try again.");
-        } finally {
-            setLoading(false);
-        }
-    };
+      setSuccess(response.data.message);
+      setFormData({
+        name: "",
+        phone: "",
+        pincode: activeTab === "Lending_Partner" ? undefined : "",
+        email: activeTab === "Lending_Partner" ? "" : undefined,
+        type: typeMap[activeTab],
+      });
+      resetState();
+    } catch (err) {
+      setError("Registration failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return (
-        <section className="sign-in-up register " id="registration-form">
-            <div className="overlay pt-120 pb-120">
-                <div className="container">
-                    <div className="row g-4">
-                        <div className="col-lg-6">
-                            <div className="form-content shadow-sm bg-white p-4 rounded-3">
-                                <div className="section-header mb-4">
-                                    <h2
-                                        className="title mb-3 text-[#fb9e47]"
-                                        style={{ color: "#fb9e47" }}
-                                    >
-                                        Let's Get Started!
-                                    </h2>
-                                    <p
-                                        className="text-muted text-[#fb9e47]"
-                                        style={{ color: "#fb9e47" }}
-                                    >
-                                        Please fill out the form to start your
-                                        application
-                                    </p>
-                                </div>
-
-                                {error && (
-                                    <div className="alert alert-danger mb-3">
-                                        {error}
-                                    </div>
-                                )}
-                                {success && (
-                                    <div className="alert alert-success mb-3">
-                                        {success}
-                                    </div>
-                                )}
-
-                                <div className="d-flex gap-2 mb-4">
-                                    {validTabs.map((tab) => (
-                                        // <a
-                                        //     key={tab}
-                                        //     href={`${pathname}#${tab}`}
-                                        //     className={`btn btn-outline-primary flex-grow-1 ${
-                                        //         activeTab === tab
-                                        //             ? "active bg-primary text-white bg-[#fb9e47]"
-                                        //             : ""
-                                        //     }`}
-                                        //     onClick={(e) => {
-                                        //         e.preventDefault();
-                                        //         handleTabChange(tab);
-                                        //     }}
-
-                                        // >
-                                        //     {tab.replace(/_/g, " ")}
-                                        // </a>
-                                        // <a
-                                        //     key={tab}
-                                        //     href={`${pathname}#${tab}`}
-                                        //     className={`btn flex-grow-1 ${
-                                        //         activeTab === tab
-                                        //             ? "active !bg-[#fb9e47] !text-white !border-[#fb9e47]"
-                                        //             : "btn-outline-primary"
-                                        //     }`}
-                                        //     style={
-                                        //         activeTab === tab
-                                        //             ? {
-                                        //                   backgroundColor:
-                                        //                       "#fb9e47",
-                                        //                   borderColor:
-                                        //                       "#fb9e47",
-                                        //                   color: "white",
-                                        //               }
-                                        //             : {}
-                                        //     }
-                                        //     onClick={(e) => {
-                                        //         e.preventDefault();
-                                        //         handleTabChange(tab);
-                                        //     }}
-                                        // >
-                                        //     {tab.replace(/_/g, " ")}
-                                        // </a>
-                                        <a
-                                            key={tab}
-                                            href={`${pathname}#${tab}`}
-                                            className={`btn flex-grow-1 border border-[#fb9e47] text-[#fb9e47] hover:text-[#fb9e47] ${
-                                                activeTab === tab
-                                                    ? "active !bg-[#fb9e47] !text-white"
-                                                    : "bg-transparent"
-                                            }`}
-                                            style={{
-                                                borderColor: "#fb9e47",
-                                                color:
-                                                    activeTab === tab
-                                                        ? "white"
-                                                        : "#fb9e47",
-                                                backgroundColor:
-                                                    activeTab === tab
-                                                        ? "#fb9e47"
-                                                        : "transparent",
-                                            }}
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                handleTabChange(tab);
-                                            }}
-                                        >
-                                            {tab.replace(/_/g, " ")}
-                                        </a>
-                                    ))}
-                                </div>
-
-                                <form onSubmit={handleSubmit}>
-                                    <div className="row g-3">
-                                        <div className="col-12">
-                                            <div className="form-floating">
-                                                <input
-                                                    name="name"
-                                                    type="text"
-                                                    className="form-control"
-                                                    placeholder="Name"
-                                                    value={formData.name}
-                                                    onChange={handleChange}
-                                                    required
-                                                />
-                                                <label>Full Name</label>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-12">
-                                            <div className="input-group">
-                                                <div className="form-floating flex-grow-1">
-                                                    <input
-                                                        name="phone"
-                                                        type="tel"
-                                                        className="form-control"
-                                                        placeholder="Phone"
-                                                        value={formData.phone}
-                                                        onChange={handleChange}
-                                                        required
-                                                        disabled={otpVerified}
-                                                        maxLength={10}
-                                                    />
-                                                    <label>
-                                                        Phone Number *
-                                                    </label>
-                                                </div>
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-primary"
-                                                    style={{
-                                                        backgroundColor:
-                                                            "#fb9e47",
-                                                        border: "#fb9e47",
-                                                    }}
-                                                    onClick={handleSendOtp}
-                                                    disabled={
-                                                        loading || otpVerified
-                                                    }
-                                                >
-                                                    {loading
-                                                        ? "Sending..."
-                                                        : otpVerified
-                                                        ? "Verified"
-                                                        : "Verify"}
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        {showOtpInput && !otpVerified && (
-                                            <div className="col-12">
-                                                <div className="input-group">
-                                                    <div className="form-floating flex-grow-1">
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            placeholder="OTP"
-                                                            value={otp}
-                                                            onChange={(e) =>
-                                                                setOtp(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }
-                                                            required
-                                                            maxLength={6}
-                                                        />
-                                                        <label>
-                                                            Enter OTP *
-                                                        </label>
-                                                    </div>
-                                                    <button
-                                                        type="button"
-                                                        className="btn btn-primary"
-                                                        style={{
-                                                            backgroundColor:
-                                                                "#fb9e47",
-                                                            border: "#fb9e47",
-                                                        }}
-                                                        onClick={
-                                                            handleVerifyOtp
-                                                        }
-                                                        disabled={loading}
-                                                    >
-                                                        {loading
-                                                            ? "Verifying..."
-                                                            : "Verify OTP"}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {activeTab !== "Lending_Partner" && (
-                                            <div className="col-12">
-                                                <div className="form-floating">
-                                                    <input
-                                                        name="pincode"
-                                                        type="text"
-                                                        className="form-control"
-                                                        placeholder="Pincode"
-                                                        value={
-                                                            formData.pincode ||
-                                                            ""
-                                                        }
-                                                        onChange={handleChange}
-                                                        required
-                                                        maxLength={6}
-                                                    />
-                                                    <label>Pincode *</label>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {activeTab === "Lending_Partner" && (
-                                            <div className="col-12">
-                                                <div className="form-floating">
-                                                    <input
-                                                        name="email"
-                                                        type="email"
-                                                        className="form-control"
-                                                        placeholder="Email"
-                                                        value={
-                                                            formData.email || ""
-                                                        }
-                                                        onChange={handleChange}
-                                                        required
-                                                    />
-                                                    <label>
-                                                        Email Address *
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <div className="col-12">
-                                            <button
-                                                type="submit"
-                                                className="btn btn-primary w-100 py-3"
-                                                disabled={
-                                                    loading || !otpVerified
-                                                }
-                                                style={{
-                                                    backgroundColor: "#fb9e47",
-                                                    border: "#fb9e47",
-                                                }}
-                                            >
-                                                {loading
-                                                    ? "Submitting..."
-                                                    : "Submit Now"}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-6 d-flex align-items-center justify-content-center">
-                            <img
-                                src="/images/sign-in-up-bg.png"
-                                alt="Registration"
-                                className="img-fluid rounded-3"
-                                style={{ maxWidth: "100%", height: "auto" }}
-                            />
-                        </div>
-                    </div>
+  return (
+    <section className="sign-in-up register" id="registration-form">
+      <div className="overlay pt-120 pb-120">
+        <div className="container">
+          <div className="row g-4">
+            <div className="col-lg-6">
+              <div className="form-content shadow-sm bg-white p-4 rounded-3">
+                <div className="section-header mb-4">
+                  <h2 className="title mb-3 text-[#fb9e47]">Let's Get Started!</h2>
+                  <p className="text-muted text-[#fb9e47]">
+                    Please fill out the form to start your application
+                  </p>
                 </div>
+
+                {error && <div className="alert alert-danger mb-3">{error}</div>}
+                {success && <div className="alert alert-success mb-3">{success}</div>}
+
+                <div className="d-flex gap-2 mb-4">
+                  {validTabs.map((tab) => (
+                    <a
+                      key={tab}
+                      href={`${pathname}#${tab}`}
+                      className={`btn flex-grow-1 border border-[#fb9e47] text-[#fb9e47] hover:text-[#fb9e47] ${
+                        activeTab === tab ? "active !bg-[#fb9e47] !text-white" : "bg-transparent"
+                      }`}
+                      style={{
+                        borderColor: "#fb9e47",
+                        color: activeTab === tab ? "white" : "#fb9e47",
+                        backgroundColor: activeTab === tab ? "#fb9e47" : "transparent",
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleTabChange(tab);
+                      }}
+                    >
+                      {tab.replace(/_/g, " ")}
+                    </a>
+                  ))}
+                </div>
+
+                <form onSubmit={handleSubmit}>
+                  <div className="row g-3">
+                    <div className="col-12">
+                      <div className="form-floating">
+                        <input
+                          name="name"
+                          type="text"
+                          className="form-control"
+                          placeholder="Name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          required
+                        />
+                        <label>Full Name</label>
+                      </div>
+                    </div>
+
+                    <div className="col-12">
+                      <div className="input-group">
+                        <div className="form-floating flex-grow-1">
+                          <input
+                            name="phone"
+                            type="tel"
+                            className="form-control"
+                            placeholder="Phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            required
+                            disabled={otpVerified}
+                            maxLength={10}
+                          />
+                          <label>Phone Number *</label>
+                        </div>
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          style={{ backgroundColor: "#fb9e47", border: "#fb9e47" }}
+                          onClick={handleSendOtp}
+                          disabled={loading || otpVerified}
+                        >
+                          {loading ? "Sending..." : otpVerified ? "Verified" : "Verify"}
+                        </button>
+                      </div>
+                    </div>
+
+                    {showOtpInput && !otpVerified && (
+                      <div className="col-12">
+                        <div className="input-group">
+                          <div className="form-floating flex-grow-1">
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="OTP"
+                              value={otp}
+                              onChange={(e) => setOtp(e.target.value)}
+                              required
+                              maxLength={6}
+                            />
+                            <label>Enter OTP *</label>
+                          </div>
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            style={{ backgroundColor: "#fb9e47", border: "#fb9e47" }}
+                            onClick={handleVerifyOtp}
+                            disabled={loading}
+                          >
+                            {loading ? "Verifying..." : "Verify OTP"}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab !== "Lending_Partner" && (
+                      <div className="col-12">
+                        <div className="form-floating">
+                          <input
+                            name="pincode"
+                            type="text"
+                            className="form-control"
+                            placeholder="Pincode"
+                            value={formData.pincode || ""}
+                            onChange={handleChange}
+                            required
+                            maxLength={6}
+                          />
+                          <label>Pincode *</label>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === "Lending_Partner" && (
+                      <div className="col-12">
+                        <div className="form-floating">
+                          <input
+                            name="email"
+                            type="email"
+                            className="form-control"
+                            placeholder="Email"
+                            value={formData.email || ""}
+                            onChange={handleChange}
+                            required
+                          />
+                          <label>Email Address *</label>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="col-12">
+                      <button
+                        type="submit"
+                        className="btn btn-primary w-100 py-3"
+                        disabled={loading || !otpVerified}
+                        style={{ backgroundColor: "#fb9e47", border: "#fb9e47" }}
+                      >
+                        {loading ? "Submitting..." : "Submit Now"}
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
-        </section>
-    );
+
+            <div className="col-lg-6 d-flex align-items-center justify-content-center">
+              <img
+                src="/images/sign-in-up-bg.png"
+                alt="Registration"
+                className="img-fluid rounded-3"
+                style={{ maxWidth: "100%", height: "auto" }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default RegistrationForm;

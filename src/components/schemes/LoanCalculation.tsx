@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import "./LoanCalculation.css";
 import ModalComponent from "../HandleSubmit";
+import { useRouter } from "next/navigation"; // Add this import
 
 interface ModalComponentProps {
     show: boolean;
@@ -23,13 +24,23 @@ const LoanCalculation: React.FC = () => {
         useState<string>("Daily");
     const [interestFrequency, setInterestFrequency] = useState<string>("Daily");
     const[loanType, setLoanType] = useState("")
+    const router = useRouter();
 
     const applyNow = (type: string) => {
-        // Format the loan type to match the expected format
-        const formattedType = type.toLowerCase().replace(/_/g, "-");
-        setLoanType(formattedType);
-        setShowModal(true);
-        console.log(`Apply now clicked for ${formattedType}`);
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+            // Redirect to login if not authenticated
+            router.push('/login');
+            return;
+        }
+        else{
+            // Format the loan type to match the expected format
+            const formattedType = type.toLowerCase().replace(/_/g, "-");
+            setLoanType(formattedType);
+            setShowModal(true);
+            console.log(`Apply now clicked for ${formattedType}`);
+        }
     };
 
     // Initialize slider positions
@@ -406,7 +417,7 @@ const LoanCalculation: React.FC = () => {
                             <div className="btn-area">
                                 <button
                                     className="cmn-btn applyloan"
-                                    onClick={() => setShowModal(true)}
+                                    onClick={() => applyNow("Secured-Gold-Loan")}
                                 >
                                     Apply for loan
                                 </button>

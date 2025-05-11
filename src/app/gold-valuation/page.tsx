@@ -1,5 +1,6 @@
 'use client';
 
+import LoanCalculation from "@/components/schemes/LoanCalculation";
 import GoldValuation from "../../components/gold-valuation/GoldValuation"
 import React from "react";
 // import '../globals.css'
@@ -9,6 +10,7 @@ const LoginPage = () => {
         <>
             <br /><br /><br /><br />
             <GoldValuation/>
+            <LoanCalculation />
         </>
     );
 };

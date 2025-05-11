@@ -8,7 +8,7 @@ import React from "react";
 const Schemes = () => {
     return (
         <>
-            <LoanCalculation />
+            {/* <LoanCalculation /> */}
             <FeaturesSectionSchemes />
             <HowItWorks />
             <FaqSection />
