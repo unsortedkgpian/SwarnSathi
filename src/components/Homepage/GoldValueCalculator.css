@@ -1,164 +1,209 @@
 /* GoldValueCalculator.css */
 
 .orange-slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 8px;
-    border-radius: 5px;
-    background: transparent;
-    outline: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: transparent;
+  outline: none;
 }
 
 /* Webkit browsers */
 .orange-slider::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 8px;
-    cursor: pointer;
-    background: linear-gradient(to right, #fc9f3e var(--progress), #ccc var(--progress));
-    border-radius: 5px;
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: linear-gradient(
+    to right,
+    #fc9f3e var(--progress),
+    #ccc var(--progress)
+  );
+  border-radius: 5px;
 }
 
 .orange-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #fc9f3e;
-    border:10px solid white;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-    margin-top: -6px;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #fc9f3e;
+  border: 10px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  margin-top: -6px;
 }
 
 /* Firefox */
 .orange-slider::-moz-range-track {
-    width: 100%;
-    height: 8px;
-    cursor: pointer;
-    background: linear-gradient(to right, #fc9f3e var(--progress), #ccc var(--progress));
-    border-radius: 5px;
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: linear-gradient(
+    to right,
+    #fc9f3e var(--progress),
+    #ccc var(--progress)
+  );
+  border-radius: 5px;
 }
 
 .orange-slider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: #fc9f3e;
-        /* border: 3px solid #fc9f3e; */
+  width: 20px;
+  height: 20px;
+  background: #fc9f3e;
+  /* border: 3px solid #fc9f3e; */
 
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Edge */
 .orange-slider::-ms-track {
-    width: 100%;
-    height: 8px;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
 }
 
 .orange-slider::-ms-fill-lower {
-    background: #fc9f3e;
-    border-radius: 5px;
+  background: #fc9f3e;
+  border-radius: 5px;
 }
 
 .orange-slider::-ms-fill-upper {
-    background: #ccc;
-    border-radius: 5px;
+  background: #ccc;
+  border-radius: 5px;
 }
 
 .orange-slider::-ms-thumb {
-    width: 20px;
-    height: 20px;
-    background: #fc9f3e;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-top: 0;
-    /* border: 3px solid #fc9f3e; */
+  width: 20px;
+  height: 20px;
+  background: #fc9f3e;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: 0;
+  /* border: 3px solid #fc9f3e; */
 }
 
 /* Value Display Styles */
 .resp-val-input {
-    background: transparent;
-    border: none;
-    color: #333;
-    text-align: center;
-    max-width: 250px;
+  background: transparent;
+  border: none;
+  color: #333;
+  text-align: center;
+  max-width: 250px;
 }
 
 .range-amount h4 {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .d-flex.justify-content-between p {
-    color: #666;
-    font-size: 14px;
+  color: #666;
+  font-size: 14px;
 }
 
 #personal-amount,
 #personal-amount-inter,
 #approx-value {
-    font-weight: bold;
-    color: #fc9f3e;
+  font-weight: bold;
+  color: #fc9f3e;
 }
-
 
 /* Webkit browsers */
 .orange-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 40px; /* Increased size to accommodate border */
-    height: 40px;
-    background: #fc9f3e;
-    border: 10px solid #ffffff; /* Add border */
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    margin-top: -15px; /* Adjusted positioning */
-    box-sizing: border-box; /* Include border in width calculation */
+  -webkit-appearance: none;
+  width: 40px; /* Increased size to accommodate border */
+  height: 40px;
+  background: #fc9f3e;
+  border: 10px solid #ffffff; /* Add border */
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  margin-top: -15px; /* Adjusted positioning */
+  box-sizing: border-box; /* Include border in width calculation */
 }
 
 /* Firefox */
 .orange-slider::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
-    background: #fc9f3e;
-    border: 5px solid #ffffff;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  background: #fc9f3e;
+  border: 5px solid #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 }
 
 /* Edge */
 .orange-slider::-ms-thumb {
-    width: 24px;
-    height: 24px;
-    background: #fc9f3e;
-    border: 3px solid #ffffff;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-top: 0;
-    box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  background: #fc9f3e;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: 0;
+  box-sizing: border-box;
 }
 
-.resp-val-label {
-    font-size: 30px;
-    font-weight: 500;
+.res-val-label {
+  font-size: 30px;
+  font-weight: 500;
 }
 
-.resp-val-input {
-    font-size: 37px;
+.res-val-input {
+  font-size: 37px;
+}
+
+@media (max-width: 1256px) {
+  .res-val-label {
+    font-size: 25px !important;
+  }
+
+  .res-val-input {
+    font-size: 32px !important;
+  }
 }
 
 @media (max-width: 768px) {
-    .resp-val-label {
-        font-size: 20px !important;
-    }
-    
-    .resp-val-input {
-        font-size: 24px !important;
-    }
+  .res-val-label {
+    font-size: 20px !important;
+  }
+
+  .res-val-input {
+    font-size: 20px !important;
+  }
+}
+.resp-val-label {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.resp-val-input {
+  font-size: 37px;
+}
+
+@media (max-width: 1256px) {
+  .resp-val-label {
+    font-size: 25px !important;
+  }
+
+  .resp-val-input {
+    font-size: 32px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .resp-val-label {
+    font-size: 20px !important;
+  }
+
+  .resp-val-input {
+    font-size: 20px !important;
+  }
 }

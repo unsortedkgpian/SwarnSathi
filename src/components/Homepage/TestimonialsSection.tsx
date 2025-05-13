@@ -43,7 +43,7 @@ const TestimonialsSection = () => {
             setIsMobileOrTablet(window.innerWidth <= 991);
         };
 
-        getRefId()
+        getRefId();
 
         checkScreenSize();
         window.addEventListener("resize", checkScreenSize);
@@ -60,13 +60,17 @@ const TestimonialsSection = () => {
             link: "/swarnsathi-champion#Swarnsathi_Champion",
         },
         {
-            image: "/images/Refer a friend.png",
-            action: "modal" // Special marker for modal action
-        },
-        {
             image: "/images/Business Associate.png",
             link: "/swarnsathi-champion#Business_Associate",
         },
+        {
+            image: "/images/Refer a friend.png",
+            action: "modal" // Special marker for modal action
+        },
+        // {
+        //     image: "/images/Business Associate.png",
+        //     link: "/swarnsathi-champion#Business_Associate",
+        // },
     ];
 
     const settings = {
@@ -118,7 +122,7 @@ const TestimonialsSection = () => {
                                 <Slider {...settings} className="testimonials-slider-two">
                                     {testimonials.map((t, index) => (
                                         <div key={index} className="single-slide">
-                                            {index === 2 ? (
+                                            {index === 3 ? (
                                                 <div 
                                                     onClick={handleReferralClick}
                                                     style={{ 
@@ -164,7 +168,7 @@ const TestimonialsSection = () => {
                                                 overflow: "hidden"
                                             }}
                                         >
-                                            {index === 2 ? (
+                                            {index === 3 ? (
                                                 <div 
                                                     onClick={handleReferralClick}
                                                     style={{ 

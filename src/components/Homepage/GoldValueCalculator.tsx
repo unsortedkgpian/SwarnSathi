@@ -181,6 +181,9 @@ export default function GoldValueCalculator() {
                                                     type="text"
                                                     disabled
                                                     value={`${goldPurity}K`}
+                                                    style={{
+                                                    width: `${goldPurity.toString().length + 1}ch`,
+                                                    }} 
                                                     id="personal-amount"
                                                     
                                                 />
@@ -218,7 +221,6 @@ export default function GoldValueCalculator() {
 
                                                 <input
                                                     type="number"
-                                                    className="resp-val-input "
                                                     step="0.01"
                                                     min="0"
                                                     max="100"
@@ -230,20 +232,20 @@ export default function GoldValueCalculator() {
                                                     id="personal-amount-inter"
                                                     style={{
                                                     width: `${goldWeight.toString().length + 1}ch`,
-                                                    minWidth: "5ch",
                                                     border: "1px solid #ccc",
                                                     boxShadow: "0 1px 4px rgba(0, 0, 0, 0.1)",
-                                                    borderRadius: "0.375rem",
+                                                    borderRadius: "0.275rem",
+                                                    textAlign:"center",
                                                     }}                                                    
                                                 />
                                                 <input
                                                     type="text"
-                                                    className="resp-val-input"
+                                                   
                                                     disabled
                                                     value={`G`}
                                                     id="personal-amount"
                                                     style={{
-                                                    width: "1ch",
+                                                    width: "1.25ch",
                                                     minWidth: "1ch",
                                                     }}                                                    
                                                 />
@@ -267,13 +269,16 @@ export default function GoldValueCalculator() {
                                         {/* Approx Value Section */}
                                         <div className="range-amount">
                                             <h4 className="d-flex align-items-center justify-content-center resp-val">
-                                                <label className="resp-val-label">
+                                                <label>
                                                     Maximum Gold Price:&nbsp;
                                                 </label>
                                                 <input
                                                     type="text"
+                                                    className = "res-val-input"
                                                     disabled
-                                                    className="resp-val-input"
+                                                    style={{
+                                                    width: `${calculateApproxValue().toString().length + 1}ch`,
+                                                    }} 
                                                     value={isLoading ? "Loading..." : `₹${calculateApproxValue()}`}
                                                     id="approx-value"
                                                 />
@@ -282,13 +287,16 @@ export default function GoldValueCalculator() {
 
                                         <div className="range-amount">
                                             <h4 className="d-flex align-items-center justify-content-center resp-val">
-                                                <label className="resp-val-label">
+                                                <label >
                                                     Your Gold Price:&nbsp;
                                                 </label>
                                                 <input
                                                     type="text"
+                                                    className = "res-val-input"
                                                     disabled
-                                                    className="resp-val-input"
+                                                    style={{
+                                                    width: `${yourGoldValue().toString().length + 1}ch`,
+                                                    }} 
                                                     value={isLoading ? "Loading..." : `₹${yourGoldValue()}`}
                                                     id="approx-value"
                                                 />
