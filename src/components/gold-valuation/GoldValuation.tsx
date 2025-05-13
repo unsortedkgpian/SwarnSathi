@@ -1,16 +1,63 @@
-
 "use client";
 import { useEffect, useState } from "react";
 import "./GoldValueCalculator.css";
 
 const validPurities = [10, 14, 18, 20, 22, 24];
 
-function GoldValueCalculator() {
+export default function GoldValueCalculator() {
     const [goldPurity, setGoldPurity] = useState(22);
     const [goldWeight, setGoldWeight] = useState(10);
     const [goldRate24K, setGoldRate24K] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
+    const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+
+    useEffect(() => {
+    const fetchGoldRate = async () => {
+        try {
+            const cached = localStorage.getItem("goldRateCache");
+            const now = new Date();
+
+            if (cached) {
+                const { rate, timestamp } = JSON.parse(cached);
+                const cachedDate = new Date(timestamp);
+
+                // Check if data is from today
+                const isStale = now.toDateString() !== cachedDate.toDateString();
+
+                if (!isStale) {
+                    setGoldRate24K(rate);
+                    setLastUpdated(timestamp);
+                    setIsLoading(false);
+                    return;
+                }
+            }
+
+            // Fetch fresh data if no cache or stale
+            const res = await fetch(url + "/api/goldrate");
+            const data = await res.json();
+            if (data?.rate) {
+                setGoldRate24K(data.rate);
+                setLastUpdated(data.timestamp);
+                localStorage.setItem(
+                    "goldRateCache",
+                    JSON.stringify({ rate: data.rate, timestamp: data.timestamp })
+                );
+            } else {
+                throw new Error("Invalid response from API");
+            }
+        } catch (err) {
+            console.error("Error fetching gold rate:", err);
+            setError("Failed to fetch gold rate");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    fetchGoldRate();
+}, []);
+
+
     const url = process.env.NEXT_PUBLIC_API_URL;
     // Fetch the 24K gold rate from backend API
     useEffect(() => {
@@ -64,6 +111,11 @@ function GoldValueCalculator() {
         const progress = ((value - min) / (max - min)) * 100;
         e.target.style.setProperty("--progress", `${progress}%`);
     };
+    const handlePurityChange = (e) => {
+        updateSliderStyle(e);
+        setGoldPurity(Number(e.target.value));
+    };
+
     const updateSliderStyle2 = (e: React.ChangeEvent<HTMLInputElement>) => {
         const slider = document.querySelector("#gold-weight-slider") as HTMLInputElement;
         const value = Number(e.target.value);
@@ -72,20 +124,41 @@ function GoldValueCalculator() {
         const progress = ((value - min) / (max - min)) * 100;
         slider.style.setProperty("--progress", `${progress}%`);
     };
-    const handlePurityChange = (e) => {
-        updateSliderStyle(e);
-        setGoldPurity(Number(e.target.value));
-    };
 
 
     return (
-        <section className="business-loan-section personal-loan" id="gold-calculator">
+        <section className="business-loan-section personal-loan">
             <div className="overlay">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="main-content">
-                                <div className="section-text">
+                                {!isLoading && goldRate24K && lastUpdated && (
+                                    <div
+                                        style={{
+                                            position: "relative",
+                                            top: "0",
+                                            left: "0",
+                                            backgroundColor: "white",
+                                            padding: "2px 4px",
+                                            borderRadius: "10px",
+                                            color: "black",
+                                            zIndex: 10,
+                                            width: "200px",
+                                            fontFamily: "Segoe UI, Roboto, sans-serif",
+                                            lineHeight: 1.5
+                                        }}
+                                    >
+                                        <div style={{ fontSize: "17px", fontWeight: 700, color: "#fc9f3e" }}> 
+                                        Gold rate:  ₹{goldRate24K.toFixed(2)} /g
+                                        </div>
+                                        <div style={{ fontSize: "13px", marginTop: "6px", color: "#fc9f3e" }}>
+                                            Updated: {new Date(lastUpdated).toLocaleString()}
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div className="section-text">                                    
                                     <h2 className="title" style={{ textTransform: "capitalize" }}>
                                         Check the value of your jewellery
                                     </h2>
@@ -108,8 +181,11 @@ function GoldValueCalculator() {
                                                     type="text"
                                                     disabled
                                                     value={`${goldPurity}K`}
+                                                    style={{
+                                                    width: `${goldPurity.toString().length + 1}ch`,
+                                                    }} 
                                                     id="personal-amount"
-    
+                                                    
                                                 />
                                             </h4>
                                         </div>
@@ -137,15 +213,14 @@ function GoldValueCalculator() {
                                         </div>
 
                                         {/* Gold Weight Section */}
-                                        <div className="range-amount">
+                                        <div className="range-amount relative inline-block">
                                             <h4 className="d-flex align-items-center justify-content-center">
                                                 <label style={{ fontSize: "30px", fontWeight: "400" }}>
                                                     Gold Weight:&nbsp;
                                                 </label>
-                                                
+
                                                 <input
                                                     type="number"
-                                                    className="resp-val-input"
                                                     step="0.01"
                                                     min="0"
                                                     max="100"
@@ -157,31 +232,28 @@ function GoldValueCalculator() {
                                                     id="personal-amount-inter"
                                                     style={{
                                                     width: `${goldWeight.toString().length + 1}ch`,
-                                                    minWidth: "5ch",
                                                     border: "1px solid #ccc",
                                                     boxShadow: "0 1px 4px rgba(0, 0, 0, 0.1)",
-                                                    borderRadius: "0.375rem",
-                                                    }}
-                                                    
+                                                    borderRadius: "0.275rem",
+                                                    textAlign:"center",
+                                                    }}                                                    
                                                 />
                                                 <input
                                                     type="text"
+                                                   
                                                     disabled
                                                     value={`G`}
                                                     id="personal-amount"
                                                     style={{
-                                                    width: "1ch",
+                                                    width: "1.25ch",
                                                     minWidth: "1ch",
-                                                    }}  
-    
+                                                    }}                                                    
                                                 />
-                                                   
                                             </h4>
                                         </div>
 
                                         <input
                                             type="range"
-                                            step="0.01"
                                             min="0"
                                             max="100"
                                             value={goldWeight}
@@ -197,13 +269,16 @@ function GoldValueCalculator() {
                                         {/* Approx Value Section */}
                                         <div className="range-amount">
                                             <h4 className="d-flex align-items-center justify-content-center resp-val">
-                                                <label className="resp-val-label">
+                                                <label>
                                                     Maximum Gold Price:&nbsp;
                                                 </label>
                                                 <input
                                                     type="text"
+                                                    className = "res-val-input"
                                                     disabled
-                                                    className="resp-val-input"
+                                                    style={{
+                                                    width: `${calculateApproxValue().toString().length + 1}ch`,
+                                                    }} 
                                                     value={isLoading ? "Loading..." : `₹${calculateApproxValue()}`}
                                                     id="approx-value"
                                                 />
@@ -212,13 +287,16 @@ function GoldValueCalculator() {
 
                                         <div className="range-amount">
                                             <h4 className="d-flex align-items-center justify-content-center resp-val">
-                                                <label className="resp-val-label">
+                                                <label >
                                                     Your Gold Price:&nbsp;
                                                 </label>
                                                 <input
                                                     type="text"
+                                                    className = "res-val-input"
                                                     disabled
-                                                    className="resp-val-input"
+                                                    style={{
+                                                    width: `${yourGoldValue().toString().length + 1}ch`,
+                                                    }} 
                                                     value={isLoading ? "Loading..." : `₹${yourGoldValue()}`}
                                                     id="approx-value"
                                                 />
@@ -248,4 +326,3 @@ function GoldValueCalculator() {
 
 
 
-export default GoldValueCalculator;

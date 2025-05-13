@@ -332,7 +332,7 @@ const Header = () => {
                                         }`}
                                         onClick={handleLinkClick}
                                     >
-                                        GOLD EVALUATOR
+                                        GOLD CALCULATOR
                                     </Nav.Link>
                                 </Nav.Item>
 

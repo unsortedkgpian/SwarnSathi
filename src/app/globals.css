@@ -4982,7 +4982,7 @@ a.cmn-btn.navbarbtn {
     line-height: 28px;
   }
   .xlr {
-    font-size: 18px;
+    font-size: 10px;
     line-height: 25.5px;
   }
   .header-section .navbar-toggler {
@@ -5688,7 +5688,7 @@ a.cmn-btn.navbarbtn {
     line-height: 25.5px;
   }
   .xlr {
-    font-size: 16px;
+    font-size: 14px !important;
     line-height: 22.4px;
   }
   .header-section .navbar {
