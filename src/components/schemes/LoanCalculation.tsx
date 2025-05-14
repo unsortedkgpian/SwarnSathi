@@ -27,20 +27,21 @@ const LoanCalculation: React.FC = () => {
     const router = useRouter();
 
     const applyNow = (type: string) => {
-        const token = localStorage.getItem('token');
+        router.push('/login');
+        // const token = localStorage.getItem('token');
         
-        if (!token) {
-            // Redirect to login if not authenticated
-            router.push('/login');
-            return;
-        }
-        else{
-            // Format the loan type to match the expected format
-            const formattedType = type.toLowerCase().replace(/_/g, "-");
-            setLoanType(formattedType);
-            setShowModal(true);
-            console.log(`Apply now clicked for ${formattedType}`);
-        }
+        // if (!token) {
+        //     // Redirect to login if not authenticated
+        //     router.push('/login');
+        //     return;
+        // }
+        // else{
+        //     // Format the loan type to match the expected format
+        //     const formattedType = type.toLowerCase().replace(/_/g, "-");
+        //     setLoanType(formattedType);
+        //     setShowModal(true);
+        //     console.log(`Apply now clicked for ${formattedType}`);
+        // }
     };
 
     // Initialize slider positions

@@ -56,17 +56,18 @@ const FeaturesSectionSchemes = () => {
 
     const handleApplyNow = (e: React.MouseEvent) => {
         e.preventDefault();
+        router.push('/login');
         
         // Check if user is logged in (using localStorage token)
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
         
-        if (!token) {
-            // Redirect to login if not authenticated
-            router.push('/login');
-        } else {
-            // Show modal if authenticated
-            setShowModal(true);
-        }
+        // if (!token) {
+        //     // Redirect to login if not authenticated
+        //     router.push('/login');
+        // } else {
+        //     // Show modal if authenticated
+        //     setShowModal(true);
+        // }
     };
 
     return (

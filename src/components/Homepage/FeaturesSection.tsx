@@ -12,20 +12,22 @@ const FeaturesSection: React.FC = () => {
     const router = useRouter(); // Initialize router
 
     const applyNow = (type: string) => {
-        // Check if user is logged in
-        const token = localStorage.getItem('token');
-        
-        if (!token) {
-            // Redirect to login if not authenticated
-            router.push('/login');
-            return;
-        }
 
-        // Proceed if authenticated
-        const formattedType = type.toLowerCase().replace(/_/g, '-');
-        setLoanType(formattedType);
-        setShowModal(true);
-        console.log(`Apply now clicked for ${formattedType}`);
+        router.push('/login');
+        // Check if user is logged in
+        // const token = localStorage.getItem('token');
+        
+        // if (!token) {
+        //     // Redirect to login if not authenticated
+        //     router.push('/login');
+        //     return;
+        // }
+
+        // // Proceed if authenticated
+        // const formattedType = type.toLowerCase().replace(/_/g, '-');
+        // setLoanType(formattedType);
+        // setShowModal(true);
+        // console.log(`Apply now clicked for ${formattedType}`);
     };
 
     const checkIcon = (

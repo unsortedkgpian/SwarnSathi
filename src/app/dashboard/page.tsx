@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
+import ModalComponent from '../../components/HandleSubmit';
 import PageTitle from '@/components/PageTitle';
 
 interface LoanApplication {
@@ -32,6 +33,8 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [clickedLogOut, setClickedLogOut] = useState(false); // new state for modal
+  const [showLoanForm, setShowLoanForm] = useState(false); // New state for loan form modal
+  const [loanType, setLoanType] = useState('gold-loan');
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -74,6 +77,15 @@ const Dashboard = () => {
 
     checkAuth();
   }, [router]);
+
+  const canApplyForNewLoan = applications.every(app => 
+    app.status === 'Approved' || app.status === 'Rejected'
+  );
+
+  const handleApplyNow = () => {
+    setShowLoanForm(true);
+    setLoanType('gold-loan'); // Set default loan type or let user choose
+  };
 
   const handleLogout = async () => {
     const token = localStorage.getItem('token');
@@ -166,9 +178,19 @@ const Dashboard = () => {
             <div className="card">
               <div className="card-header d-flex justify-content-between align-items-center">
                 <h3 className="mb-0">Your Loan Applications</h3>
-                <Link href="/swarnsathi-champion" className="btn btn-primary">
-                  Apply for a New Loan
-                </Link>
+                {canApplyForNewLoan ? (
+          <button 
+                    className="btn btn-primary"
+                    onClick={handleApplyNow}
+                  >
+                    Apply for a New Loan
+                  </button>
+        ) : (
+          <span className="" style={{ color: 'red' }}>
+            <i className=""></i>
+            You have an application in process
+          </span>
+        )}
               </div>
               <div className="card-body">
                 {applications.length === 0 ? (
@@ -208,6 +230,12 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      <ModalComponent
+        show={showLoanForm}
+        onClose={() => setShowLoanForm(false)}
+        loanType={loanType}
+      />
 
       {/* Logout Confirmation Modal */}
       {clickedLogOut && (
