@@ -76,6 +76,8 @@ const InnerBanner: React.FC<InnerBannerProps> = ({
         { label: pageTitle, active: true },
     ];
 
+    
+
     // Use provided breadcrumb items or default
     const breadcrumb = breadcrumbItems || defaultBreadcrumb;
 

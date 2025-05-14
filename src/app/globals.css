@@ -1041,14 +1041,16 @@ a.cmn-btn.navbarbtn {
   padding: 307px 0 170px;
 }
 
-.banner-section.contact .overlay {
+/* .banner-section.contact .overlay {
   background-image: url(/images/contact-us.png);
   background-repeat: no-repeat;
-}
-
-.banner-section.contact .overlay .banner-content {
-  padding: 307px 0 170px;
-}
+} */
+/* @media (max-width: 950px) and (min-width: 560px) {
+  .banner-section.contact .overlay .banner-content {
+    padding: 10px 0 10px;
+    margin: 0px 20px 1000px 1000px;
+  }
+} */
 
 .banner-section.contact .overlay {
   background-image: url(/images/contact-us.png);
@@ -1056,7 +1058,7 @@ a.cmn-btn.navbarbtn {
   background-position: right 120px, right bottom;
 }
 
-.banner-section.contact .overlay .banner-content {
+.banner-section .contact .overlay .banner-content {
   padding: 307px 0 170px;
 }
 
