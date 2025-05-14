@@ -2999,7 +2999,7 @@ a.cmn-btn.navbarbtn {
 
 .account-feature.loan-feature .single-box {
   padding: 40px 30px;
-  padding-bottom: 29px;
+  /* padding-bottom: 29px; */
   border: 1px solid #eef1ff;
   border-radius: 10px;
   margin-bottom: 30px;
@@ -5190,9 +5190,9 @@ a.cmn-btn.navbarbtn {
   .account-feature .cus-mar {
     margin-bottom: -30px;
   }
-  .account-feature .single-box {
+  /* .account-feature .single-box {
     margin-bottom: 30px;
-  }
+  } */
   .banner-section.inner-banner .overlay .banner-content .banner-mar {
     margin-bottom: 30px;
   }
@@ -5613,9 +5613,9 @@ a.cmn-btn.navbarbtn {
   .topheader {
     margin-bottom: 70px !important;
   }
-  .howworkshome {
+  /* .howworkshome {
     margin-bottom: 90px !important;
-  }
+  } */
   h1,
   h1 > a {
     font-size: 40px;
@@ -6096,3 +6096,18 @@ body {
   font-size: 13px;
   font-weight: 400;
 }
+
+/* .howworkshome-new {
+  flex: 1;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+} */

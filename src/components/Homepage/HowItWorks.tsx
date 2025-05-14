@@ -15,11 +15,19 @@ interface Step {
 const HowItWorks = () => {
     const [steps, setSteps] = useState<Step[]>([]);
     const url = process.env.NEXT_PUBLIC_API_URL;
-    const [isNarrow, setIsNarrow] = useState(false);
+    const [isNarrow, setIsNarrow] = useState(0);
 
     useEffect(() => {
     const handleResize = () => {
-        setIsNarrow(window.innerWidth < 1217);
+        if (window.innerWidth < 1217) {
+             setIsNarrow(1);
+        }
+        else if (window.innerWidth < 760) {
+             setIsNarrow(2);
+        }
+        else{
+            setIsNarrow(0);
+        }
     };
     window.addEventListener("resize", handleResize);
     handleResize(); // Check on mount
@@ -86,6 +94,13 @@ const HowItWorks = () => {
 
         fetchSteps();
     }, []);
+
+    const getColumnClass = () => {
+    if (isNarrow === 2) return 'col-md-12';
+    if (isNarrow === 1) return 'col-md-6';
+    return 'col-md-3'; // default
+    };
+
 
     return (
         <section className="account-feature get-loan home-loan howitworkshome">
@@ -156,7 +171,7 @@ const HowItWorks = () => {
                             return (
                                     <div
                                         key={index}
-                                        className={`${isNarrow ? "col-md-6" : "col-md-3"} d-flex`}
+                                        className={`${getColumnClass()} d-flex`}
                                         style={{
                                             display: "flex",
                                             padding: "0 10px",
