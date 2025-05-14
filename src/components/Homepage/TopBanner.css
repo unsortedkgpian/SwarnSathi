@@ -239,15 +239,15 @@
   }
 }
 
-@media (max-width: 1024px) and (min-width: 768px) {
+@media (max-width: 1024px) and (min-width: 450px) {
   .banner-section.topbanner {
     background-image: url("/tab-photo.jpg");
   }
 }
 
 /* Mobile */
-@media (max-width: 768px) {
+@media (max-width: 450px) {
   .banner-section.topbanner {
-    background-image: url("/mobile.jpg");
+    background-image: url("/banner-bg-mobile.jpg");
   }
 }
