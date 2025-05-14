@@ -3,6 +3,16 @@ import { useEffect, useState } from "react";
 
 const AboutSection = () => {
     const [locationCount, setLocationCount] = useState(0);
+    const [isNarrow, setIsNarrow] = useState(false);
+    
+    useEffect(() => {
+    const handleResize = () => {      
+        setIsNarrow(window.innerWidth > 991);       
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Check on mount
+    return () => window.removeEventListener("resize", handleResize);
+    }, []);
     
     useEffect(() => {
         const fetchData = async () => {
@@ -47,8 +57,8 @@ const AboutSection = () => {
                                     partner in your celebration, your struggle.
                                 </p>
                             </div>
-                            <div className="row cus-mar">
-                                <div className="col-xl-4 col-md-4">
+                            <div className="row cus-mar ">
+                                <div className={`col-xl-4 col-md-4 w-full ${isNarrow ? "d-flex":"" }`}>
                                     <div className="count-content text-center">
                                         <div className="count-number">
                                             <h4 className="counter" style={{ fontWeight: 800 }}>{locationCount}</h4>
@@ -56,15 +66,15 @@ const AboutSection = () => {
                                         <p>Locations covered</p>
                                     </div>
                                 </div>
-                                <div className="col-xl-4 col-md-4">
-                                    <div className="count-content text-center">
+                                <div className={`col-xl-4 col-md-4 w-full ${isNarrow ? "d-flex":"" }`}>
+                                    <div className="count-content text-center ">
                                         <div className="count-number ">
                                             <h4 className="counter" style={{ fontWeight: 800 }}>175</h4>
                                         </div>
                                         <p>Pincode covered</p>
                                     </div>
                                 </div>
-                                <div className="col-xl-4 col-md-4">
+                                <div className={`col-xl-4 col-md-4 w-full ${isNarrow ? "d-flex":"" }`}>
                                     <div className="count-content text-center">
                                         <div className="count-number ">
                                             <h4 className="counter" style={{ fontWeight: 800 }}>2</h4>

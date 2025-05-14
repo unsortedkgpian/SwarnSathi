@@ -6099,6 +6099,16 @@ body {
   font-weight: 400;
 }
 
+@media (max-width: 1050px) and (min-width: 770px) {
+  .down-the-banner {
+    margin-top: 420px !important;
+  }
+}
+@media (max-width: 770px) and (min-width: 550px) {
+  .down-the-banner {
+    margin-top: 80px !important;
+  }
+}
 /* .howworkshome-new {
   flex: 1;
   padding: 20px;
