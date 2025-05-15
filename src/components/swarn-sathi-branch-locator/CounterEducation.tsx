@@ -1,6 +1,9 @@
 import { useEffect, useRef, useMemo, useState } from "react";
 import { CountUp } from "countup.js"; // ✅ Correct Import
 import ModalComponent from "../HandleSubmit";
+import { useRouter } from "next/navigation";
+import { useContact } from "@/context/ContactContext";
+
 
 interface CounterItem {
     number: number;
@@ -25,7 +28,15 @@ const CounterEducation = ({
     buttonText = "Apply for a Swarn Sathi gold loan",
     imageSrc = "images/details-of-loan-disbursed.png",
 }: CounterEducationProps) => {
-    const [showModal, setShowModal] = useState(false);
+    
+    const router = useRouter();
+        const { loading } = useContact();
+        const [showModal, setShowModal] = useState(false);
+       
+        const url = process.env.NEXT_PUBLIC_API_URL || "";
+    
+        // Render conditionals for loading states
+        if (loading) return <p className="text-center p-4">Loading...</p>;
     // Create an array of refs for counters
     const counterRefs = useRef<HTMLSpanElement[]>([]);
 
@@ -49,6 +60,24 @@ const CounterEducation = ({
             }
         });
     }, [stableCounters]);
+
+    
+
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
+
+    const handleApply = () => {
+    // Check authentication status
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      // User is logged-out
+       router.push('/login');
+    } else{
+        setShowModal(true);
+    }
+}
 
     return (
         <section className="counter-educations">
@@ -95,7 +124,7 @@ const CounterEducation = ({
                             <div className="btn-area">
                                 <button
                                     className="cmn-btn"
-                                    onClick={() => setShowModal(true)}
+                                    onClick={handleApply}
                                     type="button"
                                 >
                                     {buttonText}
@@ -107,7 +136,7 @@ const CounterEducation = ({
             </div>
             <ModalComponent
                 show={showModal}
-                onClose={() => setShowModal(false)}
+                onClose={handleModalClose}
             />
         </section>
     );
