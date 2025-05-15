@@ -33,7 +33,7 @@ const AboutSection = () => {
     }, []);
     return (
         <section className="about-section" id="our-company">
-            <div className="overlay pt-120 pb-120">
+            <div className="overlay pt-120 pb-210">
                 <div className="container wow fadeInUp">
                     <div className="row align-items-center">
                         <div className="col-lg-6">
