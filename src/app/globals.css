@@ -447,15 +447,24 @@ li {
 .pb-120 {
   padding-bottom: 120px;
 }
+.pb-210 {
+  padding-bottom: 210px;
+}
 
 @media (max-width: 991px) {
   .pb-120 {
+    padding-bottom: 60px;
+  }
+  .pb-210 {
     padding-bottom: 60px;
   }
 }
 
 @media (max-width: 575px) {
   .pb-120 {
+    padding-bottom: 50px;
+  }
+  .pb-210 {
     padding-bottom: 50px;
   }
 }

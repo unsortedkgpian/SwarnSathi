@@ -6,7 +6,7 @@ const AboutBanner = () => {
             <div className="overlay about">
                 <div className="banner-content d-flex align-items-center">
                     <div className="container">
-                        <div className="row justify-content-start">
+                        <div className="row justify-content-start down-the-banner">
                             <div className="col-lg-7 col-md-10">
                                 <div className="main-content">
                                     <h1 style={{ fontWeight: "600" }}>About</h1>
