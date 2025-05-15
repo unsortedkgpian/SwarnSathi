@@ -125,6 +125,14 @@ export default function GoldValueCalculator() {
         slider.style.setProperty("--progress", `${progress}%`);
     };
 
+    const date = new Date(lastUpdated);
+
+const formattedDateTime = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1)
+  .toString()
+  .padStart(2, '0')}-${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date
+  .getMinutes()
+  .toString()
+  .padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
 
     return (
         <section className="business-loan-section personal-loan">
@@ -153,7 +161,7 @@ export default function GoldValueCalculator() {
                                         Gold rate:  ₹{goldRate24K.toFixed(2)} /g
                                         </div>
                                         <div style={{ fontSize: "13px", marginTop: "6px", color: "#fc9f3e" }}>
-                                            Updated: {new Date(lastUpdated).toLocaleString()}
+                                            Updated: {formattedDateTime}
                                         </div>
                                     </div>
                                 )}
