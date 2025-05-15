@@ -99,7 +99,7 @@ const LastTestimonialsSection: React.FC = () => {
             <div className="overlay pt-120 pb-120">
                 <div className="container wow fadeInUp">
                     <div className="row d-flex justify-content-center">
-                        <div className="col-lg-6">
+                        <div className="col-lg-12">
                             <div className="section-header text-center">
                                 <h2
                                     className="title"

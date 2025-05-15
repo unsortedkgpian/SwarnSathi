@@ -336,7 +336,22 @@ const Header = () => {
                                     </Nav.Link>
                                 </Nav.Item>
 
-                                <NavDropdown
+                                <Nav.Item>
+                                    <Nav.Link
+                                        as={Link}
+                                        href="/swarnsathi-champion#Swarnsathi_Champion"
+                                        className={`nav-hover ${
+                                            isActive("/swarnsathi-champion#Swarnsathi_Champion")
+                                                ? "active-link"
+                                                : ""
+                                        }`}
+                                        onClick={handleLinkClick}
+                                    >
+                                        BE OUR PARTNER
+                                    </Nav.Link>
+                                </Nav.Item>
+
+                                {/* <NavDropdown
                                     title={
                                         <>
                                             BE OUR PARTNER
@@ -381,7 +396,7 @@ const Header = () => {
                                     >
                                         LENDING PARTNER
                                     </NavDropdown.Item>
-                                </NavDropdown>
+                                </NavDropdown> */}
 
                                 <Nav.Item
                                     className={`${
