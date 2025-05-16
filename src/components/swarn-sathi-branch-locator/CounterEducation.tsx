@@ -30,18 +30,17 @@ const CounterEducation = ({
 }: CounterEducationProps) => {
     
     const router = useRouter();
-        const { loading } = useContact();
-        const [showModal, setShowModal] = useState(false);
-       
-        const url = process.env.NEXT_PUBLIC_API_URL || "";
-    
-        // Render conditionals for loading states
-        if (loading) return <p className="text-center p-4">Loading...</p>;
+    const { loading } = useContact();
+    const [showModal, setShowModal] = useState(false);
+    const url = process.env.NEXT_PUBLIC_API_URL || "";
     // Create an array of refs for counters
     const counterRefs = useRef<HTMLSpanElement[]>([]);
-
     // Memoizing counters to avoid unnecessary re-renders
     const stableCounters = useMemo(() => counters, [counters]);
+    // Render conditionals for loading states
+    // if (loading) return <p className="text-center p-4">Loading...</p>;
+    // Create an array of refs for counters
+
 
     useEffect(() => {
         counterRefs.current.forEach((ref, index) => {
