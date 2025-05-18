@@ -78,6 +78,8 @@ const ModalComponent: React.FC<ModalProps> = ({
         try {
             setLoading(true);
             setError(null);
+
+            let los_url = 'http://localhost:3000'
             
             const response = await axios.post(`${url}/api/applications/`, {
                 name: formData.name,

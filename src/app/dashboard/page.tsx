@@ -7,16 +7,16 @@ import Link from 'next/link';
 import ModalComponent from '../../components/HandleSubmit';
 import PageTitle from '@/components/PageTitle';
 
-interface LoanApplication {
-  _id: string;
-  type: string;
-  name: string;
-  phone: string;
-  pincode?: string;
-  loanType: string;
-  createdAt: string;
-  status?: string;
-}
+// interface LoanApplication {
+//   _id: string;
+//   type: string;
+//   name: string;
+//   phone: string;
+//   pincode?: string;
+//   loanType: string;
+//   createdAt: string;
+//   status?: string;
+// }
 
 interface User {
   id: string;
@@ -29,7 +29,8 @@ interface User {
 const Dashboard = () => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [applications, setApplications] = useState<LoanApplication[]>([]);
+  // const [applications, setApplications] = useState<LoanApplication[]>([]);
+  const [applications, setApplications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [clickedLogOut, setClickedLogOut] = useState(false); // new state for modal
@@ -53,12 +54,15 @@ const Dashboard = () => {
         if (userResponse.data.success) {
           setUser(userResponse.data.data);
 
-          const applicationsResponse = await axios.get('/api/user-applications', {
+          // const applicationsResponse = await axios.get('/api/user-applications', {
+          //   headers: { Authorization: `Bearer ${token}` }
+          // });
+          const applicationsResponse = await axios.get(`/api/applications/phone/${user.phone}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
 
           if (applicationsResponse.data.success) {
-            setApplications(applicationsResponse.data.applications);
+            setApplications(applicationsResponse.data.data);
           }
         } else {
           setError('Failed to fetch user data');
@@ -208,23 +212,23 @@ const Dashboard = () => {
                     <table className="table table-striped">
                       <thead>
                         <tr>
-                          <th>Loan Type</th>
-                          <th>Application Type</th>
-                          <th>Date Applied</th>
+                          {/* <th>Loan Type</th>
+                          <th>Application Type</th> */}
+                          {/* <th>Date Applied</th> */}
+                          <th>Name</th>
                           <th>Status</th>
+                          <th>Comment</th>
                         </tr>
                       </thead>
                       <tbody>
                         {applications.map((app) => (
-                          <tr key={app._id}>
-                            <td>{getLoanTypeDisplay(app.loanType)}</td>
-                            <td>{app.type}</td>
-                            <td>{new Date(app.createdAt).toLocaleDateString()}</td>
-                            <td>
-                              <span className={`badge ${app.status === 'Approved' ? 'bg-success' : app.status === 'Rejected' ? 'bg-danger' : 'bg-warning'}`}>
-                                {app.status || 'Pending'}
-                              </span>
-                            </td>
+                          <tr key={app.app_id}>
+                            {/* <td>{getLoanTypeDisplay(app.loanType)}</td>
+                            <td>{app.type}</td> */}
+                            {/* <td>{new Date(app.createdAt).toLocaleDateString()}</td> */}
+                            <td>{app.details.name}</td>
+                            <td>{app.status.value}</td>
+                            <td>{app.status.comment}</td>
                           </tr>
                         ))}
                       </tbody>
