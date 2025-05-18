@@ -79,7 +79,8 @@ const ModalComponent: React.FC<ModalProps> = ({
             setLoading(true);
             setError(null);
             
-            const response = await axios.post(`${url}/api/applications/`, {
+            let los_url = 'http://localhost:3000'
+            const response = await axios.post(`${los_url}/api/applications`, {
                 name: formData.name,
                 phone_number: user.phone,
                 type:"SWARN_SATHI",
@@ -88,11 +89,11 @@ const ModalComponent: React.FC<ModalProps> = ({
                 // address: formData.address,
                 ss_details:{
                 goldQuality: Number(formData.qualityOfGold),
-                goldQuantity: Number(formData.quantityOfGold),
+                goldAmount: Number(formData.quantityOfGold),
                 }
             });
 
-            if (response.data.success) {
+            if (response.status==201) {
                 setSuccess("Loan application submitted successfully! Redirecting...");
                 
                 // Reset form
