@@ -71,7 +71,10 @@ const Dashboard = () => {
           console.log(applicationsResponse.data)
 
           if (applicationsResponse.status === 200) {
-            setApplications(applicationsResponse.data);
+
+            const allApplications = applicationsResponse.data;
+            const goldApplications = allApplications.filter(app => app.type == 'SWARN_SATHI')
+            setApplications(goldApplications);
           }
         }
         } else {
@@ -251,8 +254,8 @@ const Dashboard = () => {
                             {app.status.comment}
                           </td>
 
-                            <td>{app.ss_details.gold_amount}</td>
-                            <td>{app.ss_details.gold_quality}</td>
+                            <td>{app.ss_details?.gold_amount}</td>
+                            <td>{app.ss_details?.gold_quality}</td>
                           </tr>
                         ))}
                       </tbody>
