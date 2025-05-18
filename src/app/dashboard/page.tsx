@@ -178,7 +178,7 @@ const Dashboard = () => {
             <div className="card">
               <div className="card-header d-flex justify-content-between align-items-center">
                 <h3 className="mb-0">Your Loan Applications</h3>
-                {canApplyForNewLoan ? (
+                {/* {canApplyForNewLoan ? (
           <button 
                     className="btn btn-primary"
                     onClick={handleApplyNow}
@@ -190,7 +190,13 @@ const Dashboard = () => {
             <i className=""></i>
             You have an application in process
           </span>
-        )}
+        )} */}
+                <button 
+                  className="btn btn-primary"
+                  onClick={handleApplyNow}
+                  >
+                  Apply for a New Loan
+                </button>
               </div>
               <div className="card-body">
                 {applications.length === 0 ? (
@@ -235,6 +241,7 @@ const Dashboard = () => {
         show={showLoanForm}
         onClose={() => setShowLoanForm(false)}
         loanType={loanType}
+        user = {user}
       />
 
       {/* Logout Confirmation Modal */}
