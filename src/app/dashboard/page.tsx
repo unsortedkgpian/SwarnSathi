@@ -52,18 +52,28 @@ const Dashboard = () => {
         });
 
         if (userResponse.data.success) {
+          localStorage.setItem("phone", userResponse.data.data.phone);
           setUser(userResponse.data.data);
 
           // const applicationsResponse = await axios.get('/api/user-applications', {
           //   headers: { Authorization: `Bearer ${token}` }
           // });
-          const applicationsResponse = await axios.get(`/api/applications/phone/${user.phone}`, {
+
+            console.log("------------------------here1-------------")
+          let phone_number = localStorage.getItem("phone");
+          if(phone_number) {
+            console.log("------------------------here2-------------")
+            const los_url = 'http://localhost:3000'
+          const applicationsResponse = await axios.get(`${los_url}/api/applications/phone/${phone_number}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
 
-          if (applicationsResponse.data.success) {
-            setApplications(applicationsResponse.data.data);
+          console.log(applicationsResponse.data)
+
+          if (applicationsResponse.status === 200) {
+            setApplications(applicationsResponse.data);
           }
+        }
         } else {
           setError('Failed to fetch user data');
           localStorage.removeItem('token');
@@ -81,10 +91,6 @@ const Dashboard = () => {
 
     checkAuth();
   }, [router]);
-
-  const canApplyForNewLoan = applications.every(app => 
-    app.status === 'Approved' || app.status === 'Rejected'
-  );
 
   const handleApplyNow = () => {
     setShowLoanForm(true);

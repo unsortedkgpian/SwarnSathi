@@ -81,7 +81,6 @@ const ModalComponent: React.FC<ModalProps> = ({
 
             let los_url = 'http://localhost:3000'
             
-            let los_url = 'http://localhost:3000'
             const response = await axios.post(`${los_url}/api/applications`, {
                 name: formData.name,
                 phone_number: user.phone,
