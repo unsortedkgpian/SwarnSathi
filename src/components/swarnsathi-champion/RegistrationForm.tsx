@@ -4082,7 +4082,7 @@ const RegistrationForm: React.FC = () => {
 
   const handleTabChange = (tab: (typeof validTabs)[number]) => {
     setActiveTab(tab);
-    window.location.hash = tab;
+    // window.location.hash = tab;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

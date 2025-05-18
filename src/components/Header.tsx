@@ -8,6 +8,9 @@ import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import axios from "axios";
 import { deleteCookie } from 'cookies-next';
 
+
+
+
 const DropdownArrow = () => (
     <span className="dropdown-arrow ms-2">
         <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
@@ -85,7 +88,7 @@ const Header = () => {
         };
 
         checkAuth();
-    }, [url]);
+    }, [url  , router]);
 
     useEffect(() => {
         if (!expanded) return;
@@ -339,9 +342,9 @@ const Header = () => {
                                 <Nav.Item>
                                     <Nav.Link
                                         as={Link}
-                                        href="/swarnsathi-champion#Swarnsathi_Champion"
+                                        href="/swarnsathi-champion"
                                         className={`nav-hover ${
-                                            isActive("/swarnsathi-champion#Swarnsathi_Champion")
+                                            isActive("/swarnsathi-champion")
                                                 ? "active-link"
                                                 : ""
                                         }`}

@@ -7,16 +7,16 @@ import Link from 'next/link';
 import ModalComponent from '../../components/HandleSubmit';
 import PageTitle from '@/components/PageTitle';
 
-interface LoanApplication {
-  _id: string;
-  type: string;
-  name: string;
-  phone: string;
-  pincode?: string;
-  loanType: string;
-  createdAt: string;
-  status?: string;
-}
+// interface LoanApplication {
+//   _id: string;
+//   type: string;
+//   name: string;
+//   phone: string;
+//   pincode?: string;
+//   loanType: string;
+//   createdAt: string;
+//   status?: string;
+// }
 
 interface User {
   id: string;
@@ -29,7 +29,8 @@ interface User {
 const Dashboard = () => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [applications, setApplications] = useState<LoanApplication[]>([]);
+  // const [applications, setApplications] = useState<LoanApplication[]>([]);
+  const [applications, setApplications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [clickedLogOut, setClickedLogOut] = useState(false); // new state for modal
@@ -51,15 +52,31 @@ const Dashboard = () => {
         });
 
         if (userResponse.data.success) {
+          localStorage.setItem("phone", userResponse.data.data.phone);
           setUser(userResponse.data.data);
 
-          const applicationsResponse = await axios.get('/api/user-applications', {
+          // const applicationsResponse = await axios.get('/api/user-applications', {
+          //   headers: { Authorization: `Bearer ${token}` }
+          // });
+
+            console.log("------------------------here1-------------")
+          let phone_number = localStorage.getItem("phone");
+          if(phone_number) {
+            console.log("------------------------here2-------------")
+            const los_url = 'http://localhost:3000';
+          const applicationsResponse = await axios.get(`${los_url}/api/applications/phone/${phone_number}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
 
-          if (applicationsResponse.data.success) {
-            setApplications(applicationsResponse.data.applications);
+          console.log(applicationsResponse.data)
+
+          if (applicationsResponse.status === 200) {
+
+            const allApplications = applicationsResponse.data;
+            const goldApplications = allApplications.filter(app => app.type == 'SWARN_SATHI')
+            setApplications(goldApplications);
           }
+        }
         } else {
           setError('Failed to fetch user data');
           localStorage.removeItem('token');
@@ -77,10 +94,6 @@ const Dashboard = () => {
 
     checkAuth();
   }, [router]);
-
-  const canApplyForNewLoan = applications.every(app => 
-    app.status === 'Approved' || app.status === 'Rejected'
-  );
 
   const handleApplyNow = () => {
     setShowLoanForm(true);
@@ -115,6 +128,7 @@ const Dashboard = () => {
 
     return loanTypes[type] || type;
   };
+
 
   if (isLoading) {
     return (
@@ -165,7 +179,7 @@ const Dashboard = () => {
                   <div className="card-text">
                     <p><strong>Phone:</strong> {user.phone}</p>
                     {user.email && <p><strong>Email:</strong> {user.email}</p>}
-                    <p><strong>Account Type:</strong> {user.role}</p>
+                    {/* <p><strong>Account Type:</strong> Swarn </p> */}
                   </div>
                 </div>
               </div>
@@ -178,7 +192,7 @@ const Dashboard = () => {
             <div className="card">
               <div className="card-header d-flex justify-content-between align-items-center">
                 <h3 className="mb-0">Your Loan Applications</h3>
-                {canApplyForNewLoan ? (
+                {/* {canApplyForNewLoan ? (
           <button 
                     className="btn btn-primary"
                     onClick={handleApplyNow}
@@ -190,7 +204,13 @@ const Dashboard = () => {
             <i className=""></i>
             You have an application in process
           </span>
-        )}
+        )} */}
+                <button 
+                  className="btn btn-primary"
+                  onClick={handleApplyNow}
+                  >
+                  Apply for a New Loan
+                </button>
               </div>
               <div className="card-body">
                 {applications.length === 0 ? (
@@ -202,23 +222,40 @@ const Dashboard = () => {
                     <table className="table table-striped">
                       <thead>
                         <tr>
-                          <th>Loan Type</th>
-                          <th>Application Type</th>
-                          <th>Date Applied</th>
+                          {/* <th>Loan Type</th>
+                          <th>Application Type</th> */}
+                          {/* <th>Date Applied</th> */}
+                          <th>Application Id</th>
+                          <th>Last Updated</th>
                           <th>Status</th>
+                          <th>Comment</th>
+                          <th>Gold Amount</th>
+                          <th>Gold Quality</th>
                         </tr>
                       </thead>
                       <tbody>
                         {applications.map((app) => (
-                          <tr key={app._id}>
-                            <td>{getLoanTypeDisplay(app.loanType)}</td>
-                            <td>{app.type}</td>
-                            <td>{new Date(app.createdAt).toLocaleDateString()}</td>
+                          <tr key={app.app_id}>
+                            {/* <td>{getLoanTypeDisplay(app.loanType)}</td>
+                            <td>{app.type}</td> */}
+                            {/* <td>{new Date(app.createdAt).toLocaleDateString()}</td> */}
+                            <td>{app.app_id}</td>
+                            <td>{new Date(app.status.timestamp).toLocaleDateString()}</td>
                             <td>
-                              <span className={`badge ${app.status === 'Approved' ? 'bg-success' : app.status === 'Rejected' ? 'bg-danger' : 'bg-warning'}`}>
-                                {app.status || 'Pending'}
-                              </span>
+                              {app.status.value === 'DISBURSED_REJECTED' || app.status.value === 'CREDIT_REJECTED' ? (
+                                <span className="text-red-600 font-semibold">Application Rejected</span>
+                              ) : app.status.value === 'DISBURSED_ACCEPTED' ? (
+                                <span className="text-green-600 font-semibold">Loan Approved</span>
+                              ) : (
+                                <span className="text-orange-500 font-semibold">Application Under Process</span>
+                              )}
                             </td>
+                            <td className="max-w-[200px] truncate whitespace-nowrap overflow-hidden" title={app.status.comment}>
+                            {app.status.comment}
+                          </td>
+
+                            <td>{app.ss_details?.gold_amount}</td>
+                            <td>{app.ss_details?.gold_quality}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -235,6 +272,7 @@ const Dashboard = () => {
         show={showLoanForm}
         onClose={() => setShowLoanForm(false)}
         loanType={loanType}
+        user = {user}
       />
 
       {/* Logout Confirmation Modal */}
