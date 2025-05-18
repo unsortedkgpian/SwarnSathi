@@ -63,7 +63,7 @@ const Dashboard = () => {
           let phone_number = localStorage.getItem("phone");
           if(phone_number) {
             console.log("------------------------here2-------------")
-            const los_url = 'http://localhost:3000'
+            const los_url = 'http://localhost:3000';
           const applicationsResponse = await axios.get(`${los_url}/api/applications/phone/${phone_number}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
@@ -125,6 +125,25 @@ const Dashboard = () => {
 
     return loanTypes[type] || type;
   };
+  const getStatusColorClass = (status: string): string => {
+  switch (status) {
+    case 'DISBURSED_ACCEPTED':
+      return 'text-success'; // Green
+    case 'DISBURSED_REJECTED':
+      return 'text-danger'; // Red
+    case 'CREDIT_ACCEPTED':
+      return 'text-primary'; // Blue
+    case 'CREDIT_REJECTED':
+      return 'text-warning'; // Yellow/Orange
+    case 'DISBURSED_HOLD':
+      return 'text-secondary'; // Gray
+    case 'APP_ID_GENERATED':
+      return 'text-info'; // Light blue
+    default:
+      return '';
+  }
+};
+
 
   if (isLoading) {
     return (
@@ -221,9 +240,11 @@ const Dashboard = () => {
                           {/* <th>Loan Type</th>
                           <th>Application Type</th> */}
                           {/* <th>Date Applied</th> */}
-                          <th>Name</th>
+                          <th>Application Id</th>
                           <th>Status</th>
                           <th>Comment</th>
+                          <th>Gold Amount</th>
+                          <th>Gold Quality</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -232,9 +253,17 @@ const Dashboard = () => {
                             {/* <td>{getLoanTypeDisplay(app.loanType)}</td>
                             <td>{app.type}</td> */}
                             {/* <td>{new Date(app.createdAt).toLocaleDateString()}</td> */}
-                            <td>{app.details.name}</td>
-                            <td>{app.status.value}</td>
-                            <td>{app.status.comment}</td>
+                            <td>{app.app_id}</td>
+                            <td className={`fw-bold text-uppercase ${getStatusColorClass(app.status.value)}`}>
+                                {app.status.value.replaceAll('_', ' ')}
+                            </td>
+
+                            <td className="max-w-[200px] truncate whitespace-nowrap overflow-hidden" title={app.status.comment}>
+                            {app.status.comment}
+                          </td>
+
+                            <td>{app.ss_details.gold_amount}</td>
+                            <td>{app.ss_details.gold_quality}</td>
                           </tr>
                         ))}
                       </tbody>
