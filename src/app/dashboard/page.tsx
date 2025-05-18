@@ -125,24 +125,6 @@ const Dashboard = () => {
 
     return loanTypes[type] || type;
   };
-  const getStatusColorClass = (status: string): string => {
-  switch (status) {
-    case 'DISBURSED_ACCEPTED':
-      return 'text-success'; // Green
-    case 'DISBURSED_REJECTED':
-      return 'text-danger'; // Red
-    case 'CREDIT_ACCEPTED':
-      return 'text-primary'; // Blue
-    case 'CREDIT_REJECTED':
-      return 'text-warning'; // Yellow/Orange
-    case 'DISBURSED_HOLD':
-      return 'text-secondary'; // Gray
-    case 'APP_ID_GENERATED':
-      return 'text-info'; // Light blue
-    default:
-      return '';
-  }
-};
 
 
   if (isLoading) {
@@ -194,7 +176,7 @@ const Dashboard = () => {
                   <div className="card-text">
                     <p><strong>Phone:</strong> {user.phone}</p>
                     {user.email && <p><strong>Email:</strong> {user.email}</p>}
-                    <p><strong>Account Type:</strong> {user.role}</p>
+                    {/* <p><strong>Account Type:</strong> Swarn </p> */}
                   </div>
                 </div>
               </div>
@@ -241,6 +223,7 @@ const Dashboard = () => {
                           <th>Application Type</th> */}
                           {/* <th>Date Applied</th> */}
                           <th>Application Id</th>
+                          <th>Last Updated</th>
                           <th>Status</th>
                           <th>Comment</th>
                           <th>Gold Amount</th>
@@ -254,10 +237,16 @@ const Dashboard = () => {
                             <td>{app.type}</td> */}
                             {/* <td>{new Date(app.createdAt).toLocaleDateString()}</td> */}
                             <td>{app.app_id}</td>
-                            <td className={`fw-bold text-uppercase ${getStatusColorClass(app.status.value)}`}>
-                                {app.status.value.replaceAll('_', ' ')}
+                            <td>{new Date(app.status.timestamp).toLocaleDateString()}</td>
+                            <td>
+                              {app.status.value === 'DISBURSED_REJECTED' || app.status.value === 'CREDIT_REJECTED' ? (
+                                <span className="text-red-600 font-semibold">Application Rejected</span>
+                              ) : app.status.value === 'DISBURSED_ACCEPTED' ? (
+                                <span className="text-green-600 font-semibold">Loan Approved</span>
+                              ) : (
+                                <span className="text-orange-500 font-semibold">Application Under Process</span>
+                              )}
                             </td>
-
                             <td className="max-w-[200px] truncate whitespace-nowrap overflow-hidden" title={app.status.comment}>
                             {app.status.comment}
                           </td>

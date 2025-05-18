@@ -273,6 +273,7 @@ const ModalComponent: React.FC<ModalProps> = ({
                                                                 onChange={handleChange}
                                                                 name="quantityOfGold"
                                                                 min="1"
+                                                                max="100"
                                                                 required
                                                             />
                                                         </div>
