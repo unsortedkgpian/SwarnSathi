@@ -144,15 +144,16 @@ const TopBanner = () => {
 
     const handleApply = () => {
     // Check authentication status
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
     
-    if (token) {
-      // User is logged in - redirect to dashboard
-      router.push('/dashboard');
-    } else {
-      // User not logged in - redirect to login
-      router.push('/login');
-    }
+    // if (token) {
+    //   // User is logged in - redirect to dashboard
+    //   router.push('/dashboard');
+    // } else {
+    //   // User not logged in - redirect to login
+    //   router.push('/login');
+    // }
+     setShowModal(true);
 }
 
     return (

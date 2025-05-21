@@ -23,6 +23,8 @@ interface ModalProps {
 interface FormData {
     name: string;
     phone: string;
+    pincode: string;
+    address: string;
     qualityOfGold: number;
     quantityOfGold: number;
 }
@@ -39,6 +41,8 @@ const ModalComponent: React.FC<ModalProps> = ({
     const [formData, setFormData] = useState<FormData>({
         name: "",
         phone: "",
+        pincode: "",
+        address: "",
         qualityOfGold: 0,
         quantityOfGold: 0,
     });
@@ -60,10 +64,10 @@ const ModalComponent: React.FC<ModalProps> = ({
             return;
         }
 
-        // if (!/^\d{6}$/.test(formData.pincode)) {
-        //     setError("Please enter a valid 6-digit pincode");
-        //     return;
-        // }
+        if (!/^\d{6}$/.test(formData.pincode)) {
+            setError("Please enter a valid 6-digit pincode");
+            return;
+        }
 
         if (formData.qualityOfGold <= 0 || formData.qualityOfGold > 24) {
             setError("Please enter valid gold quality (1-24 Karat)");
@@ -81,17 +85,25 @@ const ModalComponent: React.FC<ModalProps> = ({
 
             let los_url = 'http://localhost:3000'
             
-            const response = await axios.post(`${los_url}/api/applications`, {
+            // const response = await axios.post(`${los_url}/api/applications`, {
+            //     name: formData.name,
+            //     phone_number: user.phone,
+            //     type:"SWARN_SATHI",
+            //     crm_id:user.phone,
+            //     pincode: formData.pincode,
+            //     address: formData.address,
+            //     ss_details:{
+            //     goldQuality: Number(formData.qualityOfGold),
+            //     goldAmount: Number(formData.quantityOfGold),
+            //     }
+            // });
+            const response = await axios.post(`${url}/api/applications`, {
                 name: formData.name,
-                phone_number: user.phone,
-                type:"SWARN_SATHI",
-                crm_id:user.phone,
-                // pincode: formData.pincode,
-                // address: formData.address,
-                ss_details:{
-                goldQuality: Number(formData.qualityOfGold),
-                goldAmount: Number(formData.quantityOfGold),
-                }
+                phone: formData.phone,
+                pincode: formData.pincode,
+                address: formData.address,
+                qualityOfGold: Number(formData.qualityOfGold),
+                quantityOfGold: Number(formData.quantityOfGold),
             });
 
             if (response.status==201) {
@@ -101,6 +113,8 @@ const ModalComponent: React.FC<ModalProps> = ({
                 setFormData({
                     name: "",
                     phone: "",
+                    pincode: "",
+                    address: "",
                     qualityOfGold: 0,
                     quantityOfGold: 0,
                 });
@@ -215,7 +229,7 @@ const ModalComponent: React.FC<ModalProps> = ({
                                                             />
                                                         </div>
 
-                                                        {/* <div className="single-input">
+                                                        <div className="single-input">
                                                             <label>Mobile Number</label>
                                                             <input
                                                                 type="tel"
@@ -226,9 +240,9 @@ const ModalComponent: React.FC<ModalProps> = ({
                                                                 maxLength={10}
                                                                 pattern="[6-9]{1}[0-9]{9}"
                                                             />
-                                                        </div> */}
+                                                        </div>
 
-                                                        {/* <div className="single-input">
+                                                        <div className="single-input">
                                                             <label>Pincode</label>
                                                             <input
                                                                 type="text"
@@ -239,9 +253,9 @@ const ModalComponent: React.FC<ModalProps> = ({
                                                                 maxLength={6}
                                                                 pattern="\d{6}"
                                                             />
-                                                        </div> */}
+                                                        </div>
 
-                                                        {/* <div className="single-input">
+                                                        <div className="single-input">
                                                             <label>Address</label>
                                                             <input
                                                                 type="text"
@@ -250,7 +264,7 @@ const ModalComponent: React.FC<ModalProps> = ({
                                                                 name="address"
                                                                 required
                                                             />
-                                                        </div> */}
+                                                        </div>
 
                                                         <div className="single-input">
                                                             <label>Quality of Gold (in Karat)</label>
