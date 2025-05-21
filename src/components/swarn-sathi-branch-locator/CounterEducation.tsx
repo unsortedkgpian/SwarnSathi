@@ -68,14 +68,14 @@ const CounterEducation = ({
 
     const handleApply = () => {
     // Check authentication status
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
     
-    if (!token) {
-      // User is logged-out
-       router.push('/login');
-    } else{
+    // if (!token) {
+    //   // User is logged-out
+    //    router.push('/login');
+    // } else{
         setShowModal(true);
-    }
+    // }
 }
 
     return (

@@ -13,7 +13,7 @@ const FeaturesSection: React.FC = () => {
 
     const applyNow = (type: string) => {
 
-        router.push('/login');
+        // router.push('/login');
         // Check if user is logged in
         // const token = localStorage.getItem('token');
         
@@ -24,10 +24,10 @@ const FeaturesSection: React.FC = () => {
         // }
 
         // // Proceed if authenticated
-        // const formattedType = type.toLowerCase().replace(/_/g, '-');
-        // setLoanType(formattedType);
-        // setShowModal(true);
-        // console.log(`Apply now clicked for ${formattedType}`);
+        const formattedType = type.toLowerCase().replace(/_/g, '-');
+        setLoanType(formattedType);
+        setShowModal(true);
+        console.log(`Apply now clicked for ${formattedType}`);
     };
 
     const checkIcon = (
