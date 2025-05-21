@@ -24,7 +24,7 @@ interface FormData {
     name: string;
     phone: string;
     pincode: string;
-    address: string;
+    // address: string;
     qualityOfGold: number;
     quantityOfGold: number;
 }
@@ -42,7 +42,7 @@ const ModalComponent: React.FC<ModalProps> = ({
         name: "",
         phone: "",
         pincode: "",
-        address: "",
+        // address: "",
         qualityOfGold: 0,
         quantityOfGold: 0,
     });
@@ -101,7 +101,7 @@ const ModalComponent: React.FC<ModalProps> = ({
                 name: formData.name,
                 phone: formData.phone,
                 pincode: formData.pincode,
-                address: formData.address,
+                // address: formData.address,
                 qualityOfGold: Number(formData.qualityOfGold),
                 quantityOfGold: Number(formData.quantityOfGold),
             });
@@ -114,7 +114,7 @@ const ModalComponent: React.FC<ModalProps> = ({
                     name: "",
                     phone: "",
                     pincode: "",
-                    address: "",
+                    // address: "",
                     qualityOfGold: 0,
                     quantityOfGold: 0,
                 });
@@ -255,7 +255,7 @@ const ModalComponent: React.FC<ModalProps> = ({
                                                             />
                                                         </div>
 
-                                                        <div className="single-input">
+                                                        {/* <div className="single-input">
                                                             <label>Address</label>
                                                             <input
                                                                 type="text"
@@ -264,7 +264,7 @@ const ModalComponent: React.FC<ModalProps> = ({
                                                                 name="address"
                                                                 required
                                                             />
-                                                        </div>
+                                                        </div> */}
 
                                                         <div className="single-input">
                                                             <label>Quality of Gold (in Karat)</label>
