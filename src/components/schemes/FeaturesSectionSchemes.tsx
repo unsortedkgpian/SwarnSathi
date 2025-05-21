@@ -56,7 +56,7 @@ const FeaturesSectionSchemes = () => {
 
     const handleApplyNow = (e: React.MouseEvent) => {
         e.preventDefault();
-        router.push('/login');
+        // router.push('/login');
         
         // Check if user is logged in (using localStorage token)
         // const token = localStorage.getItem('token');
@@ -68,6 +68,7 @@ const FeaturesSectionSchemes = () => {
         //     // Show modal if authenticated
         //     setShowModal(true);
         // }
+        setShowModal(true);
     };
 
     return (

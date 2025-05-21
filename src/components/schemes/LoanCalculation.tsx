@@ -27,7 +27,7 @@ const LoanCalculation: React.FC = () => {
     const router = useRouter();
 
     const applyNow = (type: string) => {
-        router.push('/login');
+        // router.push('/login');
         // const token = localStorage.getItem('token');
         
         // if (!token) {
@@ -42,6 +42,10 @@ const LoanCalculation: React.FC = () => {
         //     setShowModal(true);
         //     console.log(`Apply now clicked for ${formattedType}`);
         // }
+        const formattedType = type.toLowerCase().replace(/_/g, "-");
+        setLoanType(formattedType);
+        setShowModal(true);
+        console.log(`Apply now clicked for ${formattedType}`);
     };
 
     // Initialize slider positions
@@ -143,6 +147,7 @@ const LoanCalculation: React.FC = () => {
     };
 
     return (
+        <>
         <section className="loan-calculation pt-120 pb-120">
             <div className="container wow fadeInUp">
                 <div className="row justify-content-center">
@@ -438,12 +443,18 @@ const LoanCalculation: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <ModalComponent
+            {/* <ModalComponent
+                show={showModal}
+                onClose={() => setShowModal(false)}
+                loanType={loanType}
+            /> */}
+        </section>
+        <ModalComponent
                 show={showModal}
                 onClose={() => setShowModal(false)}
                 loanType={loanType}
             />
-        </section>
+            </>
     );
 };
 
