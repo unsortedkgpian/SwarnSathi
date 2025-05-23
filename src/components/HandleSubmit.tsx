@@ -105,7 +105,7 @@ const ModalComponent: React.FC<ModalProps> = ({
             //     qualityOfGold: Number(formData.qualityOfGold),
             //     quantityOfGold: Number(formData.quantityOfGold),
             // });
-             const response = await axios.post(`${url}/api/lead`, {
+             const response = await axios.post(`${los_url}/api/lead`, {
                 name: formData.name,
                 phone: formData.phone,
                 pincode: formData.pincode,

@@ -27,43 +27,54 @@ const SignInRegister = () => {
     };
 
     const sendOtpLogin = async () => {
-        if (!phoneNumber || phoneNumber.length !== 10) {
-            setError("Please enter a valid 10-digit mobile number");
+    if (!phoneNumber || phoneNumber.length !== 10) {
+        setError("Please enter a valid 10-digit mobile number");
+        return;
+    }
+
+    setIsLoading(true);
+    setError("");
+    setSuccess("");
+    console.log("Checking verification for:", phoneNumber);
+
+    try {
+        // 1. Check if lead is verified
+        let los_url = 'http://localhost:4000'
+        const verifyResponse = await axios.get(`${los_url}/api/lead/${phoneNumber}`);
+
+        if (!verifyResponse.data.success || !verifyResponse.data.data?.isVerified) {
+            setError("Lead is not verified. Please contact support.");
+            setIsLoading(false);
             return;
         }
 
-        setIsLoading(true);
-        setError("");
-        setSuccess("");
-        console.log("Sending OTP to:", phoneNumber);
+        // 2. Proceed to send OTP if verified
+        const otpResponse = await axios.post(`/api/send-otp`, {
+            phone: phoneNumber,
+            loanType: "gold-loan",
+        });
 
-        try {
-            const response = await axios.post(`/api/send-otp`, {
-                phone: phoneNumber,
-                loanType: "gold-loan",
-            });
-            
-            console.log("OTP response:", response.data);
-            
-            if (response.data.success) {
-                setSuccess("OTP sent successfully to your mobile number");
-                setOtpSent(true);
-                
-                // Store generated OTP if returned (for development purposes)
-                if (response.data.genOtp) {
-                    setGenOtp(response.data.genOtp);
-                    console.log("OTP received for testing:", response.data.genOtp);
-                }
+        console.log("OTP response:", otpResponse.data);
+
+        if (otpResponse.data.success) {
+            setSuccess("OTP sent successfully to your mobile number");
+            setOtpSent(true);
+
+            if (otpResponse.data.genOtp) {
+                setGenOtp(otpResponse.data.genOtp);
+                console.log("OTP received for testing:", otpResponse.data.genOtp);
+            }
             } else {
-                setError(response.data.message || "Failed to send OTP. Please try again.");
+                setError(otpResponse.data.message || "Failed to send OTP. Please try again.");
             }
         } catch (error: any) {
-            console.error("Error sending OTP:", error);
-            setError(error.response?.data?.message || "Failed to send OTP. Please try again.");
+            console.error("Error during OTP process:", error);
+            setError(error.response?.data?.message || "Something went wrong. Please try again.");
         } finally {
             setIsLoading(false);
         }
     };
+
 
     const verifyOtpLogin = async () => {
         if (!phoneNumber || !otp) {
@@ -178,9 +189,7 @@ const SignInRegister = () => {
                                     <div className="section-header">
                                         <h2 className="mb-3">Welcome Back</h2>
                                         <p className="text-muted">
-                                            Please enter your registered mobile
-                                            number
-                                        </p>
+                                            Please enter your registered mobile number</p>
                                     </div>
                                 </div>
 
