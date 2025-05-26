@@ -116,7 +116,7 @@ const page = () => {
                             <div>Loading map...</div>
                         ) : (
                             <Map />
-                        )}
+                         )} 
                     </div>
                 </div>
             </div>

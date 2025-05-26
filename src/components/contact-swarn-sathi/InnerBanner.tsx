@@ -73,7 +73,7 @@ const InnerBanner: React.FC<InnerBannerProps> = ({
     // Default breadcrumb if not provided
     const defaultBreadcrumb = [
         { label: "Home", href: "/" },
-        { label: pageTitle, active: true },
+        // { label: pageTitle, active: true },
     ];
 
     
@@ -115,15 +115,15 @@ const InnerBanner: React.FC<InnerBannerProps> = ({
                                                             {item.active ? (
                                                                 item.label
                                                             ) : (
-                                                                <Link
-                                                                    href={
-                                                                        item.href ||
-                                                                        "#"
-                                                                    }
-                                                                >
+                                                                 <Link
+                                                                     href={
+                                                                         item.href ||
+                                                                         "#"
+                                                                     }
+                                                                 > 
                                                                     {item.label}
                                                                 </Link>
-                                                            )}
+                                                             )} 
                                                         </li>
                                                     )
                                                 )}

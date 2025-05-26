@@ -9,19 +9,19 @@ const AboutBanner = () => {
                         <div className="row justify-content-start down-the-banner">
                             <div className="col-lg-7 col-md-10">
                                 <div className="main-content">
-                                    <h1 style={{ fontWeight: "600" }}>About</h1>
+                                    <h1 style={{ fontWeight: "600" }}>About Us</h1>
                                     <div className="breadcrumb-area">
                                         <nav aria-label="breadcrumb">
                                             <ol className="breadcrumb d-flex align-items-center">
                                                 <li className="breadcrumb-item">
                                                     <Link href="/">Home</Link>
                                                 </li>
-                                                <li
+                                                {/* <li
                                                     className="breadcrumb-item active"
                                                     aria-current="page"
                                                 >
                                                     About us
-                                                </li>
+                                                </li> */}
                                             </ol>
                                         </nav>
                                     </div>

@@ -633,6 +633,7 @@ interface Location {
     name: string;
     address: string;
     description?: string;
+    image?:string;
 }
 
 interface MapProps {
@@ -645,9 +646,7 @@ const Map = ({
     defaultZoom = DEFAULT_ZOOM,
 }: MapProps) => {
     const [locations, setLocations] = useState<Location[]>([]);
-    const [selectedLocation, setSelectedLocation] = useState<Location | null>(
-        null
-    );
+    const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
     const [mapRef, setMapRef] = useState<google.maps.Map | null>(null);
     const [isGoogleLoaded, setIsGoogleLoaded] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -737,75 +736,89 @@ const Map = ({
 
     return (
         <LoadScript
-            googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
-            onLoad={() => setIsGoogleLoaded(true)}
-            onError={(e) => console.error("Google Maps load error:", e)}
-        >
-            <GoogleMap
-                mapContainerStyle={mapStyles}
-                options={mapOptions}
-                zoom={defaultZoom}
-                center={defaultCenter}
-                onLoad={handleMapLoad}
-            >
-                {isGoogleLoaded && (
-                    <MarkerClusterer>
-                        {(clusterer) => (
-                            <>
-                                {locations.map((location, index) => (
-                                    <Marker
-                                        key={index}
-                                        position={{
-                                            lat: location.lat,
-                                            lng: location.lng,
-                                        }}
-                                        title={location.name}
-                                        onClick={() =>
-                                            setSelectedLocation(location)
-                                        }
-                                        clusterer={clusterer}
-                                    >
-                                        {selectedLocation?.lat ===
-                                            location.lat && (
-                                            <InfoWindow
-                                                onCloseClick={() =>
-                                                    setSelectedLocation(null)
-                                                }
-                                                options={{ maxWidth: 250 }}
-                                            >
-                                                <div className="custom-info-window">
-                                                    <h3 className="font-bold text-md text-gray-800 mb-2">
-                                                        {location.name}
-                                                    </h3>
-                                                    <p className="text-sm text-gray-600 mb-2">
-                                                        {location.address}
-                                                    </p>
-                                                    {location.description && (
-                                                        <p className="text-xs text-gray-500 mb-3">
-                                                            {
-                                                                location.description
-                                                            }
-                                                        </p>
-                                                    )}
-                                                    <a
-                                                        href={`https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="block text-center bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-2 rounded transition-colors"
-                                                    >
-                                                        View in Google Maps
-                                                    </a>
-                                                </div>
-                                            </InfoWindow>
-                                        )}
-                                    </Marker>
-                                ))}
-                            </>
-                        )}
-                    </MarkerClusterer>
+  googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+  onLoad={() => setIsGoogleLoaded(true)}
+  onError={(e) => console.error("Google Maps load error:", e)}
+>
+  <GoogleMap
+    mapContainerStyle={mapStyles}
+    options={mapOptions}
+    zoom={defaultZoom}
+    center={defaultCenter}
+    onLoad={handleMapLoad}
+  >
+    {isGoogleLoaded && (
+      <MarkerClusterer>
+        {(clusterer) => (
+          <>
+            {locations.map((location, index) => (
+              <Marker
+                key={index}
+                position={{
+                  lat: location.lat,
+                  lng: location.lng,
+                }}
+                title={location.name}
+                onClick={() => setSelectedLocation(location)}
+                clusterer={clusterer}
+              >
+                {selectedLocation?.lat === location.lat && (
+                  <InfoWindow
+                    onCloseClick={() => setSelectedLocation(null)}
+                    options={{ maxWidth: 250 }}
+                  >
+                    <div
+                    className="custom-info-window"
+                    style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}
+                  >
+                    {location.description && (
+                      // <a
+                      //   href={location.description}
+                      //   target="_blank"
+                      //   rel="noopener noreferrer"
+                      //   style={{ flexShrink: 0 }}
+                      // >
+                        <img
+                          src={location.description}
+                          alt={location.name}
+                          style={{
+                            width: '40px',
+                            height: '40px',
+                            objectFit: 'cover',
+                            borderRadius: '4px',
+                          }}
+                        />
+                      // </a>
+                    )}
+                    <div>
+                      <h3>{location.name}</h3>
+                      <p>{location.address}</p>
+                      <a
+                        href={`https://www.google.com/maps?q=${location.lat},${location.lng}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: '#3b82f6', // Tailwind's blue-500 color
+                          textDecoration: 'underline',
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        View on Google Maps
+                      </a>
+                    </div>
+                  </div>
+
+                  </InfoWindow>
                 )}
-            </GoogleMap>
-        </LoadScript>
+
+              </Marker>
+            ))}
+          </>
+        )}
+      </MarkerClusterer>
+    )}
+  </GoogleMap>
+</LoadScript>
     );
 };
 

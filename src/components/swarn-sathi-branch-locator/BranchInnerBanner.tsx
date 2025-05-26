@@ -29,12 +29,12 @@ const BranchInnerBanner = ({
                                                         Home
                                                     </Link>
                                                 </li>
-                                                <li
+                                                {/* <li
                                                     className="breadcrumb-item active"
                                                     aria-current="page"
                                                 >
                                                     {title}
-                                                </li>
+                                                </li> */}
                                             </ol>
                                         </nav>
                                     </div>
