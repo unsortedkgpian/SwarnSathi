@@ -61,7 +61,7 @@ const AboutSection = () => {
                                 <div className={`col-xl-4 col-md-4 w-full ${isNarrow ? "d-flex":"" }`}>
                                     <div className="count-content text-center">
                                         <div className="count-number">
-                                            <h4 className="counter" style={{ fontWeight: 800 }}>{locationCount}</h4>
+                                            <h4 className="counter" style={{ fontWeight: 800 }}>7</h4>
                                         </div>
                                         <p>Locations covered</p>
                                     </div>
@@ -77,7 +77,7 @@ const AboutSection = () => {
                                 <div className={`col-xl-4 col-md-4 w-full ${isNarrow ? "d-flex":"" }`}>
                                     <div className="count-content text-center">
                                         <div className="count-number ">
-                                            <h4 className="counter" style={{ fontWeight: 800 }}>2</h4>
+                                            <h4 className="counter" style={{ fontWeight: 800 }}>400</h4>
                                         </div>
                                         <p>Partner shops</p>
                                     </div>
@@ -98,7 +98,7 @@ const AboutSection = () => {
                                 />
                                 <img
                                     className="img-2"
-                                    src="/images/office.webp"
+                                    src="/images/swarn-sathi.png"
                                     alt="Branch locations"
                                 />
                             </div>

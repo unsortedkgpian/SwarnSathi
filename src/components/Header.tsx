@@ -308,13 +308,13 @@ const Header = () => {
                                     >
                                         OUR TEAM
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item
+                                    {/* <NavDropdown.Item
                                         as={Link}
                                         href="/about-swarn-sathi#careers"
                                         onClick={handleLinkClick}
                                     >
                                         CAREERS
-                                    </NavDropdown.Item>
+                                    </NavDropdown.Item> */}
                                     <NavDropdown.Item
                                         as={Link}
                                         href="/about-swarn-sathi#contact-us"
@@ -351,6 +351,20 @@ const Header = () => {
                                         onClick={handleLinkClick}
                                     >
                                         BE OUR PARTNER
+                                    </Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link
+                                        as={Link}
+                                        href="/career"
+                                        className={`nav-hover ${
+                                            isActive("/career")
+                                                ? "active-link"
+                                                : ""
+                                        }`}
+                                        onClick={handleLinkClick}
+                                    >
+                                        CAREERS
                                     </Nav.Link>
                                 </Nav.Item>
 

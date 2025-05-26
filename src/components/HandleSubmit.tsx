@@ -25,7 +25,7 @@ interface FormData {
     phone: string;
     pincode: string;
     // address: string;
-    qualityOfGold: number;
+    qualityOfGold: string;
     quantityOfGold: number;
 }
 
@@ -43,7 +43,7 @@ const ModalComponent: React.FC<ModalProps> = ({
         phone: "",
         pincode: "",
         // address: "",
-        qualityOfGold: 0,
+        qualityOfGold: "",
         quantityOfGold: 0,
     });
 
@@ -69,10 +69,10 @@ const ModalComponent: React.FC<ModalProps> = ({
             return;
         }
 
-        if (formData.qualityOfGold <= 0 || formData.qualityOfGold > 24) {
-            setError("Please enter valid gold quality (1-24 Karat)");
-            return;
-        }
+        // if (formData.qualityOfGold <= 0 || formData.qualityOfGold > 24) {
+        //     setError("Please enter valid gold quality (1-24 Karat)");
+        //     return;
+        // }
 
         if (formData.quantityOfGold <= 0) {
             setError("Please enter valid gold quantity");
@@ -105,11 +105,11 @@ const ModalComponent: React.FC<ModalProps> = ({
             //     qualityOfGold: Number(formData.qualityOfGold),
             //     quantityOfGold: Number(formData.quantityOfGold),
             // });
-             const response = await axios.post(`${los_url}/api/lead`, {
+             const response = await axios.post(`${url}/api/lead`, {
                 name: formData.name,
                 phone: formData.phone,
                 pincode: formData.pincode,
-                qualityOfGold: Number(formData.qualityOfGold),
+                qualityOfGold: formData.qualityOfGold,
                 quantityOfGold: Number(formData.quantityOfGold),
             });
 
@@ -124,12 +124,12 @@ const ModalComponent: React.FC<ModalProps> = ({
                     phone: "",
                     pincode: "",
                     // address: "",
-                    qualityOfGold: 0,
+                    qualityOfGold: "",
                     quantityOfGold: 0,
                 });
 
                 setTimeout(() => {
-                    window.location.href = "/";
+                    window.location.href = "/thank-you";
                 }, 3000);
             }
         } catch (err) {
@@ -274,20 +274,6 @@ const ModalComponent: React.FC<ModalProps> = ({
                                                                 required
                                                             />
                                                         </div> */}
-
-                                                        <div className="single-input">
-                                                            <label>Quality of Gold (in Karat)</label>
-                                                            <input
-                                                                type="number"
-                                                                value={formData.qualityOfGold}
-                                                                onChange={handleChange}
-                                                                name="qualityOfGold"
-                                                                min="1"
-                                                                max="24"
-                                                                required
-                                                            />
-                                                        </div>
-
                                                         <div className="single-input">
                                                             <label>Quantity of Gold (in grams)</label>
                                                             <input
@@ -300,6 +286,51 @@ const ModalComponent: React.FC<ModalProps> = ({
                                                                 required
                                                             />
                                                         </div>
+
+                                                        <div className="single-input">
+                                                            <label>Select Gold Type (in Karat)</label>
+                                                            <div className="button-group">
+                                                                <button
+                                                                type="button"
+                                                                className={formData.qualityOfGold === "Non Hall-Mark" ? "selected" : ""}
+                                                                onClick={() => setFormData({ ...formData, qualityOfGold: "Non Hall-Mark" })}
+                                                                >
+                                                                Non Hall-Mark
+                                                                </button>
+                                                                <button
+                                                                type="button"
+                                                                className={formData.qualityOfGold === "18" ? "selected" : ""}
+                                                                onClick={() => setFormData({ ...formData, qualityOfGold: "18" })}
+                                                                >
+                                                                18
+                                                                </button>
+                                                                <button
+                                                                type="button"
+                                                                className={formData.qualityOfGold === "22" ? "selected" : ""}
+                                                                onClick={() => setFormData({ ...formData, qualityOfGold: "22" })}
+                                                                >
+                                                                22
+                                                                </button>
+                                                            </div>
+                                                            </div>
+
+
+
+
+                                                        {/* <div className="single-input">
+                                                            <label>Quality of Gold (in Karat)</label>
+                                                            <input
+                                                                type="number"
+                                                                value={formData.qualityOfGold}
+                                                                onChange={handleChange}
+                                                                name="qualityOfGold"
+                                                                min="1"
+                                                                max="24"
+                                                                required
+                                                            />
+                                                        </div> */}
+
+                                                        
 
                                                         <div className="btn-area submitmodal">
                                                             <button
