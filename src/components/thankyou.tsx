@@ -10,7 +10,7 @@ const ThankYou = () => {
         <div className="d-flex justify-content-center">
           <img
             src="/images/sign-in-up-bg.png"
-            className="imagewel"
+            className="imagewele"
             alt="welcome"
           />
         </div>
