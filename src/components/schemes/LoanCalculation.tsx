@@ -194,7 +194,8 @@ const LoanCalculation: React.FC = () => {
                                     />
                                     <input
                                         type="Number"
-                                        min="3000"
+                                        step="10000"
+                                        min="10000"
                                         max="200000"
                                         className="resp-val-input"
                                         id="home-loan-amount"
@@ -212,7 +213,8 @@ const LoanCalculation: React.FC = () => {
                             </div>
                             <input
                                 type="range"
-                                min="3000"
+                                step="10000"
+                                min="10000"
                                 max="200000"
                                 value={loanAmount}
                                 onChange={handleLoanAmountChange}
@@ -220,7 +222,7 @@ const LoanCalculation: React.FC = () => {
                                 id="home-loan-slide"
                             />
                             <div className="d-flex justify-content-between">
-                                <p style={{ fontFamily: "'Roboto'" }}>₹3,000</p>
+                                <p style={{ fontFamily: "'Roboto'" }}>₹10,000</p>
                                 <p style={{ fontFamily: "'Roboto'" }}>
                                     ₹2 Lacs
                                 </p>
