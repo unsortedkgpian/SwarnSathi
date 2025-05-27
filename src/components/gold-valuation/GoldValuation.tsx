@@ -1,16 +1,27 @@
 "use client";
 import { useEffect, useState } from "react";
 import "./GoldValueCalculator.css";
+import ModalComponent from "../HandleSubmit";
+
+interface ModalComponentProps {
+    show: boolean;
+    onClose: () => void;
+}
 
 const validPurities = [10, 14, 18, 20, 22, 24];
 
 export default function GoldValueCalculator() {
+    const [showModal, setShowModal] = useState<boolean>(false);
     const [goldPurity, setGoldPurity] = useState(22);
     const [goldWeight, setGoldWeight] = useState(10);
     const [goldRate24K, setGoldRate24K] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
     const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+
+    const applyNow = () => {
+        setShowModal(true);
+    };
 
     useEffect(() => {
     const fetchGoldRate = async () => {
@@ -82,9 +93,11 @@ export default function GoldValueCalculator() {
     }, []);
 
     const calculateApproxValue = () => {
-        if (!goldRate24K) return 0;
-        return (goldRate24K * goldWeight).toFixed(2);
-    };
+    if (!goldRate24K) return 0;
+    const rawValue = goldRate24K * goldWeight;
+    return Math.floor(rawValue / 500) * 500;
+};
+    
     useEffect(() => {
         const initializeSlider = (selector: string, value: number) => {
             const slider = document.querySelector(selector) as HTMLInputElement;
@@ -99,11 +112,12 @@ export default function GoldValueCalculator() {
         initializeSlider("#gold-purity-slider", 22);
         initializeSlider("#gold-weight-slider", 10);
     }, []);
-    const yourGoldValue = () => {
-        if (!goldRate24K) return 0;
-        const purityRatio = goldPurity / 24;
-        return (goldRate24K * goldWeight * purityRatio).toFixed(2);
-    };
+  const yourGoldValue = () => {
+    if (!goldRate24K) return 0;
+    const purityRatio = goldPurity / 24;
+    const rawValue = goldRate24K * goldWeight * purityRatio;
+    return (Math.floor(rawValue / 500) * 500);
+};
     const updateSliderStyle = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
         const min = Number(e.target.min);
@@ -125,7 +139,8 @@ export default function GoldValueCalculator() {
         slider.style.setProperty("--progress", `${progress}%`);
     };
 
-        const date = new Date(lastUpdated);
+    const date = new Date(lastUpdated);
+    
 
     const formattedDateTime = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1)
     .toString()
@@ -135,6 +150,7 @@ export default function GoldValueCalculator() {
     .padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
 
     return (
+        <>
         <section className="business-loan-section personal-loan">
             <div className="overlay">
                 <div className="container">
@@ -158,7 +174,7 @@ export default function GoldValueCalculator() {
                                         }}
                                     >
                                         <div style={{ fontSize: "17px", fontWeight: 700, color: "#fc9f3e" }}> 
-                                        Gold rate:  ₹{goldRate24K.toFixed(2)} /g
+                                        Gold Rate:₹{goldRate24K.toFixed(2)}/Gm
                                         </div>
                                         <div style={{ fontSize: "13px", marginTop: "6px", color: "#fc9f3e" }}>
                                             Updated: {formattedDateTime}
@@ -247,10 +263,9 @@ export default function GoldValueCalculator() {
                                                     }}                                                    
                                                 />
                                                 <input
-                                                    type="text"
-                                                   
+                                                    type="text"                                                   
                                                     disabled
-                                                    value={`G`}
+                                                    value={`Gm`}
                                                     id="personal-amount"
                                                     style={{
                                                     width: "1.25ch",
@@ -287,7 +302,7 @@ export default function GoldValueCalculator() {
                                                     style={{
                                                     width: `${calculateApproxValue().toString().length + 1}ch`,
                                                     }} 
-                                                    value={isLoading ? "Loading..." : `₹${calculateApproxValue()}`}
+                                                    value={isLoading ? "Loading..." : `₹${ calculateApproxValue() }`}
                                                     id="approx-value"
                                                 />
                                             </h4>
@@ -321,14 +336,28 @@ export default function GoldValueCalculator() {
                                                 </p>
                                             )}
                                         </div>
+                                         
                                     </div>
                                 </form>
+                                <div className="btn-area">
+                                        <button
+                                        className="cmn-btn applyloan"
+                                        onClick={() => applyNow()}
+                                        >
+                                            Apply for loan
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+                <ModalComponent
+                show={showModal}
+                onClose={() => setShowModal(false)}
+            />
+            </>
     );
 }
 
