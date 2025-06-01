@@ -303,7 +303,7 @@ const Header = () => {
                                     </NavDropdown.Item>
                                     <NavDropdown.Item
                                         as={Link}
-                                        href="/about-swarn-sathi#our-team"
+                                        href="/our-team"
                                         onClick={handleLinkClick}
                                     >
                                         OUR TEAM

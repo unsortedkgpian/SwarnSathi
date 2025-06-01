@@ -8,6 +8,7 @@ import BootstrapClient from "@/components/BootstrapClient";
 import Header from "@/components/Header";
 import FooterSection from "@/components/FooterSection";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import ChatBotBox from "@/components/ChatBotBox";
 import { PreloaderProvider } from "@/context/PreloaderContext"; // Import PreloaderProvider
 import { ContactProvider } from "@/context/ContactContext";
 
@@ -114,6 +115,7 @@ export default function RootLayout({
                         <div className="main-content">{children}</div>
                         <FooterSection />
                         <WhatsAppFloat />
+                        <ChatBotBox />
                     </ContactProvider>
                 </PreloaderProvider>
             </body>

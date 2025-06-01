@@ -108,15 +108,26 @@ export default function GoldValueCalculator() {
                 slider.style.setProperty("--progress", `${progress}%`);
             }
         };
+        
 
         initializeSlider("#gold-purity-slider", 22);
         initializeSlider("#gold-weight-slider", 10);
     }, []);
+    
+
   const yourGoldValue = () => {
     if (!goldRate24K) return 0;
     const purityRatio = goldPurity / 24;
     const rawValue = goldRate24K * goldWeight * purityRatio;
     return (Math.floor(rawValue / 500) * 500);
+};
+
+  const yourLoanValue = () => {
+    if (!goldRate24K) return 0;
+    const purityRatio = goldPurity / 24;
+    const rawValue = goldRate24K * goldWeight * purityRatio;
+    const loanVal = rawValue*0.75;
+    return (Math.floor(loanVal / 500) * 500);
 };
     const updateSliderStyle = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
@@ -160,17 +171,18 @@ export default function GoldValueCalculator() {
                                 {!isLoading && goldRate24K && lastUpdated && (
                                     <div
                                         style={{
-                                            position: "relative",
-                                            top: "0",
-                                            left: "0",
-                                            backgroundColor: "white",
-                                            padding: "2px 4px",
-                                            borderRadius: "10px",
-                                            color: "black",
-                                            zIndex: 10,
-                                            width: "200px",
-                                            fontFamily: "Segoe UI, Roboto, sans-serif",
-                                            lineHeight: 1.5
+                                                position: "relative", 
+                                                top: "0px", 
+                                                right: "150px", 
+                                                backgroundColor: "white",
+                                                padding: "6px 12px",
+                                                borderRadius: "10px",
+                                                color: "black",
+                                                zIndex: 10,
+                                                width: "fit-content", 
+                                                fontFamily: "Segoe UI, Roboto, sans-serif",
+                                                lineHeight: 1.5,
+                                                boxShadow: "0 2px 6px rgba(0,0,0,0.15)" 
                                         }}
                                     >
                                         <div style={{ fontSize: "17px", fontWeight: 700, color: "#fc9f3e" }}> 
@@ -268,8 +280,8 @@ export default function GoldValueCalculator() {
                                                     value={`Gm`}
                                                     id="personal-amount"
                                                     style={{
-                                                    width: "1.25ch",
-                                                    minWidth: "1ch",
+                                                    width: "3.25ch",
+                                                    minWidth: "2.25ch",
                                                     }}                                                    
                                                 />
                                             </h4>
@@ -290,7 +302,7 @@ export default function GoldValueCalculator() {
                                         </div>
 
                                         {/* Approx Value Section */}
-                                        <div className="range-amount">
+                                        {/* <div className="range-amount">
                                             <h4 className="d-flex align-items-center justify-content-center resp-val">
                                                 <label>
                                                     Maximum Gold Price:&nbsp;
@@ -306,7 +318,7 @@ export default function GoldValueCalculator() {
                                                     id="approx-value"
                                                 />
                                             </h4>
-                                        </div>
+                                        </div> */}
 
                                         <div className="range-amount">
                                             <h4 className="d-flex align-items-center justify-content-center resp-val">
@@ -327,6 +339,24 @@ export default function GoldValueCalculator() {
                                         </div>
 
                                         <div className="range-amount">
+                                            <h4 className="d-flex align-items-center justify-content-center resp-val">
+                                                <label >
+                                                    Maximum Loan Amount:&nbsp;
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    className = "res-val-input"
+                                                    disabled
+                                                    style={{
+                                                    width: `${yourLoanValue().toString().length + 1}ch`,
+                                                    }} 
+                                                    value={isLoading ? "Loading..." : `₹${yourLoanValue()}`}
+                                                    id="approx-value"
+                                                />
+                                            </h4>
+                                        </div>
+
+                                        {/* <div className="range-amount">
                                             <p style={{ fontSize: "12px" }}>
                                                 *This value might get changed upon physical verification
                                             </p>
@@ -335,7 +365,7 @@ export default function GoldValueCalculator() {
                                                     *Using real-time gold prices from goldapi.io
                                                 </p>
                                             )}
-                                        </div>
+                                        </div> */}
                                          
                                     </div>
                                 </form>
@@ -344,8 +374,18 @@ export default function GoldValueCalculator() {
                                         className="cmn-btn applyloan"
                                         onClick={() => applyNow()}
                                         >
-                                            Apply for loan
+                                            Apply Now
                                     </button>
+                                </div>
+                                <div className="range-amount">
+                                            <p style={{ fontSize: "12px" }}>
+                                                *This value might get changed upon physical verification
+                                            </p>
+                                            {!isLoading && (
+                                                <p style={{ fontSize: "12px" }}>
+                                                    *Using real-time gold prices from goldapi.io
+                                                </p>
+                                            )}
                                 </div>
                             </div>
                         </div>

@@ -1,197 +1,227 @@
 /* LoanCalculation.css */
 
 .orange-slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 8px;
-    border-radius: 5px;
-    background: transparent;
-    outline: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: transparent;
+  outline: none;
 }
 
 .orange-slider::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 8px;
-    cursor: pointer;
-    background: linear-gradient(
-        to right,
-        #fc9f3e var(--progress),
-        #ccc var(--progress)
-    );
-    border-radius: 5px;
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: linear-gradient(
+    to right,
+    #fc9f3e var(--progress),
+    #ccc var(--progress)
+  );
+  border-radius: 5px;
 }
 
 .orange-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 40px; /* Increased size to accommodate border */
-    height: 40px;
-    background: #fc9f3e;
-    border: 10px solid #ffffff; /* Add border */
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    margin-top: -15px; /* Adjusted positioning */
-    box-sizing: border-box; /* Include border in width calculation */
+  -webkit-appearance: none;
+  width: 40px; /* Increased size to accommodate border */
+  height: 40px;
+  background: #fc9f3e;
+  border: 10px solid #ffffff; /* Add border */
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  margin-top: -15px; /* Adjusted positioning */
+  box-sizing: border-box; /* Include border in width calculation */
 }
 
 .orange-slider::-moz-range-track {
-    width: 100%;
-    height: 8px;
-    cursor: pointer;
-    background: linear-gradient(
-        to right,
-        #fc9f3e var(--progress),
-        #ccc var(--progress)
-    );
-    border-radius: 5px;
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: linear-gradient(
+    to right,
+    #fc9f3e var(--progress),
+    #ccc var(--progress)
+  );
+  border-radius: 5px;
 }
 
 .orange-slider::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
-    background: #fc9f3e;
-    border: 5px solid #ffffff;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  background: #fc9f3e;
+  border: 5px solid #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 }
 
 /* Edge */
 .orange-slider::-ms-track {
-    width: 100%;
-    height: 8px;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
 }
 
 .orange-slider::-ms-fill-lower {
-    background: #fc9f3e;
-    border-radius: 5px;
+  background: #fc9f3e;
+  border-radius: 5px;
 }
 
 .orange-slider::-ms-fill-upper {
-    background: #ccc;
-    border-radius: 5px;
+  background: #ccc;
+  border-radius: 5px;
 }
 
 .orange-slider::-ms-thumb {
-    width: 24px;
-    height: 24px;
-    background: #fc9f3e;
-    border: 3px solid #ffffff;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-top: 0;
-    box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  background: #fc9f3e;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: 0;
+  box-sizing: border-box;
+}
+.slider-container {
+  position: relative;
+  width: 100%;
+}
+
+.slider-markers {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  width: 100%;
+  height: 0;
+  pointer-events: none;
+}
+
+.slider-markers::before,
+.slider-markers::after,
+.slider-markers .marker {
+  content: "";
+  position: absolute;
+  top: -6px;
+  width: 2px;
+  height: 12px;
+  background-color: #fc9f3e;
+  border-radius: 1px;
+}
+
+/* Dynamic markers using CSS + JS */
+.slider-markers .marker {
+  background-color: #fc9f3e;
 }
 
 /* Existing Styles (keep these as they are) */
 .loan-calculation {
-    background: #f9f9f9;
+  background: #f9f9f9;
 }
 .section-header .title {
-    font-size: 36px;
-    margin-bottom: 15px;
+  font-size: 36px;
+  margin-bottom: 15px;
 }
 .radio-area h6 {
-    font-size: 18px;
-    margin-bottom: 15px;
+  font-size: 18px;
+  margin-bottom: 15px;
 }
 .single-radio.repayment {
-    display: block;
-    margin-bottom: 10px;
+  display: block;
+  margin-bottom: 10px;
 }
 .schemeinput {
-    border: none;
-    background: transparent;
-    font-size: 18px;
-    color: #fc9f3e;
-    text-align: center;
-    font-weight: bold;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  color: #fc9f3e;
+  text-align: center;
+  font-weight: bold;
 }
 .cmn-btn.applyloan {
-    background: #fc9f3e;
-    color: white;
-    padding: 15px 40px;
-    border-radius: 30px;
-    font-weight: bold;
+  background: #fc9f3e;
+  color: white;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-weight: bold;
 }
 /* Removed duplicate .checkmark definition as it conflicts with the one above */
 
 /* Modal styling */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
 .modal-container {
-    background-color: #fff;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
 }
 
 .modal-header h3 {
-    margin: 0;
-    color: #222;
+  margin: 0;
+  color: #222;
 }
 
 .modal-header button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #999;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
 }
 
 .modal-body {
-    padding: 20px;
+  padding: 20px;
 }
 
 .modal-footer {
-    padding: 15px 20px;
-    text-align: right;
-    border-top: 1px solid #eee;
+  padding: 15px 20px;
+  text-align: right;
+  border-top: 1px solid #eee;
 }
 
 @media (max-width: 991px) {
-    .cus-ord {
-        order: 2;
-        margin-bottom: 40px;
-    }
+  .cus-ord {
+    order: 2;
+    margin-bottom: 40px;
+  }
 
-    .col-lg-5 {
-        order: 1;
-        margin-bottom: 40px;
-    }
+  .col-lg-5 {
+    order: 1;
+    margin-bottom: 40px;
+  }
 }
 
 @media (max-width: 767px) {
-    .info-block {
-        flex-direction: column;
-    }
+  .info-block {
+    flex-direction: column;
+  }
 
-    .info-single {
-        margin-bottom: 20px;
-    }
+  .info-single {
+    margin-bottom: 20px;
+  }
 }
