@@ -50,6 +50,7 @@ const ModalComponent: React.FC<ModalProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [leadId, setLeadId] = useState(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -78,7 +79,7 @@ const ModalComponent: React.FC<ModalProps> = ({
       setLoading(true);
       setError(null);
 
-      const response = await axios.post(`${url}/api/lead`, {
+      const response = await axios.post(`${baseUrl}/api/lead`, {
         name: formData.name,
         phone: formData.phone,
         pincode: formData.pincode,
@@ -88,6 +89,26 @@ const ModalComponent: React.FC<ModalProps> = ({
 
       if (response.status === 201) {
         setSuccess("Loan application submitted successfully!");
+         const fetchLeadId = async () => {
+        try {
+          const getResponse = await axios.get(`${baseUrl}/api/lead/${formData.phone}`);
+          if (getResponse.data) {
+            console.log(getResponse.data);
+            const val =  getResponse.data.data;
+            const leadId = val.leadId; // Assuming API returns { leadId: "..." }
+
+            console.log("Lead ID:", leadId);
+            setLeadId(leadId);
+          } else {
+            console.error("Failed to fetch leadId. Status:", getResponse.status);
+          }
+        } catch (error) {
+          console.error("Error fetching leadId:", error);
+        }
+      };
+
+      fetchLeadId();
+
         setShowThankYou(true);
 
         // Reset form
@@ -164,7 +185,7 @@ const ModalComponent: React.FC<ModalProps> = ({
               />
 
               {showThankYou ? (
-                <ThankYou />
+                 <ThankYou leadId={leadId} />
               ) : (
                 <section
                   className="sign-in-up register"
@@ -248,7 +269,7 @@ const ModalComponent: React.FC<ModalProps> = ({
                               <div className="single-input">
                                 <label>Select Gold Type (in Karat)</label>
                                 <div className="button-group">
-                                  {["Non Hall-Mark", "18", "20", "22"].map(
+                                  {[ "18", "20", "22","No Hallmark"].map(
                                     (type) => (
                                       <button
                                         key={type}
@@ -265,7 +286,7 @@ const ModalComponent: React.FC<ModalProps> = ({
                                           })
                                         }
                                       >
-                                        {type === "Non Hall-Mark"
+                                        {type === "No Hallmark"
                                           ? type
                                           : `${type}K`}
                                       </button>

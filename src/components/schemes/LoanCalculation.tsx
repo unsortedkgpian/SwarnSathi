@@ -12,7 +12,7 @@ interface ModalComponentProps {
 const LoanCalculation: React.FC = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [loanAmount, setLoanAmount] = useState<number>(3000);
+    const [loanAmount, setLoanAmount] = useState<number>(10000);
     const [tenure, setTenure] = useState<number>(1);
     const [selectedRepayment, setSelectedRepayment] = useState<string>("0.04");
     const [selectedInterestRepayment, setSelectedInterestRepayment] =
@@ -25,6 +25,17 @@ const LoanCalculation: React.FC = () => {
     const [interestFrequency, setInterestFrequency] = useState<string>("Daily");
     const[loanType, setLoanType] = useState("")
     const router = useRouter();
+    // const min = 10000;
+    // const max = 200000;
+    // const step = 10000;
+
+
+
+    // Generate markers
+    // const markers = [];
+    // for (let i = min; i <= max; i += step) {
+    //     markers.push(i);
+    // }
 
     const applyNow = (type: string) => {
         // router.push('/login');
@@ -63,15 +74,42 @@ const LoanCalculation: React.FC = () => {
         ) as HTMLInputElement;
 
         if (loanSlider) {
-            const loanProgress = ((loanAmount - 3000) / (200000 - 3000)) * 100;
-            loanSlider.style.setProperty("--progress", `${loanProgress}%`);
+        const loanAmount = parseInt(loanSlider.value) || 10000;
+        const loanProgress = ((loanAmount - 10000) / (200000 - 10000)) * 100;
+        loanSlider.style.setProperty("--progress", `${loanProgress}%`);
+
+        const loanContainer = loanSlider.closest(".slider-container");
+            if (loanContainer) {
+                const markersContainer = loanContainer.querySelector(".slider-markers");
+                if (markersContainer) {
+                    markersContainer.innerHTML = ""; // Clear previous markers
+                    const steps = [ ];
+                    const min = 10000;
+                    const max = 200000;
+                    const step = 10000;
+                    for (let i = min+step; i < max; i += step) {
+                        steps.push(i);
+                    }
+                   
+                    steps.forEach((step) => {
+                        const percentage = ((step - 9000) / (200000 - 10000)) * 100;
+                        const marker = document.createElement("div");
+                        marker.classList.add("marker");
+                        marker.style.left = `${percentage}%`;
+                        markersContainer.appendChild(marker);
+                    });
+                }
+            }
         }
 
         if (tenureSlider) {
             const tenureProgress = ((tenure - 1) / (12 - 1)) * 100;
             tenureSlider.style.setProperty("--progress", `${tenureProgress}%`);
         }
+        
     };
+
+    
 
     const updateSliderStyle = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
@@ -182,7 +220,16 @@ const LoanCalculation: React.FC = () => {
                                     <label>
                                         Loan Amount&nbsp;(Rs)&nbsp;:&nbsp;
                                     </label>
-                                    <input
+                                     <input
+                                        type="text"
+                                        disabled
+                                        value={`₹${loanAmount}`}
+                                        style={{
+                                            width: `${loanAmount.toString().length + 1}ch`,
+                                        }} 
+                                        id="personal-amount"    
+                                    />
+                                    {/* <input
                                         type="text"  
                                         disabled                                     
                                         id="home-loan-amount"                                        
@@ -208,9 +255,10 @@ const LoanCalculation: React.FC = () => {
                                                 borderRadius: "0.375rem",
                                         }} 
                                         value={loanAmount}
-                                    />
+                                    /> */}
                                 </h5>
                             </div>
+                            <div className="slider-container">
                             <input
                                 type="range"
                                 step="10000"
@@ -221,8 +269,13 @@ const LoanCalculation: React.FC = () => {
                                 className="orange-slider"
                                 id="home-loan-slide"
                             />
+                              <div className="slider-markers"></div>
+                                </div>
                             <div className="d-flex justify-content-between">
                                 <p style={{ fontFamily: "'Roboto'" }}>₹10,000</p>
+                                {/* <p style={{ fontFamily: "'Roboto'" }}>₹50,000</p>
+                                <p style={{ fontFamily: "'Roboto'" }}>₹1 Lacs</p>
+                                <p style={{ fontFamily: "'Roboto'" }}>₹1.5 Lacs</p> */}
                                 <p style={{ fontFamily: "'Roboto'" }}>
                                     ₹2 Lacs
                                 </p>
