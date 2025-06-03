@@ -4361,7 +4361,7 @@ a.cmn-btn.navbarbtn {
   font-weight: 500;
 }
 
-.sign-in-up form .single-input input:focus {
+.sign-in-up form .single-input input {
   border: 1px solid #b0baf1;
   box-shadow: none;
 }

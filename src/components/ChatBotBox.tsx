@@ -1,6 +1,6 @@
 import React from 'react';
 import Chatbot from './ChatBot';
-import "./WhatsAppFloat.css"; // Create this file or use CSS-in-JS
+import "./WhatsAppFloat.css";
 
 const ChatBotBox: React.FC = () => {
 
