@@ -54,11 +54,14 @@
   background-color: #f69329;
   color: white;
   padding: 8px 12px;
-  border-radius: 6px;
+  border-radius: 22px;
   cursor: pointer;
   font-size: 14px;
   border: white;
-  width: 150px;
+  width: 170px;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s ease;
+  z-index: 1000;
 }
 
 .chat-box {

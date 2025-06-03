@@ -1,6 +1,6 @@
 'use client'
 import React from "react";
-import "./WhatsAppFloat.css"; // Create this file or use CSS-in-JS
+import "./WhatsAppFloat.css"; 
 import { useContact } from "@/context/ContactContext";
 
 const WhatsAppFloat: React.FC = () => {
@@ -29,4 +29,3 @@ const WhatsAppFloat: React.FC = () => {
 
 export default WhatsAppFloat;
 
-// CSS styles

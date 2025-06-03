@@ -247,8 +247,9 @@ export default function Chatbot() {
   return (
     <div className="chatbot-container">
       {isMinimized && (
+        
         <button onClick={() => { setIsMinimized(false); setMessages([{ type: 'bot', content: questions[0].text }]); }} className="chat-button">
-          <span>Chat with us</span>
+          <span className="text-white">Chat with us</span>
         </button>
       )}
 
