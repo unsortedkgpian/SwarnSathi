@@ -62,8 +62,8 @@ const ModalComponent: React.FC<ModalProps> = ({
 
   const sendOtpLogin = async () => {
     if (!phoneNumber || phoneNumber.length !== 10) {
-        setError("Please enter a valid 10-digit mobile number");
-        return;
+      setError("Please enter a valid 10-digit mobile number");
+      return;
     }
 
     setIsLoading(true);
@@ -72,92 +72,92 @@ const ModalComponent: React.FC<ModalProps> = ({
     console.log("Checking verification for:", phoneNumber);
 
     try {
-        // 1. Check if lead is verified
-        let los_url = 'http://localhost:4000'
-        // const verifyResponse = await axios.get(`${los_url}/api/lead/${phoneNumber}`);
+      // 1. Check if lead is verified
+      let los_url = 'http://localhost:4000'
+      // const verifyResponse = await axios.get(`${los_url}/api/lead/${phoneNumber}`);
 
-        // if (!verifyResponse.data.success || !verifyResponse.data.data?.isVerified) {
-        //     setError("Lead is not verified. Please contact support.");
-        //     setIsLoading(false);
-        //     return;
-        // }
+      // if (!verifyResponse.data.success || !verifyResponse.data.data?.isVerified) {
+      //     setError("Lead is not verified. Please contact support.");
+      //     setIsLoading(false);
+      //     return;
+      // }
 
-        // 2. Proceed to send OTP if verified
-        const otpResponse = await axios.post(`/api/send-otp`, {
-            phone: phoneNumber,
-            loanType: "gold-loan",
-        });
+      // 2. Proceed to send OTP if verified
+      const otpResponse = await axios.post(`/api/send-otp`, {
+        phone: phoneNumber,
+        loanType: "gold-loan",
+      });
 
-        console.log("OTP response:", otpResponse.data);
+      console.log("OTP response:", otpResponse.data);
 
-        if (otpResponse.data.success) {
-            setSuccess("OTP sent successfully to your mobile number");
-            setOtpSent(true);
+      if (otpResponse.data.success) {
+        setSuccess("OTP sent successfully to your mobile number");
+        setOtpSent(true);
 
-            if (otpResponse.data.genOtp) {
-                setGenOtp(otpResponse.data.genOtp);
-                console.log("OTP received for testing:", otpResponse.data.genOtp);
-            }
-            } else {
-                setError(otpResponse.data.message || "Failed to send OTP. Please try again.");
-            }
-        } catch (error: any) {
-            console.error("Error during OTP process:", error);
-            setError(error.response?.data?.message || "Something went wrong. Please try again.");
-        } finally {
-            setIsLoading(false);
+        if (otpResponse.data.genOtp) {
+          setGenOtp(otpResponse.data.genOtp);
+          console.log("OTP received for testing:", otpResponse.data.genOtp);
         }
-    };
+      } else {
+        setError(otpResponse.data.message || "Failed to send OTP. Please try again.");
+      }
+    } catch (error: any) {
+      console.error("Error during OTP process:", error);
+      setError(error.response?.data?.message || "Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
 
-    const verifyOtpLogin = async () => {
-        if (!phoneNumber || !otp) {
-            setError("Please enter both phone number and OTP");
-            return;
+  const verifyOtpLogin = async () => {
+    if (!phoneNumber || !otp) {
+      setError("Please enter both phone number and OTP");
+      return;
+    }
+
+    setIsLoading(true);
+    setError("");
+    setSuccess("");
+
+    try {
+      console.log("Verifying OTP:", { phone: phoneNumber, otp });
+      const response = await axios.post(`/api/verify-otp`, {
+        phoneNumber,
+        otp: otp
+      });
+
+      console.log("OTP verification response:", response.data);
+
+      if (response.data.success) {
+        // Store the JWT token in localStorage and cookies
+
+        // Store user info if available
+        if (response.data.user) {
+          localStorage.setItem("user", JSON.stringify(response.data.user));
         }
 
-        setIsLoading(true);
-        setError("");
-        setSuccess("");
+        // Show success message
+        setSuccess("OTP verification Successfully ");
+        setIsOtpSignIn(true);
 
-        try {
-            console.log("Verifying OTP:", { phone: phoneNumber, otp });
-            const response = await axios.post(`/api/verify-otp`, {
-                phoneNumber,
-                otp: otp
-            });
-            
-            console.log("OTP verification response:", response.data);
-            
-            if (response.data.success) {
-                // Store the JWT token in localStorage and cookies
-                
-                // Store user info if available
-                if (response.data.user) {
-                    localStorage.setItem("user", JSON.stringify(response.data.user));
-                }
-                
-                // Show success message
-                setSuccess("OTP verification Successfully ");
-                setIsOtpSignIn(true);
-                
-            } else {
-                setError(response.data.message || "OTP verification failed. Please try again.");
-            }
-        } catch (error: any) {
-            console.error("OTP verification failed", error);
-            setError(error.response?.data?.message || "OTP verification failed. Please try again.");
-        } finally {
-            setIsLoading(false);
-        }
-    };
+      } else {
+        setError(response.data.message || "OTP verification failed. Please try again.");
+      }
+    } catch (error: any) {
+      console.error("OTP verification failed", error);
+      setError(error.response?.data?.message || "OTP verification failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     console.log(name);
     if (name == "phone") {
-       setPhoneNumber(e.target.value);
+      setPhoneNumber(e.target.value);
     }
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -179,7 +179,7 @@ const ModalComponent: React.FC<ModalProps> = ({
       setLoading(true);
       setError(null);
 
-      const response = await axios.post(`${baseUrl}/api/lead`, {
+      const response = await axios.post(`${url}/api/lead`, {
         name: formData.name,
         phone: formData.phone,
         pincode: formData.pincode,
@@ -189,25 +189,25 @@ const ModalComponent: React.FC<ModalProps> = ({
 
       if (response.status === 201) {
         setSuccess("Loan application submitted successfully!");
-         const fetchLeadId = async () => {
-        try {
-          const getResponse = await axios.get(`${baseUrl}/api/lead/${formData.phone}`);
-          if (getResponse.data) {
-            console.log(getResponse.data);
-            const val =  getResponse.data.data;
-            const leadId = val.leadId; // Assuming API returns { leadId: "..." }
+        const fetchLeadId = async () => {
+          try {
+            const getResponse = await axios.get(`${url}/api/lead/${formData.phone}`);
+            if (getResponse.data) {
+              console.log(getResponse.data);
+              const val = getResponse.data.data;
+              const leadId = val.leadId; // Assuming API returns { leadId: "..." }
 
-            console.log("Lead ID:", leadId);
-            setLeadId(leadId);
-          } else {
-            console.error("Failed to fetch leadId. Status:", getResponse.status);
+              console.log("Lead ID:", leadId);
+              setLeadId(leadId);
+            } else {
+              console.error("Failed to fetch leadId. Status:", getResponse.status);
+            }
+          } catch (error) {
+            console.error("Error fetching leadId:", error);
           }
-        } catch (error) {
-          console.error("Error fetching leadId:", error);
-        }
-      };
+        };
 
-      fetchLeadId();
+        fetchLeadId();
 
         setShowThankYou(true);
 
@@ -285,7 +285,7 @@ const ModalComponent: React.FC<ModalProps> = ({
               />
 
               {showThankYou ? (
-                 <ThankYou leadId={leadId} />
+                <ThankYou leadId={leadId} />
               ) : (
                 <section
                   className="sign-in-up register"
@@ -371,7 +371,7 @@ const ModalComponent: React.FC<ModalProps> = ({
                               <div className="single-input">
                                 <label>Select Gold Type (in Karat)</label>
                                 <div className="button-group">
-                                  {[ "18", "20", "22","No Hallmark"].map(
+                                  {["18", "20", "22", "No Hallmark"].map(
                                     (type) => (
                                       <button
                                         key={type}
@@ -398,22 +398,22 @@ const ModalComponent: React.FC<ModalProps> = ({
                               </div>
 
                               {otpSent && (
-                                  <div className="single-input mb-4">
-                                    <label
-                                      htmlFor="otpverifyvalue"
-                                      className="form-label"
-                                    >
+                                <div className="single-input mb-4">
+                                  <label
+                                    htmlFor="otpverifyvalue"
+                                    className="form-label"
+                                  >
                                     Enter OTP to verify
-                                    </label>
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      id="otpverifyvalue"
-                                      autoComplete="off"
-                                      value={otp}
-                                      onChange={(e) => setOtp(e.target.value)}
-                                      />
-                                    </div>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    id="otpverifyvalue"
+                                    autoComplete="off"
+                                    value={otp}
+                                    onChange={(e) => setOtp(e.target.value)}
+                                  />
+                                </div>
                               )}
 
                               {/* <div className="btn-area submitmodal">
@@ -425,58 +425,58 @@ const ModalComponent: React.FC<ModalProps> = ({
                                   {loading ? "Submitting..." : "Apply Now"}
                                 </button>
                               </div> */}
-                                 <div className="btn-area submitmodal">
-                                        {isOtpSignIn ? (
-                                            <button
-                                                className="cmn-btn"
-                                                type="submit"
-                                                // style={{
-                                                //     background: "#d18a2c",
-                                                //     color: "#fff",
-                                                // }}
-                                                disabled={isLoading}
-                                            >
-                                                {isLoading ? 'Submitting...' : 'Apply Now'}
-                                            </button>
-                                        ) : (
-                                            <>
-                                                {!otpSent ? (
-                                                    <button
-                                                        type="button"
-                                                        className="cmn-btn"
-                                                        onClick={sendOtpLogin}
-                                                        disabled={isLoading}
-                                                    >
-                                                        {isLoading ? 'Sending...' : 'Send OTP'}
-                                                    </button>
-                                                ) : (
-                                                    <>
-                                                    
-                                                        <button
-                                                            type="button"
-                                                            className="cmn-btn"
-                                                            onClick={verifyOtpLogin}
-                                                            style={{
-                                                                background: "#fda033",
-                                                                color:"#fff"
-                                                            }}
-                                                            disabled={isLoading}
-                                                        >
-                                                            {isLoading ? 'Verifying...' : 'Verify OTP'}
-                                                        </button>
-                                                        <button
-                                                            type="button"
-                                                            className="cmn-btn btn btn-outline-secondary py-2"
-                                                            onClick={sendOtpLogin}
-                                                            disabled={isLoading}
-                                                        >
-                                                            Resend OTP
-                                                        </button>
-                                                    </>
-                                                )}
-                                            </>
-                                        )}
-                                    </div>
+                              <div className="btn-area submitmodal">
+                                {isOtpSignIn ? (
+                                  <button
+                                    className="cmn-btn"
+                                    type="submit"
+                                    // style={{
+                                    //     background: "#d18a2c",
+                                    //     color: "#fff",
+                                    // }}
+                                    disabled={isLoading}
+                                  >
+                                    {isLoading ? 'Submitting...' : 'Apply Now'}
+                                  </button>
+                                ) : (
+                                  <>
+                                    {!otpSent ? (
+                                      <button
+                                        type="button"
+                                        className="cmn-btn"
+                                        onClick={sendOtpLogin}
+                                        disabled={isLoading}
+                                      >
+                                        {isLoading ? 'Sending...' : 'Send OTP'}
+                                      </button>
+                                    ) : (
+                                      <>
+
+                                        <button
+                                          type="button"
+                                          className="cmn-btn"
+                                          onClick={verifyOtpLogin}
+                                          style={{
+                                            background: "#fda033",
+                                            color: "#fff"
+                                          }}
+                                          disabled={isLoading}
+                                        >
+                                          {isLoading ? 'Verifying...' : 'Verify OTP'}
+                                        </button>
+                                        <button
+                                          type="button"
+                                          className="cmn-btn btn btn-outline-secondary py-2"
+                                          onClick={sendOtpLogin}
+                                          disabled={isLoading}
+                                        >
+                                          Resend OTP
+                                        </button>
+                                      </>
+                                    )}
+                                  </>
+                                )}
+                              </div>
 
                             </form>
                           </div>
