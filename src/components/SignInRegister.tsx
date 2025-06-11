@@ -175,6 +175,19 @@ const SignInRegister = () => {
 
     return (
         <section className="sign-in-up register pt-80">
+              <div style={{
+                marginTop:'22px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                }}>
+                <h1 style={{ 
+                    color: 'black', 
+                    fontWeight: 600,
+                }}>
+                    Login to Your Account
+                </h1>
+                </div>
             <div className="overlay pt-120 pb-120">
                 <div className="container">
                     <div className="row align-items-center justify-content-between">

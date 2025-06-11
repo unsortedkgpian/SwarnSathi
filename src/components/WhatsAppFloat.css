@@ -72,12 +72,13 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 370px;
   height: auto;
+  max-height: 600px;
 }
 
 .chat-header {
-  background-color: #2563eb;
+  background-color: #e3442c;
   color: white;
   padding: 8px 12px;
   display: flex;
@@ -151,7 +152,7 @@
 }
 
 .message-bubble.user {
-  background: linear-gradient(to right, #3b82f6, #2563eb);
+  background: linear-gradient(to right, #e3442c, #e3442c);
   color: white;
 }
 /* span {
@@ -188,7 +189,7 @@
 .primary-button {
   width: 100%;
   padding: 8px;
-  background: linear-gradient(to right, #3b82f6, #2563eb);
+  background: linear-gradient(to right, #e3442c, #e3442c);
   color: white;
   font-size: 12px;
   border: none;
@@ -197,7 +198,7 @@
 }
 
 .primary-button:hover {
-  background: linear-gradient(to right, #2563eb, #1d4ed8);
+  background: linear-gradient(to right, #e3442c, #e3442c);
 }
 
 .options-grid {

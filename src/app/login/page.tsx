@@ -11,10 +11,9 @@ const LoginPage = () => {
         <br></br>
         <br></br>
         <br></br>
-            <PageTitle 
+            {/* <PageTitle 
                 title="Login to Your Account" 
-                bgColor="#f8f9fa"
-            />
+            /> */}
             <SignInRegister/>
         </>
     );
