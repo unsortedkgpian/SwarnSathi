@@ -424,7 +424,7 @@ li {
 
 @media (max-width: 575px) {
   .pt-120 {
-    padding-top: 50px;
+    padding-top: 130px;
   }
 
   .testimonials-section.personal-loan {
@@ -848,7 +848,7 @@ a.cmn-btn.navbarbtn {
 }
 
 .banner-section .overlay .banner-content {
-  padding: 160px 0 160px;
+  padding: 240px 0 160px;
 }
 
 .banner-section .overlay .banner-content .top-area p {

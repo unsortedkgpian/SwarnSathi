@@ -166,13 +166,11 @@ export default function GoldValueCalculator() {
             <div className="overlay">
                 <div className="container">
                     <div className="row">
-                        
                         <div className="col-lg-12">
-                           
                             <div className="main-content">
                                 {!isLoading && goldRate24K && lastUpdated && (
                                     <div
-                                          style={{
+                                        style={{
                                                 position: "relative", 
                                                 top: "0px", 
                                                 right: "150px", 
@@ -185,13 +183,24 @@ export default function GoldValueCalculator() {
                                                 fontFamily: "Segoe UI, Roboto, sans-serif",
                                                 lineHeight: 1.5,
                                                 boxShadow: "0 2px 6px rgba(0,0,0,0.15)" 
-                                            }}
+                                        }}
                                     >
-                                        <div style={{ fontSize: "17px", fontWeight: 700, color: "#fc9f3e" }}> 
-                                        Gold Rate:₹{goldRate24K.toFixed(2)}/Gm
+                                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                        <div style={{ fontSize: "17px", fontWeight: 700, color: "#DAA520" }}> 
+                                        Gold Rate: 
                                         </div>
-                                        <div style={{ fontSize: "13px", marginTop: "6px", color: "#fc9f3e" }}>
-                                            Updated: {formattedDateTime}
+                                        
+                                        <div style={{ fontSize: "17px", fontWeight: 700, color: "#e3442c" }}> 
+                                        ₹{goldRate24K.toFixed(2)}/Gm
+                                        </div>
+                                        </div>
+                                         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                        <div style={{ fontSize: "17px", fontWeight: 700, color: "#DAA520" }}> 
+                                        Updated:
+                                        </div>
+                                        <div style={{ fontSize: "14px", fontWeight: 500 , marginTop: "6px", color: "#e3442c" }}>
+                                            {formattedDateTime}
+                                        </div>
                                         </div>
                                     </div>
                                 )}

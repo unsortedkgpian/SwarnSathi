@@ -23,15 +23,7 @@ const TestimonialsSection = () => {
          const data = await response.json();
 
          console.log(data.referralId)
-        // const a = data.data.referralId; 
-        // console.log("data ="+data);
-        // console.log("data.data ="+data.data);
-
-
-// console.log("a ="+a);
-// console.log(refId)
         setRefId(data.referralId);
-// console.log(refId)
 
         let reftext = "Refer a friend and earn rewards! Share this message: 'Join Swarn Sathi for amazing gold loan benefits! Use my referral code: ";
         reftext+= data.referralId;
@@ -67,10 +59,6 @@ const TestimonialsSection = () => {
             image: "/images/Refer a friend.png",
             action: "modal" // Special marker for modal action
         },
-        // {
-        //     image: "/images/Business Associate.png",
-        //     link: "/swarnsathi-champion#Business_Associate",
-        // },
     ];
 
     const settings = {

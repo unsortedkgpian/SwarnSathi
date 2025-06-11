@@ -10,7 +10,7 @@ interface userDetails {
   pincode: string;
   qualityOfGold: string;
   quantityOfGold: number;
-  otp?:string;
+  otp?: string;
 }
 
 const questions = [
@@ -52,16 +52,16 @@ export default function Chatbot() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [userDetails, setUserDetails] = useState<userDetails>({
-      name: "",
-      phone: "",
-      pincode: "",
-      qualityOfGold: "",
-      quantityOfGold: 0,
-      otp: ''
-    });
-  const [isSubmitting , setIsSubmitting] = useState(false);
-  const [isComplete , setIsComplete] = useState(false);
-  const [isMinimized , setIsMinimized] = useState(true);
+    name: "",
+    phone: "",
+    pincode: "",
+    qualityOfGold: "",
+    quantityOfGold: 0,
+    otp: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(true);
   const messagesContainerRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -106,7 +106,7 @@ export default function Chatbot() {
   //         qualityOfGold: "",
   //         quantityOfGold: 0,
   //       });
-      
+
   //   } catch (err) {
   //     const errorMessage =
   //       err.response?.data?.message ||
@@ -161,85 +161,87 @@ export default function Chatbot() {
   };
 
   const handleContinueClick = async () => {
-  const currentQuestion = questions[currentQuestionIndex];
+    const currentQuestion = questions[currentQuestionIndex];
 
-  if (currentQuestion.type === 'input' && currentQuestion.fields) {
-    // Validate required fields
-    const requiredFields = currentQuestion.fields.filter(field => field.required);
-    const missingFields = requiredFields.filter(field => !userDetails[field.name]);
+    if (currentQuestion.type === 'input' && currentQuestion.fields) {
+      // Validate required fields
+      const requiredFields = currentQuestion.fields.filter(field => field.required);
+      const missingFields = requiredFields.filter(field => !userDetails[field.name]);
 
-    if (missingFields.length > 0) {
-      setMessages(prev => [...prev, { 
-        type: 'bot', 
-        content: `Please fill in all required fields: ${missingFields.map(f => f.label).join(', ')}`
-      }]);
-      return;
+      if (missingFields.length > 0) {
+        setMessages(prev => [...prev, {
+          type: 'bot',
+          content: `Please fill in all required fields: ${missingFields.map(f => f.label).join(', ')}`
+        }]);
+        return;
+      }
+
+
+      const handleSubmit = async () => {
+        console.log("cvvbnm,");
+        if (!userDetails.name.trim()) {
+          return;
+        }
+
+        if (!/^\d{6}$/.test(userDetails.pincode)) {
+          // setError("Please enter a valid 6-digit pincode");
+          return;
+        }
+
+        if (userDetails.quantityOfGold <= 0) {
+          //setError("Please enter valid gold quantity");
+          return;
+        }
+
+        try {
+          const response = await axios.post(`${url}/api/lead`, {
+            name: userDetails.name,
+            phone: userDetails.phone,
+            pincode: userDetails.pincode,
+            qualityOfGold: userDetails.qualityOfGold,
+            quantityOfGold: Number(userDetails.quantityOfGold),
+          });
+          // Reset form
+          setUserDetails({
+            name: "",
+            phone: "",
+            pincode: "",
+            qualityOfGold: "",
+            quantityOfGold: 0,
+          });
+
+        } catch (err) {
+          const errorMessage =
+            err.response?.data?.message ||
+            err.message ||
+            "Submission failed. Please try again.";
+        }
+      };
+      handleSubmit();
+      // Save details message to chat
+      const detailsMessage = ` Name: ${userDetails.name}, Phone: ${userDetails.phone} , PinCode:${userDetails.pincode} `;
+      setMessages(prev => [...prev, { type: 'user', content: detailsMessage }]);
+
+
+      // Move to next question after OTP is sent
+      const nextIndex = currentQuestionIndex + 1;
+      if (nextIndex < questions.length) {
+        setCurrentQuestionIndex(nextIndex);
+        setMessages(prev => [...prev, { type: 'bot', content: questions[nextIndex].text }]);
+      }
     }
-
-
-    const handleSubmit = async () => {
-      console.log("cvvbnm,");
-    if (!userDetails.name.trim()) {
-      return;
-    }
-
-    if (!/^\d{6}$/.test(userDetails.pincode)) {
-     // setError("Please enter a valid 6-digit pincode");
-      return;
-    }
-
-    if (userDetails.quantityOfGold <= 0) {
-      //setError("Please enter valid gold quantity");
-      return;
-    }
-
-    try {
-      const response = await axios.post(`${url}/api/lead`, {
-        name: userDetails.name,
-        phone: userDetails.phone,
-        pincode: userDetails.pincode,
-        qualityOfGold: userDetails.qualityOfGold,
-        quantityOfGold: Number(userDetails.quantityOfGold),
-      });
-        // Reset form
-        setUserDetails({
-          name: "",
-          phone: "",
-          pincode: "",
-          qualityOfGold: "",
-          quantityOfGold: 0,
-        });
-      
-    } catch (err) {
-      const errorMessage =
-        err.response?.data?.message ||
-        err.message ||
-        "Submission failed. Please try again.";
-    }
-  };   
-    handleSubmit();
-    // Save details message to chat
-    const detailsMessage = ` Name: ${userDetails.name}, Phone: ${userDetails.phone} , PinCode:${userDetails.pincode} `;
-    setMessages(prev => [...prev, { type: 'user', content: detailsMessage }]);
-   
-
-    // Move to next question after OTP is sent
-    const nextIndex = currentQuestionIndex + 1;
-    if (nextIndex < questions.length) {
-      setCurrentQuestionIndex(nextIndex);
-      setMessages(prev => [...prev, { type: 'bot', content: questions[nextIndex].text }]);
-    }
-  }
-};
+  };
 
 
   const restartChat = () => {
     setMessages([]);
     setCurrentQuestionIndex(0);
     setAnswers({});
-    setUserDetails({ name: '', phone: '', pincode: '',  qualityOfGold: "",
+    setUserDetails({
+      name: '', phone: '', pincode: '', qualityOfGold: "",
       quantityOfGold: 0,
-      otp: '' });
+      otp: ''
+    });
     setIsComplete(false);
     setMessages([{ type: 'bot', content: questions[0].text }]);
   };
@@ -247,7 +249,7 @@ export default function Chatbot() {
   return (
     <div className="chatbot-container">
       {isMinimized && (
-        
+
         <button onClick={() => { setIsMinimized(false); setMessages([{ type: 'bot', content: questions[0].text }]); }} className="chat-button">
           <span className="text-white">Chat with us</span>
         </button>
@@ -295,11 +297,11 @@ export default function Chatbot() {
                             />
                           </div>
                         ))}
-                        <button 
-                        className="primary-button" 
-                        onClick={handleContinueClick} disabled={isSubmitting}
+                        <button
+                          className="primary-button"
+                          onClick={handleContinueClick} disabled={isSubmitting}
                         >
-                        {isSubmitting ? 'Processing...' : 'Continue'}
+                          {isSubmitting ? 'Processing...' : 'Continue'}
                         </button>
                       </div>
                     );
