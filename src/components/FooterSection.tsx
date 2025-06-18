@@ -1,6 +1,6 @@
 "use client";
 
-import {Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faFacebookF,
@@ -75,7 +75,7 @@ const TopSocialBar = () => {
                 <Row className="p-0 ">
                     <Col md={6}></Col>
                     <Col md={6}>
-                        <div className="social-link-top d-flex justify-content-md-end" style={{textDecoration:"none"}}>
+                        <div className="social-link-top d-flex justify-content-md-end" style={{ textDecoration: "none" }}>
                             {socialLinks.facebook && (
                                 <a
                                     href={socialLinks.facebook}
@@ -204,7 +204,7 @@ const FooterSection: React.FC = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/about-swarn-sathi#our-team">
+                                    <a href="/our-team">
                                         Our Team
                                     </a>
                                 </li>

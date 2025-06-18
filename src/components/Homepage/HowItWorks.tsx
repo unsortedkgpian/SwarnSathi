@@ -18,20 +18,20 @@ const HowItWorks = () => {
     const [isNarrow, setIsNarrow] = useState(0);
 
     useEffect(() => {
-    const handleResize = () => {
-        if (window.innerWidth < 1217) {
-             setIsNarrow(1);
-        }
-        else if (window.innerWidth < 760) {
-             setIsNarrow(2);
-        }
-        else{
-            setIsNarrow(0);
-        }
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Check on mount
-    return () => window.removeEventListener("resize", handleResize);
+        const handleResize = () => {
+            if (window.innerWidth < 1217) {
+                setIsNarrow(1);
+            }
+            else if (window.innerWidth < 760) {
+                setIsNarrow(2);
+            }
+            else {
+                setIsNarrow(0);
+            }
+        };
+        window.addEventListener("resize", handleResize);
+        handleResize(); // Check on mount
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     useEffect(() => {
@@ -55,6 +55,8 @@ const HowItWorks = () => {
                     // Only add link for first two steps
                     if (index === 0) return { ...common, link: "/swarn-sathi-branch-locator" };
                     if (index === 1) return { ...common, link: "/gold-valuation" };
+                    if (index === 2) return { ...common, link: "/" };
+                    if (index === 3) return { ...common, link: "/" };
                     return common;
                 });
 
@@ -96,9 +98,9 @@ const HowItWorks = () => {
     }, []);
 
     const getColumnClass = () => {
-    if (isNarrow === 2) return 'col-md-12';
-    if (isNarrow === 1) return 'col-md-6';
-    return 'col-md-3'; // default
+        if (isNarrow === 2) return 'col-md-12';
+        if (isNarrow === 1) return 'col-md-6';
+        return 'col-md-3'; // default
     };
 
 
@@ -117,78 +119,78 @@ const HowItWorks = () => {
                             </div>
                         </div>
                     </div>
-                        <div
-                            className="row cus-mar"
-                            style={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                marginLeft: "-10px",
-                                marginRight: "-10px",
-                                marginTop:"20px",   
-                            }}
-                        >
+                    <div
+                        className="row cus-mar"
+                        style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            marginLeft: "-10px",
+                            marginRight: "-10px",
+                            marginTop: "20px",
+                        }}
+                    >
                         {steps.map((step, index) => {
-                            
+
                             const cardContent = (
-                                
+
                                 <div
-                                    className="single-box  howworkshome"
-                                    style={{
-                                        flex: 1,
-                                        padding: "20px",
-                                        backgroundColor: "#fff",
-                                        borderRadius: "8px",
-                                        boxShadow: "0 2px 12px rgba(0, 0, 0, 0.05)",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        justifyContent: "flex-start",
-                                        textAlign: "center",
-                                        width: "100%",
-                                        height: "100%",
-                                    }}
-                                    >
+                                    className="single-box howworkshome single-box-howworkshome"
+                                // style={{
+                                //     flex: 1,
+                                //     padding: "20px",
+                                //     backgroundColor: "#fff",
+                                //     borderRadius: "8px",
+                                //     boxShadow: "0 2px 12px rgba(0, 0, 0, 0.05)",
+                                //     display: "flex",
+                                //     flexDirection: "column",
+                                //     justifyContent: "flex-start",
+                                //     textAlign: "center",
+                                //     width: "100%",
+                                //     height: "100%",
+                                // }}
+                                >
                                     <div className="flex flex-col">
-                                    <div className="flex-[2] flex items-center icon-box iconhowboxhome">
-                                        <img src={step.howWorksIcon} alt="how it works icon" />
-                                    </div>
-                                    <div className="flex-[3] flex items-center justify-center">
-                                    <div className="flex flex-col">
-                                    <div className="flex-[3] flex items-center justify-center">
-                                        <img src={`${url}/${step.icon}`} alt="step icon" className="max-h-full max-w-full" />
-                                    </div>
-                                    <h5 className="flex-[1] text-center capitalize flex items-center justify-center">
-                                        {step.title}
-                                    </h5>
-                                    <p className="flex-[1] text-center flex items-center justify-center px-2">
-                                        {step.description}
-                                    </p>
-                                    </div>
-                                    </div>
+                                        <div className="flex-[2] flex items-center icon-box iconhowboxhome">
+                                            <img src={step.howWorksIcon} alt="how it works icon" />
+                                        </div>
+                                        <div className="flex-[3] flex items-center justify-center">
+                                            <div className="flex flex-col">
+                                                <div className="flex-[3] flex items-center justify-center">
+                                                    <img src={`${url}/${step.icon}`} alt="step icon" className="max-h-full max-w-full" />
+                                                </div>
+                                                <h5 className="flex-[1] text-center capitalize flex items-center justify-center">
+                                                    {step.title}
+                                                </h5>
+                                                <p className="flex-[1] text-center flex items-center justify-center px-2">
+                                                    {step.description}
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             );
 
                             return (
-                                    <div
-                                        key={index}
-                                        className={`${getColumnClass()} d-flex`}
-                                        style={{
-                                            display: "flex",
-                                            padding: "0 10px",
-                                            marginBottom: "3rem",
-                                        }}
-                                    >
-                                        {step.link ? (
-                                            <Link href={step.link} style={{ flex: 1 }}>
-                                                <div className="text-black no-underline">
+                                <div
+                                    key={index}
+                                    className={`${getColumnClass()} d-flex`}
+                                    style={{
+                                        display: "flex",
+                                        padding: "0 10px",
+                                        marginBottom: "3rem",
+                                    }}
+                                >
+                                    {step.link ? (
+                                        <Link href={step.link} style={{ flex: 1 }}>
+                                            <div className="text-black no-underline">
                                                 {cardContent}
-                                                </div>
-                                            </Link>
-                                        ) : (
-                                            cardContent
-                                        )}
-                                    </div>
-                                );
+                                            </div>
+                                        </Link>
+                                    ) : (
+                                        cardContent
+                                    )}
+                                </div>
+                            );
                         })}
                     </div>
                 </div>

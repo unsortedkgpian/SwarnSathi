@@ -188,6 +188,31 @@
   font-size: 37px;
 }
 
+.gold-api{
+  position: relative;
+    top: 0px;
+     right: 150px; 
+    background-color: white;
+    padding: 6px 12px;
+    border-radius: 10px;
+    color: black;
+    z-index: 10;
+    width: fit-content;
+    font-family: "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px;
+}
+
+
+@media (max-width: 988px){
+  .gold-api{
+  position: relative;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  }  
+}
+
 @media (max-width: 1256px) {
   .resp-val-label {
     font-size: 25px !important;
@@ -207,3 +232,4 @@
     font-size: 20px !important;
   }
 }
+

@@ -2,14 +2,15 @@ import React from 'react';
 import Chatbot from './ChatBot';
 import "./WhatsAppFloat.css";
 
+
 const ChatBotBox: React.FC = () => {
 
     return (
         <a
-        target="_blank"
-        rel="noopener noreferrer" 
-        className="whatsapp-float">
-        <Chatbot />
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <Chatbot />
         </a>
     );
 };
