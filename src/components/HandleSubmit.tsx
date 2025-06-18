@@ -65,26 +65,41 @@ const ModalComponent: React.FC<ModalProps> = ({
       setError("Please enter a valid 10-digit mobile number");
       return;
     }
+    if (!formData.pincode || formData.pincode.length !== 6) {
+      setError("Please enter a valid 6-digit pincode");
+      return;
+    }
 
     setIsLoading(true);
     setError("");
     setSuccess("");
     console.log("Checking verification for:", phoneNumber);
+    try {
+      const verifyResponse = await axios.post(`${baseUrl}/api/lead/check-pincode`, {
+        phone: phoneNumber,
+        pincode: formData.pincode,
+      });
+      if (!verifyResponse.data.success) {
+        setError(verifyResponse.data.message || "Pincode is not verified. Please contact support.");
+        setIsLoading(false);
+        return;
+      }
+    } catch (error: any) {
+      setError(error.response?.data?.message || "Something went wrong. Please try again.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       // 1. Check if lead is verified
       let los_url = 'http://localhost:4000'
-      // const verifyResponse = await axios.get(`${los_url}/api/lead/${phoneNumber}`);
 
-      // if (!verifyResponse.data.success || !verifyResponse.data.data?.isVerified) {
-      //     setError("Lead is not verified. Please contact support.");
-      //     setIsLoading(false);
-      //     return;
-      // }
+      let lead_url = 'https://lead.regalfintech.com/api/leads/new'
 
       // 2. Proceed to send OTP if verified
       const otpResponse = await axios.post(`/api/send-otp`, {
         phone: phoneNumber,
+        pincode: formData.pincode,
         loanType: "gold-loan",
       });
 
@@ -186,6 +201,17 @@ const ModalComponent: React.FC<ModalProps> = ({
         qualityOfGold: formData.qualityOfGold,
         quantityOfGold: Number(formData.quantityOfGold),
       });
+      let lead_url = 'https://lead.regalfintech.com/api/leads/new';
+      const response1 = await axios.post(`https://lead.regalfintech.com/api/leads/new`, {
+        name: formData.name,
+        phone: formData.phone,
+        loanType: "gold",
+        pincode: formData.pincode,
+        goldWeight: parseFloat(formData.quantityOfGold.toString()),
+      });
+      console.log("data:", response.data);
+
+
 
       if (response.status === 201) {
         setSuccess("Loan application submitted successfully!");
@@ -207,7 +233,7 @@ const ModalComponent: React.FC<ModalProps> = ({
           }
         };
 
-        fetchLeadId();
+        //fetchLeadId();
 
         setShowThankYou(true);
 

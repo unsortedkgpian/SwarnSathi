@@ -62,6 +62,7 @@ export default function Chatbot() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [isMinimized, setIsMinimized] = useState(true);
+  const [leadId, setLeadId] = useState(null);
   const messagesContainerRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -139,7 +140,7 @@ export default function Chatbot() {
         await new Promise((resolve) => setTimeout(resolve, 1500));
         setMessages((prev) => [
           ...prev,
-          { type: 'bot', content: `Your Swarn Sathi request has been submitted successfully! We will contact you at ${userDetails.phone} within 24 hours.` },
+          { type: 'bot', content: `Your Swarn Sathi request has been submitted successfully , with reference id ${leadId}! We will contact you at ${userDetails.phone} within 24 hours.` },
         ]);
       } catch (error) {
         setMessages((prev) => [...prev, { type: 'bot', content: 'Sorry, there was an error processing your request. Please try again later.' }]);
@@ -201,6 +202,25 @@ export default function Chatbot() {
             qualityOfGold: userDetails.qualityOfGold,
             quantityOfGold: Number(userDetails.quantityOfGold),
           });
+
+          if (response.status === 201) {
+            //setSuccess("Loan application submitted successfully!");
+            const fetchLeadId = async () => {
+              const getResponse = await axios.get(`${url}/api/lead/${userDetails.phone}`);
+              if (getResponse.data) {
+                console.log(getResponse.data);
+                const val = getResponse.data.data;
+                const leadId = val.leadId; // Assuming API returns { leadId: "..." }
+
+                console.log("Lead ID:", leadId);
+                setLeadId(leadId);
+              } else {
+                console.error("Failed to fetch leadId. Status:", getResponse.status);
+              }
+            };
+            fetchLeadId();
+          };
+
           // Reset form
           setUserDetails({
             name: "",
@@ -232,6 +252,17 @@ export default function Chatbot() {
     }
   };
 
+  const handleBackClick = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(prev => prev - 1);
+      setMessages(prev => prev.slice(0, -2));
+      setAnswers(prev => {
+        const newAnswers = { ...prev };
+        delete newAnswers[questions[currentQuestionIndex - 1].id];
+        return newAnswers;
+      });
+    }
+  };
 
   const restartChat = () => {
     setMessages([]);
@@ -249,8 +280,7 @@ export default function Chatbot() {
   return (
     <div className="chatbot-container">
       {isMinimized && (
-
-        <button onClick={() => { setIsMinimized(false); setMessages([{ type: 'bot', content: questions[0].text }]); }} className="chat-button">
+        <button onClick={() => { setIsMinimized(false); setMessages([{ type: 'bot', content: questions[0].text }]); }} className="chat-button chatbot-float">
           <span className="text-white">Chat with us</span>
         </button>
       )}
@@ -297,22 +327,45 @@ export default function Chatbot() {
                             />
                           </div>
                         ))}
-                        <button
-                          className="primary-button"
-                          onClick={handleContinueClick} disabled={isSubmitting}
-                        >
-                          {isSubmitting ? 'Processing...' : 'Continue'}
-                        </button>
+                        <div className="button-group">
+                          {currentQuestionIndex > 0 && (
+                            <button
+                              className="back-button"
+                              onClick={handleBackClick}
+                              disabled={isSubmitting}
+                            >
+                              Back
+                            </button>
+                          )}
+                          <button
+                            className="primary-button"
+                            onClick={handleContinueClick}
+                            disabled={isSubmitting}
+                          >
+                            {isSubmitting ? 'Processing...' : 'Continue'}
+                          </button>
+                        </div>
                       </div>
                     );
                   } else if (Array.isArray(currentQuestion.options)) {
                     return (
-                      <div className="options-grid">
-                        {currentQuestion.options.map((option) => (
-                          <button key={option.value} onClick={() => handleOptionClick(option)} className="option-button">
-                            {option.text}
+                      <div className="options-container">
+                        <div className="options-grid">
+                          {currentQuestion.options.map((option) => (
+                            <button key={option.value} onClick={() => handleOptionClick(option)} className="option-button">
+                              {option.text}
+                            </button>
+                          ))}
+                        </div>
+                        {currentQuestionIndex > 0 && (
+                          <button
+                            className="back-button"
+                            onClick={handleBackClick}
+                            disabled={isSubmitting}
+                          >
+                            Back
                           </button>
-                        ))}
+                        )}
                       </div>
                     );
                   }
