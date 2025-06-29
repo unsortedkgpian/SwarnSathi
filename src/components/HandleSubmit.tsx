@@ -20,6 +20,14 @@ interface ModalProps {
   user?: User | null;
 }
 
+// enum GoldType {
+//   GOLD_18K
+//   GOLD_20K
+//   GOLD_22K
+//   NO_HALLMARK
+// }
+
+
 interface FormData {
   name: string;
   phone: string;
@@ -75,7 +83,7 @@ const ModalComponent: React.FC<ModalProps> = ({
     setSuccess("");
     console.log("Checking verification for:", phoneNumber);
     try {
-      const verifyResponse = await axios.post(`${baseUrl}/api/lead/check-pincode`, {
+      const verifyResponse = await axios.post(`${url}/api/lead/check-pincode`, {
         phone: phoneNumber,
         pincode: formData.pincode,
       });
@@ -194,19 +202,14 @@ const ModalComponent: React.FC<ModalProps> = ({
       setLoading(true);
       setError(null);
 
-      const response = await axios.post(`${url}/api/lead`, {
-        name: formData.name,
-        phone: formData.phone,
-        pincode: formData.pincode,
-        qualityOfGold: formData.qualityOfGold,
-        quantityOfGold: Number(formData.quantityOfGold),
-      });
+      
       let lead_url = 'https://lead.regalfintech.com/api/leads/new';
-      const response1 = await axios.post(`https://lead.regalfintech.com/api/leads/new`, {
+      const response = await axios.post(`https://lead.regalfintech.com/api/leads/new`, {
         name: formData.name,
         phone: formData.phone,
         loanType: "gold",
         pincode: formData.pincode,
+        // goldQuality:formData.qualityOfGold,
         goldWeight: parseFloat(formData.quantityOfGold.toString()),
       });
       console.log("data:", response.data);
@@ -215,23 +218,17 @@ const ModalComponent: React.FC<ModalProps> = ({
 
       if (response.status === 201) {
         setSuccess("Loan application submitted successfully!");
-        const fetchLeadId = async () => {
-          try {
-            const getResponse = await axios.get(`${url}/api/lead/${formData.phone}`);
-            if (getResponse.data) {
-              console.log(getResponse.data);
-              const val = getResponse.data.data;
-              const leadId = val.leadId; // Assuming API returns { leadId: "..." }
+        setLeadId(response.data.leadId);
+        await axios.post(`${url}/api/lead`, {
+        leadId:response.data.leadId,
+        name: formData.name,
+        phone: formData.phone,
+        pincode: formData.pincode,
+        qualityOfGold: formData.qualityOfGold,
+        quantityOfGold: Number(formData.quantityOfGold),
+      });
 
-              console.log("Lead ID:", leadId);
-              setLeadId(leadId);
-            } else {
-              console.error("Failed to fetch leadId. Status:", getResponse.status);
-            }
-          } catch (error) {
-            console.error("Error fetching leadId:", error);
-          }
-        };
+      
 
         //fetchLeadId();
 
