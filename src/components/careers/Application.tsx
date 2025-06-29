@@ -47,6 +47,7 @@ interface JobApplicationFormProps {
 const JobApplicationForm: React.FC<JobApplicationFormProps> = ({ defaultPosition = '' }) => {
     const router = useRouter();
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const baseUrl = "http://localhost:4000";
 
     const initialFormData: FormData = {
         personalInfo: {
@@ -354,8 +355,9 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({ defaultPosition
             
             // Append the rest of the form data as a JSON string
             formPayload.append("data", JSON.stringify(dataToSend));
-
+            console.log("req");
             const response = await axios.post(
+                
                 `${apiUrl}/api/application`,
                 formPayload,
                 {
@@ -364,6 +366,7 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({ defaultPosition
                     }
                 }
             );
+            console.log(response);
 
             if (response.status === 201) {
                 setSuccess("Application submitted successfully!");
